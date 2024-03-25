@@ -741,7 +741,23 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS;STARTER_ASSETS_PACKAGES_CHECKED
+    Android: USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS;STARTER_ASSETS_PACKAGES_CHECKED;DOTWEEN
+    EmbeddedLinux: DOTWEEN
+    GameCoreScarlett: DOTWEEN
+    GameCoreXboxOne: DOTWEEN
+    LinuxHeadlessSimulation: DOTWEEN
+    Nintendo Switch: DOTWEEN
+    PS4: DOTWEEN
+    PS5: DOTWEEN
+    QNX: DOTWEEN
+    Stadia: DOTWEEN
+    Standalone: DOTWEEN
+    VisionOS: DOTWEEN
+    WebGL: DOTWEEN
+    Windows Store Apps: DOTWEEN
+    XboxOne: DOTWEEN
+    iPhone: DOTWEEN
+    tvOS: DOTWEEN
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
