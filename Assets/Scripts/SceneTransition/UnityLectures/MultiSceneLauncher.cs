@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class MultiSceneLauncher : MonoBehaviour
 {
     [SerializeField] private string _firstSceneToLoad;
-    [SerializeField] private GameObject _playerCharacter;
+    [SerializeField] private OVRCameraRig _ovrCameraRig;
     // Start is called before the first frame update
     void Start()
     {       
@@ -14,8 +14,8 @@ public class MultiSceneLauncher : MonoBehaviour
         if (firstScene.IsValid() && firstScene.isLoaded)
             return;
 
-        if (_playerCharacter != null)
-            _playerCharacter.gameObject.SetActive(false);
+        if (_ovrCameraRig != null)
+            _ovrCameraRig.gameObject.SetActive(false);
         StartCoroutine(LoadFirstScene(_firstSceneToLoad));
         
     }
@@ -26,7 +26,7 @@ public class MultiSceneLauncher : MonoBehaviour
         while (!loadOperation.isDone)
             yield return null;
 
-        if (_playerCharacter != null)
-            _playerCharacter.gameObject.SetActive(true);
+        if (_ovrCameraRig != null)
+            _ovrCameraRig.gameObject.SetActive(true);
     }
 }
