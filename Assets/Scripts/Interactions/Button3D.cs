@@ -6,53 +6,71 @@ using System;
 
 public class Button3D : MonoBehaviour
 {
-    public Action OnButtonPressed;
+    //Notifiche cambio stato a FSM: scegliere Azione/Variabile
+    public Action<Button3D, bool> OnButtonPressed;
+    private bool isButtonPressed = false;
 
-    public Transform movingPieceT;
-    public float localYFinalPressedPos;
-    public float pressDuration = 0.3f;
-    public float releaseDuration = 0.1f;
+    //Elementi da spegnere e da accendere
+    [SerializeField] Material _skyboxOn;
+    [SerializeField] Material _skyboxOff;
+    [SerializeField] GameObject[] _envsOn;
+    [SerializeField] GameObject[] _EnvsOff;
+    [SerializeField] GameObject _environmentOn;
+    [SerializeField] GameObject _environmentOff;
 
-    public Color unpressedColor;
-    public Color pressedColor;
-
-    private MeshRenderer renderer;
-    private bool isPressed = false;
-    private float initialLocalYPos;
-
- 
     void Start ()
     {
-        initialLocalYPos = movingPieceT.localPosition.y;
-
-        renderer = movingPieceT.GetComponent<MeshRenderer>();
-        if (renderer != null)
-            renderer.material.color = unpressedColor;
-
+        
     }
 
+    //Funzione specifica Buttone1
     public void Press()
     {
-        if (isPressed)
+        if (isButtonPressed)
             return;
+       isButtonPressed = true;
+        //ACTION:
+        if (OnButtonPressed != null)
+            OnButtonPressed(this, isButtonPressed);
+        
+        isButtonPressed = !isButtonPressed;
 
-        isPressed = true;
-        if (renderer != null)
-            renderer.material.color = pressedColor;
 
-        Sequence pressSequence = DOTween.Sequence();
-        pressSequence.Append(movingPieceT.DOLocalMoveY(localYFinalPressedPos, pressDuration).OnComplete(() => 
-        {
-            //When Button has reached the end of travel rise event
-            if (OnButtonPressed != null)
-                OnButtonPressed();
-        }));
-        pressSequence.Append(movingPieceT.DOLocalMoveY(initialLocalYPos, releaseDuration));
-        pressSequence.OnComplete(() => 
-        {
-            isPressed = false;
-            if (renderer != null)
-                renderer.material.color = unpressedColor;
-        });
+        //PUOI UNIRE GLI IF PER SKYBOX E CAMBIO SCENA
+
+        ChangeEnvironment();
+        ChangeSkybox();
+
     }
+
+    public void ChangeSkybox()
+    {
+        if (RenderSettings.skybox == _skyboxOn)
+        {
+            RenderSettings.skybox = _skyboxOff;
+        }
+        else
+        {
+            RenderSettings.skybox = _skyboxOn;
+        }
+    }
+    
+    public void ChangeEnvironment()
+    {
+        if (_environmentOn != null && _environmentOff != null)
+        {
+            if (_environmentOn.activeSelf)
+            {
+                _environmentOn.SetActive(false);
+                _environmentOff.SetActive(true);
+            }
+            else
+            {
+                _environmentOff.SetActive(false);
+                _environmentOn.SetActive(true);
+            }
+
+        }
+    }
+
 }

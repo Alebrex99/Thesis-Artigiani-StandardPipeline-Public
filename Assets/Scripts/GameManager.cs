@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.XR;
 using static GuardSimple;
 
-public class SkyboxManager: MonoBehaviour
+public class GameManager: MonoBehaviour
 {
     public enum State
     {
@@ -16,8 +16,12 @@ public class SkyboxManager: MonoBehaviour
         Button3,
         Button4
     }
-    public static SkyboxManager instance;
+    public static GameManager instance;
     State _currentState;
+    private Button3D _button3D;
+
+
+    //Skyboxes
     [SerializeField] Material skyboxImg360Mono;
     [SerializeField] Material skyboxImg180Stereo;
     [SerializeField] Material skyboxBase;
@@ -26,6 +30,7 @@ public class SkyboxManager: MonoBehaviour
     [SerializeField] GameObject _office;
     public FadeScreen fadeScreen;
     
+
     private void Awake()
     {
         instance = this;
@@ -33,10 +38,14 @@ public class SkyboxManager: MonoBehaviour
     private void Start()
     {
         _currentState = State.Main;
-
         RenderSettings.skybox = skyboxBase;
         _waitingRoom.SetActive(false);
         _environment.SetActive(true);
+
+        //FindObjectsOfType --> da usare per prendere tutti i bottoni
+        _button3D = FindObjectOfType<Button3D>();
+        _button3D.OnButtonPressed += OnButtonPressedEffect;
+        
     }
 
     //FSM POSSIBILE: 
@@ -86,6 +95,11 @@ public class SkyboxManager: MonoBehaviour
     }
     //FUNZIONI PER I PULSANTI -> CAMBIO STATO (TRANSIZIONI)
     //se clicco -> cambia stato
+
+    public void OnButtonPressedEffect(Button3D button, bool isButtonPressed )
+    {
+        Debug.Log($"Button1 {button} premuto --> cambio stato");
+    }
     public void OnButton1Pressed()
     {
         ChangeState();
