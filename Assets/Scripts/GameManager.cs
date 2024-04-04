@@ -18,7 +18,7 @@ public class GameManager: MonoBehaviour
     }
     public static GameManager instance;
     State _currentState;
-    private Button3D _button3D;
+    private Button3D[] _button3Ds;
 
 
     //Skyboxes
@@ -37,19 +37,26 @@ public class GameManager: MonoBehaviour
     }
     private void Start()
     {
-        _currentState = State.Main;
         RenderSettings.skybox = skyboxBase;
+        _currentState = State.Main;
         _waitingRoom.SetActive(false);
+        _office.SetActive(false);
         _environment.SetActive(true);
 
         //FindObjectsOfType --> da usare per prendere tutti i bottoni
-        _button3D = FindObjectOfType<Button3D>();
-        _button3D.OnButtonPressed += OnButtonPressedEffect;
+        _button3Ds = FindObjectsOfType<Button3D>();
+        foreach(Button3D button3D in _button3Ds)
+        {
+            Debug.Log(button3D.getButtonName());
+            button3D.OnButtonPressed += OnButtonPressedEffect;
+        }
+ 
         
     }
 
     //FSM POSSIBILE: 
     //DA FARE DURANTE OGNI STATO : ANCORA DA DECIDERE
+    //andrebbe messo nell'update così che nello stato corrente accadano cose
     private void UpdateState()
     {
         switch (_currentState)
@@ -69,40 +76,69 @@ public class GameManager: MonoBehaviour
         }
     }
 
-    private void ChangeState()
+    private void ChangeState(State buttonState)
     {
         //INSERIRE TRANSIZIONI
-        /*
-        State newState = _currentState;
-        switch(_currentState)
+        //es. sono in button1 (newState) ed è stato premuto button2 (buttonState)
+        State newState = _currentState; //stato in cui sono
+        switch (_currentState)
         {
             case State.Main:
-                newState = State.Button1;
+                newState = buttonState;
                 break;
             case State.Button1:
-                newState = State.Main;
+                newState = (buttonState == State.Button1) ? State.Main : buttonState;
                 break;
             case State.Button2:
-                newState = State.Main;
+                newState = (buttonState == State.Button2) ? State.Main : buttonState;
                 break;
             case State.Button3:
-                newState = State.Main;
+                newState = (buttonState == State.Button3) ? State.Main : buttonState;
                 break;
             case State.Button4:
-                newState = State.Main;
+                newState = (buttonState == State.Button4) ? State.Main : buttonState;
                 break;
-        }*/
+            default: throw new ArgumentOutOfRangeException();
+        }
+
+        if (newState != _currentState)
+        {
+            Debug.Log($"Changing State FROM:{_currentState} --> TO:{newState}");
+            _currentState = newState;
+        }
     }
-    //FUNZIONI PER I PULSANTI -> CAMBIO STATO (TRANSIZIONI)
-    //se clicco -> cambia stato
+
+   
 
     public void OnButtonPressedEffect(Button3D button, bool isButtonPressed )
     {
-        Debug.Log($"Button1 {button} premuto --> cambio stato");
+        Debug.Log($"Button {button.getButtonName()} premuto --> cambio stato");
+        State ButtonToState;
+        switch (button.getButtonName())
+        {
+            case "Button1":
+                ButtonToState = State.Button1;
+                break;
+            case "Button2":
+                ButtonToState = State.Button2;
+                break;
+            case "Button3":
+                ButtonToState = State.Button3;
+                break;
+            case "Button4":
+                ButtonToState = State.Button4;
+                break;
+            default: throw new ArgumentOutOfRangeException();
+        }
+        
+        ChangeState(ButtonToState);
     }
+
+
+    //FUNZIONI PER I PULSANTI -> CAMBIO STATO (TRANSIZIONI)
+    //se clicco -> cambia stato
     public void OnButton1Pressed()
     {
-        ChangeState();
         
         //PUOI UNIRE GLI IF PER SKYBOX E CAMBIO SCENA
 

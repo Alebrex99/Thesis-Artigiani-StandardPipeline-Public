@@ -9,6 +9,7 @@ public class Button3D : MonoBehaviour
     //Notifiche cambio stato a FSM: scegliere Azione/Variabile
     public Action<Button3D, bool> OnButtonPressed;
     private bool isButtonPressed = false;
+    public string ButtonName;
 
     //Elementi da spegnere e da accendere
     [SerializeField] Material _skyboxOn;
@@ -45,6 +46,7 @@ public class Button3D : MonoBehaviour
 
     public void ChangeSkybox()
     {
+        
         if (RenderSettings.skybox == _skyboxOn)
         {
             RenderSettings.skybox = _skyboxOff;
@@ -71,6 +73,11 @@ public class Button3D : MonoBehaviour
             }
 
         }
+    }
+
+    public String getButtonName()
+    {
+        return ButtonName;
     }
 
 }
