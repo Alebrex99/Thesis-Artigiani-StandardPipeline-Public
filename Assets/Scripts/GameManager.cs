@@ -19,14 +19,12 @@ public class GameManager: MonoBehaviour
     public static GameManager instance;
     State _currentState;
     private Button3D[] _button3Ds;
-    private Button3D _currentButton;
-
+    private GameObject _currentEnvironment;
 
     //Skyboxes
-    [SerializeField] Material skyboxImg360Mono;
-    [SerializeField] Material skyboxImg180Stereo;
-    [SerializeField] Material skyboxBase;
-    [SerializeField] GameObject _environment;
+    [SerializeField] Material skyboxMain;
+
+    [SerializeField] GameObject _environmentMain;
     [SerializeField] GameObject _waitingRoom;
     [SerializeField] GameObject _office;
     public FadeScreen fadeScreen;
@@ -38,18 +36,14 @@ public class GameManager: MonoBehaviour
     }
     private void Start()
     {
-        if (skyboxBase!=null && _waitingRoom!=null && _office !=null && _environment != null)
-        {
-            RenderSettings.skybox = skyboxBase;
-            _currentState = State.Main;
-            _waitingRoom.SetActive(false);
-            _office.SetActive(false);
-            _environment.SetActive(true);
-        }
-        else
-        {
-            Debug.LogError("ASSIGN THE ENVIRONMENTS");
-        }
+       
+        _currentState = State.Main;
+        RenderSettings.skybox = skyboxMain;
+            
+        _waitingRoom.SetActive(false);
+        _office.SetActive(false);
+        _environmentMain.SetActive(true);
+        _currentEnvironment = _environmentMain;
       
 
         //BOTTONI
@@ -63,49 +57,27 @@ public class GameManager: MonoBehaviour
         
     }
 
-    //FSM POSSIBILE: 
-    //DA FARE DURANTE OGNI STATO : ANCORA DA DECIDERE
-    //andrebbe messo nell'update così che nello stato corrente accadano cose
-    private void UpdateState()
-    {
-        switch (_currentState)
-        {
-            case State.Main:
-                break;
-            case State.Button1:
-                break;
-            case State.Button2:
-                break;
-            case State.Button3:
-                break;
-            case State.Button4:
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-    }
-
-    private void ChangeState(State buttonState, Button3D button)
+    private void ChangeState(Button3D buttonPressed)
     {
         //INSERIRE TRANSIZIONI
-        //es. sono in button1 (newState) ed è stato premuto button2 (buttonState)
+        State newButtonState = (State)Enum.Parse(typeof(State), buttonPressed.getButtonName());
         State newState = _currentState; //stato in cui sono
         switch (_currentState)
         {
             case State.Main:
-                newState = buttonState;
+                newState = newButtonState;
                 break;
             case State.Button1:
-                newState = (buttonState == State.Button1) ? State.Main : buttonState;
+                newState = (newButtonState == State.Button1) ? State.Main : newButtonState;
                 break;
             case State.Button2:
-                newState = (buttonState == State.Button2) ? State.Main : buttonState;
+                newState = (newButtonState == State.Button2) ? State.Main : newButtonState;
                 break;
             case State.Button3:
-                newState = (buttonState == State.Button3) ? State.Main : buttonState;
+                newState = (newButtonState == State.Button3) ? State.Main : newButtonState;
                 break;
             case State.Button4:
-                newState = (buttonState == State.Button4) ? State.Main : buttonState;
+                newState = (newButtonState == State.Button4) ? State.Main : newButtonState;
                 break;
             default: throw new ArgumentOutOfRangeException();
         }
@@ -117,105 +89,85 @@ public class GameManager: MonoBehaviour
         }
     }
 
-   
-
-    public void OnButtonPressedEffect(Button3D button, bool isButtonPressed )
+    //FSM POSSIBILE: 
+    //DA FARE DURANTE OGNI STATO : ANCORA DA DECIDERE
+    //andrebbe messo nell'update così che nello stato corrente accadano cose
+    private void UpdateState(Button3D buttonPressed)
     {
-        Debug.Log($"Button {button.getButtonName()} premuto --> cambio stato");
-        State ButtonState;
-        switch (button.getButtonName())
+        switch (_currentState)
         {
-            case "Button1":
-                ButtonState = State.Button1;
+            case State.Main:
+                _currentEnvironment.SetActive(false);
+                _currentEnvironment = _environmentMain;
+                _currentEnvironment.SetActive(true);
                 break;
-            case "Button2":
-                ButtonState = State.Button2;
+            case State.Button1:
+                _currentEnvironment.SetActive(false);
+                _currentEnvironment = buttonPressed.GetAssociatedEnvironment();
+                _currentEnvironment.SetActive(true);
                 break;
-            case "Button3":
-                ButtonState = State.Button3;
+            case State.Button2:
+                _currentEnvironment.SetActive(false);
+                _currentEnvironment = buttonPressed.GetAssociatedEnvironment();
+                _currentEnvironment.SetActive(true);
                 break;
-            case "Button4":
-                ButtonState = State.Button4;
+            case State.Button3:
+                _currentEnvironment.SetActive(false);
+                _currentEnvironment = buttonPressed.GetAssociatedEnvironment();
+                _currentEnvironment.SetActive(true);
                 break;
-            default: throw new ArgumentOutOfRangeException();
+            case State.Button4:
+                _currentEnvironment.SetActive(false);
+                _currentEnvironment = buttonPressed.GetAssociatedEnvironment();
+                _currentEnvironment.SetActive(true);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
-        if (_currentButton != null && _currentButton!= button)
-        {
-            _currentButton.Reset();
-        }
-
-        // Imposta il nuovo pulsante corrente
-        _currentButton = button;
-        ChangeState(ButtonState, button);
-        //UpdateState();
     }
+
+  
+    //CORRISPONDE ALLA CHECK TRANSITION:
+    public void OnButtonPressedEffect(Button3D buttonPressed, bool isButtonPressed )
+    {
+        //PUOI PROVARE A METTERE TALE LOGICA DIRETTAMENTE NEL BOTTONE
+        Debug.Log($"Button {buttonPressed.getButtonName()} premuto --> cambio stato");
+        String buttonPressedName = buttonPressed.getButtonName();
+        State newState = _currentState;
+        //premo lo stesso bottone di quello corrente
+        if (_currentState.ToString() == buttonPressedName)
+        {
+             newState = State.Main;
+            /*
+            _currentEnvironment.SetActive(false);
+            _currentEnvironment = _environmentMain;
+            _currentEnvironment.SetActive(true);
+            */
+        }
+        else //premo un bottone diverso da quello corrente (o la prima volta o le successive)
+        {
+            newState = (State)Enum.Parse(typeof(State), buttonPressedName);
+            /*
+            _currentEnvironment.SetActive(false);
+            _currentEnvironment = buttonPressed.GetAssociatedEnvironment();
+            _currentEnvironment.SetActive(true);
+            */
+
+        }
+        if (newState != _currentState)
+        {
+            Debug.Log($"Changing State FROM:{_currentState} --> TO:{newState}");
+            _currentState = newState;
+        }
+        UpdateState(buttonPressed);
+
+    }
+
 
 
     //FUNZIONI PER I PULSANTI -> CAMBIO STATO (TRANSIZIONI)
-    //se clicco -> cambia stato
     public void OnButton1Pressed()
     {
-        
-        //PUOI UNIRE GLI IF PER SKYBOX E CAMBIO SCENA
-
-        if (_environment != null && _waitingRoom!=null)
-        {
-            if (_environment.activeSelf)
-            {
-                _environment.SetActive(false);
-                _waitingRoom.SetActive(true);
-            }
-            else
-            {
-                _waitingRoom.SetActive(false);
-                _environment.SetActive(true);
-            }
-           
-        }
-        if(RenderSettings.skybox == skyboxImg360Mono)
-        {
-            RenderSettings.skybox = skyboxBase;
-        }
-        else
-        {   
-            RenderSettings.skybox = skyboxImg360Mono;
-        }
+       
     }
-
-    public void OnButton2Pressed()
-    {
-        if (_environment != null && _office != null)
-        {
-            if (_environment.activeSelf)
-            {
-                _environment.SetActive(false);
-                _office.SetActive(true);
-            }
-            else
-            {
-                _office.SetActive(false);
-                _environment.SetActive(true);
-            }
-
-        }
-        if (RenderSettings.skybox == skyboxImg180Stereo)
-        {
-            RenderSettings.skybox = skyboxBase;
-        }
-        else
-        {
-            RenderSettings.skybox = skyboxImg180Stereo;
-        }
-    }
-
-    public void OnButton3Pressed()
-    {
-
-    }
-
-    public void OnButton4Pressed()
-    {
-
-    }
-
 }

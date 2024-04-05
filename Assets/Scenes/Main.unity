@@ -142,13 +142,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ButtonName: Button2
   _skyboxOn: {fileID: 2100000, guid: d4151740dbe9c0b4b88108ff799ec350, type: 2}
-  _skyboxOff: {fileID: 2100000, guid: 16bc8a9d5451ca44d8f70575adbece3a, type: 2}
-  _envsOn: []
-  _EnvsOff: []
-  _environmentOn: {fileID: 802999444}
-  _environmentOff: {fileID: 1037477894}
-  _environmentMain: {fileID: 1358769865}
   _skyboxMain: {fileID: 2100000, guid: 16bc8a9d5451ca44d8f70575adbece3a, type: 2}
+  _environmentOn: {fileID: 802999444}
 --- !u!114 &49220951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1599,13 +1594,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ButtonName: Button1
   _skyboxOn: {fileID: 2100000, guid: d894457e311dfcc4b9a6ffeba927e695, type: 2}
-  _skyboxOff: {fileID: 2100000, guid: 16bc8a9d5451ca44d8f70575adbece3a, type: 2}
-  _envsOn: []
-  _EnvsOff: []
-  _environmentOn: {fileID: 1037477894}
-  _environmentOff: {fileID: 1358769865}
-  _environmentMain: {fileID: 1358769865}
   _skyboxMain: {fileID: 2100000, guid: 16bc8a9d5451ca44d8f70575adbece3a, type: 2}
+  _environmentOn: {fileID: 1037477894}
 --- !u!1 &1156750599
 GameObject:
   m_ObjectHideFlags: 0
@@ -1681,6 +1671,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1156750599}
   m_CullTransparentMesh: 0
+--- !u!1 &1162371160
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1162371161}
+  m_Layer: 0
+  m_Name: Img180Office
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1162371161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162371160}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1504146, y: -0.46703678, z: 2.832607}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1191942623
 GameObject:
   m_ObjectHideFlags: 0
@@ -2789,6 +2810,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c012117ea5bda8c44bb9ac2ed6003b28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1806731727
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1806731728}
+  m_Layer: 0
+  m_Name: Img360WaitingRoom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1806731728
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806731727}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1504146, y: -0.46703678, z: 2.832607}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1816424111
 GameObject:
   m_ObjectHideFlags: 0
@@ -3606,6 +3658,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1120043879}
     - target: {fileID: 6824636642825469441, guid: 693b4029cb2193240aa13c0bdb707486, type: 3}
+      propertyPath: skyboxMain
+      value: 
+      objectReference: {fileID: 2100000, guid: 16bc8a9d5451ca44d8f70575adbece3a, type: 2}
+    - target: {fileID: 6824636642825469441, guid: 693b4029cb2193240aa13c0bdb707486, type: 3}
       propertyPath: _environment
       value: 
       objectReference: {fileID: 1358769865}
@@ -3615,6 +3671,10 @@ PrefabInstance:
       objectReference: {fileID: 1037477894}
     - target: {fileID: 6824636642825469441, guid: 693b4029cb2193240aa13c0bdb707486, type: 3}
       propertyPath: _environement
+      value: 
+      objectReference: {fileID: 1358769865}
+    - target: {fileID: 6824636642825469441, guid: 693b4029cb2193240aa13c0bdb707486, type: 3}
+      propertyPath: _environmentMain
       value: 
       objectReference: {fileID: 1358769865}
     - target: {fileID: 6824636642825469441, guid: 693b4029cb2193240aa13c0bdb707486, type: 3}
@@ -3780,3 +3840,5 @@ SceneRoots:
   - {fileID: 859819022}
   - {fileID: 481431390}
   - {fileID: 251878238}
+  - {fileID: 1806731728}
+  - {fileID: 1162371161}

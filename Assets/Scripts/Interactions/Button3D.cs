@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using JetBrains.Annotations;
 
 public class Button3D : MonoBehaviour
 {
@@ -13,13 +14,13 @@ public class Button3D : MonoBehaviour
 
     //Elementi da spegnere e da accendere
     [SerializeField] Material _skyboxOn;
-    [SerializeField] Material _skyboxOff;
-    [SerializeField] GameObject[] _envsOn;
-    [SerializeField] GameObject[] _EnvsOff;
-    [SerializeField] GameObject _environmentOn;
-    [SerializeField] GameObject _environmentOff;
-    [SerializeField] GameObject _environmentMain;
     [SerializeField] Material _skyboxMain;
+    //[SerializeField] GameObject[] _envsOn;
+    [SerializeField] GameObject _environmentOn;
+    
+    //mettere la logica direttamente nel bottone
+    private Button3D _currentButton;
+
 
     void Start ()
     {
@@ -31,52 +32,53 @@ public class Button3D : MonoBehaviour
     {
         if (isButtonPressed)
             return;
-       isButtonPressed = true;
-        //ACTION:
+
+        isButtonPressed = true;
+
+        //ACTION CAMBIO STATO:
         if (OnButtonPressed != null)
             OnButtonPressed(this, isButtonPressed);
-        
-        isButtonPressed = !isButtonPressed;
-
-
-        //PUOI UNIRE GLI IF PER SKYBOX E CAMBIO SCENA
-        if (_environmentOn != null && _environmentOff != null)
-        {
-            if (_environmentOn.activeSelf)
-            {
-                _environmentOn.SetActive(false);
-                _environmentOff.SetActive(true);
-            }
-            else
-            {
-                _environmentOff.SetActive(false);
-                _environmentOn.SetActive(true);
-            }
-
-        }
-        if (RenderSettings.skybox == _skyboxOn)
-        {
-            RenderSettings.skybox = _skyboxOff;
-        }
-        else
-        {
-            RenderSettings.skybox = _skyboxOn;
-        }
-
+        isButtonPressed = false;
     }
 
-    //Ogni volta che viene cliccato un altro bottone, il corrente va resettato (stato main)
-    public void Reset()
+
+
+    public void ChangeEnvironment()
     {
-        RenderSettings.skybox = _skyboxMain;
-        _environmentMain.SetActive(true);
-        _environmentOn.SetActive(false);
-        isButtonPressed = false;
+       /*
+       if (_environmentOn != null && _environmentOff != null)
+       {
+           if (_environmentOn.activeSelf)
+           {
+               _environmentOn.SetActive(false);
+               _environmentOff.SetActive(true);
+           }
+           else
+           {
+               _environmentOn.SetActive(true);
+               _environmentOff.SetActive(false);
+           }
+
+       }
+       if (RenderSettings.skybox == _skyboxOn)
+       {
+           RenderSettings.skybox = _skyboxOff;
+       }
+       else
+       {
+           RenderSettings.skybox = _skyboxOn;
+       }
+       */
     }
 
     public String getButtonName()
     {
         return ButtonName;
+    }
+
+    public GameObject GetAssociatedEnvironment()
+    {
+        return _environmentOn;
     }
 
 }
