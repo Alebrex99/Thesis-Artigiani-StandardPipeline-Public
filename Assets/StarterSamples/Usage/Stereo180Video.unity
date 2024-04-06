@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -886,11 +886,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b666ca80b3aa42efac718fe4903bff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovieName: Assets/StarterSamples/StreamingAssets/B4_180 STEREO.mp4
+  MovieName: Assets/Images-videos/sequoia-national-park-vr-360-stereoscopic.mp4
   DrmLicenseUrl: 
   LoopVideo: 1
   Shape: 1
-  Stereo: 2
+  Stereo: 1
   AutoDetectStereoLayout: 0
   DisplayMono: 0
 --- !u!23 &595028499
@@ -1751,7 +1751,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_RootOrder
