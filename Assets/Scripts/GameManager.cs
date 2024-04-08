@@ -122,6 +122,7 @@ public class GameManager: MonoBehaviour
         //PUOI PROVARE A METTERE TALE LOGICA DIRETTAMENTE NEL BOTTONE
         Debug.Log($"Button {buttonPressed.getButtonName()} premuto --> cambio stato");
         String buttonPressedName = buttonPressed.getButtonName();
+        
         State newState = _currentState;
         //premo lo stesso bottone di quello corrente
         if (_currentState.ToString() == buttonPressedName)
@@ -148,7 +149,10 @@ public class GameManager: MonoBehaviour
             Debug.Log($"Changing State FROM:{_currentState} --> TO:{newState}");
             _currentState = newState;
         }
-        UpdateState(buttonPressed);
+        /*se servirà la macchina a stati completa: va messo in Update() e la funzione 
+        OnbuttonChangeEnvironment() dovrà essere chiamata nell IF qui sopra*/
+        UpdateState(buttonPressed); 
+        
 
     }
 
