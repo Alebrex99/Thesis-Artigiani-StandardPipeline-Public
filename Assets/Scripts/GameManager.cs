@@ -24,8 +24,8 @@ public class GameManager: MonoBehaviour
     //Skyboxes
     [SerializeField] Material skyboxMain;
 
-    [SerializeField] GameObject _buttons;
-    [SerializeField] GameObject _exitButton;
+    //[SerializeField] GameObject _buttons;
+    //[SerializeField] GameObject _exitButton;
     [SerializeField] GameObject _environmentMain;
     [SerializeField] GameObject _waitingRoom;
     [SerializeField] GameObject _office;
@@ -163,7 +163,7 @@ public class GameManager: MonoBehaviour
         _currentEnvironment.SetActive(false);
         _currentEnvironment = buttonPressed.GetAssociatedEnvironment();
         _currentEnvironment.SetActive(true);
-        _exitButton.SetActive(true);
+        //_exitButton.SetActive(true);
         //_buttons.SetActive(false);
     }
 }
