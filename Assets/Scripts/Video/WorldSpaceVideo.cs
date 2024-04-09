@@ -8,7 +8,7 @@ public class WorldSpaceVideo : MonoBehaviour
 {
     private VideoPlayer _videoPlayer;
     [SerializeField] private Slider _volumeSlider;
-    [SerializeField] private Slider _progressBar;
+    [SerializeField] private Slider _statusBar;
 
 
     private void Awake()
@@ -18,14 +18,12 @@ public class WorldSpaceVideo : MonoBehaviour
 
     private void Start()
     {
+        _statusBar.maxValue = (float)_videoPlayer.clip.length;
+        _statusBar.value = 0;
         _volumeSlider.value = 0.5f;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+ 
 
 
     public void PlayPause()
@@ -40,8 +38,14 @@ public class WorldSpaceVideo : MonoBehaviour
         }
     }
 
-    public void ChangeVolume()
+    public void ChangeVideoVolume()
     {
         _videoPlayer.SetDirectAudioVolume(0, _volumeSlider.value);
+    }
+
+    public void ChangeVideoTime()
+    {
+        
+        _videoPlayer.time = _statusBar.value;
     }
 }
