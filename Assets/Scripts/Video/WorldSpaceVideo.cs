@@ -8,7 +8,7 @@ public class WorldSpaceVideo : MonoBehaviour
 {
     private VideoPlayer _videoPlayer;
     [SerializeField] private Slider _volumeSlider;
-    [SerializeField] private Slider _statusBar;
+    //[SerializeField] private Slider _statusBar;
 
 
     private void Awake()
@@ -18,8 +18,8 @@ public class WorldSpaceVideo : MonoBehaviour
 
     private void Start()
     {
-        _statusBar.maxValue = (float)_videoPlayer.clip.length;
-        _statusBar.value = 0;
+        //_statusBar.maxValue = (float)_videoPlayer.clip.length;
+        //_statusBar.value = 0;
         _volumeSlider.value = 0.5f;
     }
 
@@ -46,6 +46,6 @@ public class WorldSpaceVideo : MonoBehaviour
     public void ChangeVideoTime()
     {
         
-        _videoPlayer.time = _statusBar.value;
+        //_videoPlayer.time = _statusBar.value;
     }
 }
