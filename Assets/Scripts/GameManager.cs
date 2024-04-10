@@ -3,8 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
-using static GuardSimple;
 
 public class GameManager: MonoBehaviour
 {
@@ -16,7 +14,8 @@ public class GameManager: MonoBehaviour
         Button3,
         Button4
     }
-    public static GameManager instance;
+    public static GameManager instance;//singleton
+    
     State _currentState;
     private Button3D[] _button3Ds;
     private GameObject _currentEnvironment;
@@ -29,7 +28,8 @@ public class GameManager: MonoBehaviour
     [SerializeField] GameObject _environmentMain;
     [SerializeField] GameObject _waitingRoom;
     [SerializeField] GameObject _office;
-    [SerializeField] GameObject _video2D;
+    [SerializeField] GameObject _video2DScene;
+    [SerializeField] OVROverlay _OVROverlayHome;
     public FadeScreen fadeScreen;
     
 
@@ -44,7 +44,7 @@ public class GameManager: MonoBehaviour
             
         _waitingRoom.SetActive(false);
         _office.SetActive(false);
-        _video2D.SetActive(false);
+        _video2DScene.SetActive(false);
         _environmentMain.SetActive(true);
         _currentEnvironment = _environmentMain;
     
