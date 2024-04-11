@@ -29,6 +29,7 @@ public class GameManager: MonoBehaviour
     [SerializeField] GameObject _waitingRoom;
     [SerializeField] GameObject _office;
     [SerializeField] GameObject _video2DScene;
+    [SerializeField] GameObject _video180StereoScene;
     [SerializeField] OVROverlay _OVROverlayHome;
     public FadeScreen fadeScreen;
     
@@ -45,6 +46,7 @@ public class GameManager: MonoBehaviour
         _waitingRoom.SetActive(false);
         _office.SetActive(false);
         _video2DScene.SetActive(false);
+        _video180StereoScene.SetActive(false);
         _environmentMain.SetActive(true);
         _currentEnvironment = _environmentMain;
     
