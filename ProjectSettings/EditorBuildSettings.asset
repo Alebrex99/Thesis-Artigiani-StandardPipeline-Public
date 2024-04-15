@@ -6,17 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Environment.unity
-    guid: 73bea81952b2ee14289dd39d66f5be34
-  - enabled: 1
-    path: Assets/Scenes/Office.unity
-    guid: 559a7f8af6f017746898e7699ce2ca74
-  - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 02e5afd383a0fa94186bee03a0f3edac
-  - enabled: 1
-    path: Assets/StarterSamples/Usage/Stereo180Video.unity
-    guid: 11cf8fa7bf3deb04db11bd170c0b4338
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 0543e9783e83eae4caf1d17e3b2f5a61, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 6ab0b7ea4aaaaa44b921be21e84cf36f, type: 2}
