@@ -42,10 +42,9 @@ public class Button3D : MonoBehaviour
     }
 
 
-
-    public void ChangeEnvironment()
+    /*public void ChangeEnvironment()
     {
-       /*
+       
        if (_environmentOn != null && _environmentOff != null)
        {
            if (_environmentOn.activeSelf)
@@ -68,8 +67,8 @@ public class Button3D : MonoBehaviour
        {
            RenderSettings.skybox = _skyboxOn;
        }
-       */
-    }
+       
+    }*/
 
     public String getButtonName()
     {
