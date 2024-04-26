@@ -18,11 +18,10 @@ public class Button3D : MonoBehaviour
     //[SerializeField] GameObject[] _envsOn;
     [SerializeField] GameObject _environmentOn;
     [SerializeField] GameObject _environmentMain;
-    [SerializeField] private static GameObject _currentEnvironment;
+    private static GameObject _currentEnvironment;
 
     //mettere la logica direttamente nel bottone
     private Button3D _currentButton;
-
 
     void Start ()
     {
@@ -37,15 +36,14 @@ public class Button3D : MonoBehaviour
 
         isButtonPressed = true;
 
-        //ACTION CAMBIO STATO:
-        if (OnButtonPressed != null)
+        //ACTION SE VUOI CAMBIO STATO:
+        /*if (OnButtonPressed != null)
             OnButtonPressed(this, isButtonPressed);
-        
-
+        */
         //logica nel bottone:
-
-
-        //ChangeEvnironment();
+        Debug.Log(_currentEnvironment.name);
+        Debug.Log(_environmentOn.name);
+        ChangeEnvironment();
 
         isButtonPressed = false;
 
@@ -54,23 +52,24 @@ public class Button3D : MonoBehaviour
 
     public void ChangeEnvironment()
     {
-        Debug.Log(_currentEnvironment.name);
-
-        if (_currentEnvironment != _environmentOn)
+        
+        //se l'ambiente corrente è quello da accendere, lo spegni e accendi quello principale
+        if (_currentEnvironment.name == _environmentOn.name)
+        {
+            
+            _currentEnvironment.SetActive(false);
+            _currentEnvironment = _environmentMain;
+            _currentEnvironment.SetActive(true);
+        }
+        //se l'ambiente corrente non è quello da accendere, spegni quello corrente e accendi quello da accendere
+        else
         {
             _currentEnvironment.SetActive(false);
             _currentEnvironment = _environmentOn;
             _currentEnvironment.SetActive(true);
-        }
-        else
-        {
-            _currentEnvironment.SetActive(false);
-            _currentEnvironment = _environmentMain;
-            _currentEnvironment.SetActive(true);
   
 
         }
-
 
         /*
         if (RenderSettings.skybox == _skyboxOn)
@@ -94,11 +93,5 @@ public class Button3D : MonoBehaviour
         return _environmentOn;
     }
 
-    public void ChangeEvnironment()
-    {
-        if (_environmentOn != null && _environmentOn)
-        {
-            _environmentOn.SetActive(true);
-        }
-    }
+  
 }

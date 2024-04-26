@@ -9804,58 +9804,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 809540212}
   m_CullTransparentMesh: 1
---- !u!1 &827055591
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 827055592}
-  - component: {fileID: 827055593}
-  m_Layer: 0
-  m_Name: Game Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &827055592
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 827055591}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 169706027292561455}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &827055593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 827055591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1da742d7a0caeac41b7880a583fe146d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skyboxMain: {fileID: 2100000, guid: 16bc8a9d5451ca44d8f70575adbece3a, type: 2}
-  _environmentMain: {fileID: 7544956941781424618}
-  _waitingRoom: {fileID: 7852149098041023452}
-  _office: {fileID: 5837592159448375979}
-  _video2DScene: {fileID: 1493077502}
-  _video180StereoScene: {fileID: 600851882}
-  _OVROverlayHome: {fileID: 0}
-  fadeScreen: {fileID: 0}
 --- !u!1 &831587968
 GameObject:
   m_ObjectHideFlags: 0
@@ -10012,7 +9960,7 @@ GameObject:
   m_Component:
   - component: {fileID: 859819022}
   m_Layer: 0
-  m_Name: Interactables
+  m_Name: '[Grab-Poke-RayInteractables]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10030,9 +9978,7 @@ Transform:
   m_LocalPosition: {x: 0.37363538, y: 0.139, z: 2.279}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2107742153}
-  - {fileID: 1191942629}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &862003262
@@ -11107,6 +11053,40 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &911097126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 911097127}
+  m_Layer: 0
+  m_Name: '[Grab-Poke-Ray_Interactables]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &911097127
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 911097126}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 747489478936998024}
+  - {fileID: 2107742153}
+  - {fileID: 1191942629}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &950288032 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1904711639584174607, guid: dedbc5f246d143b4b8cae0a502150e5c, type: 3}
@@ -12568,17 +12548,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1015204268}
   m_CullTransparentMesh: 1
---- !u!114 &1015856416 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9031458781061674697, guid: dedbc5f246d143b4b8cae0a502150e5c, type: 3}
-  m_PrefabInstance: {fileID: 8801813002340179119}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df9f338034892c44ebb62d97894772f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1018437336
 GameObject:
   m_ObjectHideFlags: 0
@@ -14375,12 +14344,12 @@ Transform:
   m_GameObject: {fileID: 1191942623}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.11636463, y: -0.139, z: -2.139}
+  m_LocalPosition: {x: 1.049, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 749207950}
-  m_Father: {fileID: 859819022}
+  m_Father: {fileID: 911097127}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1193946967
 GameObject:
@@ -22336,13 +22305,13 @@ Transform:
   m_GameObject: {fileID: 2107742150}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.06563538, y: -0.139, z: -2.19}
+  m_LocalPosition: {x: 0.61, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1106447864}
   - {fileID: 663954380}
-  m_Father: {fileID: 859819022}
+  m_Father: {fileID: 911097127}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2113206527
 GameObject:
@@ -22645,8 +22614,7 @@ Transform:
   m_LocalPosition: {x: 0.44921827, y: 0.7863345, z: -0.22327042}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 827055592}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &320506157574298320
@@ -22789,7 +22757,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 911097127}
     m_Modifications:
     - target: {fileID: 843268307449183700, guid: 45f285228c5c02142a675c390fe7bfd1, type: 3}
       propertyPath: m_Name
@@ -22841,15 +22809,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5197913615554565871, guid: 45f285228c5c02142a675c390fe7bfd1, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5197913615554565871, guid: 45f285228c5c02142a675c390fe7bfd1, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5197913615554565871, guid: 45f285228c5c02142a675c390fe7bfd1, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5197913615554565871, guid: 45f285228c5c02142a675c390fe7bfd1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -23088,20 +23056,6 @@ MonoBehaviour:
   _whenSelectingInteractorViewRemoved:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &827955225217028446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1986994307831501599}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 606ec00e5cd55d24b864251f97380505, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _firstSceneToLoad: Environment
-  _ovrCameraRig: {fileID: 1015856416}
 --- !u!1 &945097614976483737
 GameObject:
   m_ObjectHideFlags: 0
@@ -23260,9 +23214,9 @@ GameObject:
   m_Component:
   - component: {fileID: 169706027292561455}
   - component: {fileID: 6684332848421902671}
-  - component: {fileID: 827955225217028446}
+  - component: {fileID: 6684332848421902672}
   m_Layer: 0
-  m_Name: SCRIPTS
+  m_Name: '[Scripts]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23888,6 +23842,26 @@ MonoBehaviour:
   _sceneIn: Office
   _sceneOut: Environment
   _unloadSceneOnExit: 1
+--- !u!114 &6684332848421902672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986994307831501599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1da742d7a0caeac41b7880a583fe146d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skyboxMain: {fileID: 2100000, guid: 16bc8a9d5451ca44d8f70575adbece3a, type: 2}
+  _environmentMain: {fileID: 7544956941781424618}
+  _waitingRoom: {fileID: 7852149098041023452}
+  _office: {fileID: 5837592159448375979}
+  _video2DScene: {fileID: 1493077502}
+  _video180StereoScene: {fileID: 600851882}
+  _OVROverlayHome: {fileID: 0}
+  fadeScreen: {fileID: 0}
 --- !u!1 &6860809023918767370
 GameObject:
   m_ObjectHideFlags: 0
@@ -25614,7 +25588,7 @@ SceneRoots:
   - {fileID: 1792840481}
   - {fileID: 976895648}
   - {fileID: 8801813002340179119}
-  - {fileID: 747489478936998023}
+  - {fileID: 911097127}
   - {fileID: 8761634306736702438}
   - {fileID: 6925467045868189214}
   - {fileID: 320506157574298320}
