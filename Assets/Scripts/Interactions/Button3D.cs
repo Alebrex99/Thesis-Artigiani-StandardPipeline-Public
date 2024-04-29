@@ -18,7 +18,7 @@ public class Button3D : MonoBehaviour
     //[SerializeField] GameObject[] _envsOn;
     [SerializeField] GameObject _environmentOn;
     [SerializeField] GameObject _environmentMain;
-    private static GameObject _currentEnvironment;
+    public static GameObject _currentEnvironment; //accessibile da qualunque altro script senza un rifeirmento necessario
 
     //mettere la logica direttamente nel bottone
     private Button3D _currentButton;

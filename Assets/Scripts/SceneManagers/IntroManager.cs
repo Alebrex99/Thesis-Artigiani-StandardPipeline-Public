@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class IntroManager : MonoBehaviour
 {
+    public static IntroManager instance;
     [SerializeField] private AudioClip _voiceAudio;
     private AudioSource _audioSource;
+    
 
+    private void Awake()
+    {
+        instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {

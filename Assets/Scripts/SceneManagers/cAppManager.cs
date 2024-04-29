@@ -13,6 +13,13 @@ public enum eScenes {
     TEST_MULTIPLAYER
 }
 
+public enum Scenes
+{
+    INTRO,
+    HOME,
+    JEWEL1
+}
+
 public class cAppManager : MonoBehaviour {
     public GameObject goPersistent;
     [Range(0, 10)]
