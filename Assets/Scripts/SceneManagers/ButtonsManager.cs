@@ -52,7 +52,7 @@ public class ButtonsManager: MonoBehaviour
         _currentEnvironment = _environmentMain;
     
         //BOTTONI
-        _button3Ds = FindObjectsOfType<Button3D>();
+        _button3Ds = FindObjectsOfType<Button3D>(); //pesa meno con Public lista , ma sbatti dopo
         foreach(Button3D button3D in _button3Ds)
         {
             Debug.Log(button3D.getButtonName());
