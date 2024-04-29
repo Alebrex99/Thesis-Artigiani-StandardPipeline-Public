@@ -2,22 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+//using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum eScenes {
-    MAIN,
-    MENU,
-    EV_BASE,
-    EV_ALCUDIA,
-    TEST_MULTIPLAYER
-}
 
 public enum Scenes
 {
     INTRO,
     HOME,
-    JEWEL1
+    JEWEL1,
+    JEWEL2,
+    JEWEL3,
+    JEWEL4
 }
 
 public class cAppManager : MonoBehaviour {
@@ -26,14 +23,14 @@ public class cAppManager : MonoBehaviour {
     public float fadeSpeed = 1;
 
     public static bool loadLocalModels = false;
-    private static cAppManager instance;
+    public static cAppManager instance;
     private static bool isZurdo = false;
     private static string userID = "";
     private static string userFolder = "-88";
     private static int actualBuildScene = -1;
     private static int prevBuildScene = -1;
     //private static ColorAdjustments colorAdjustments;
-    private static eScenes actualEscena;
+    private static Scenes actualScene;
     private static int selectedScene = -1;
 
 
@@ -92,25 +89,19 @@ public class cAppManager : MonoBehaviour {
     }
 
 
-    public static eScenes GetActualEscena() {
-        return actualEscena;
+    public static Scenes GetActualEscena() {
+        return actualScene;
     }
 
-    public static void LoadScene(eScenes escena) {
-        if (actualEscena == escena) {
-            Debug.LogWarning("[APP] Se esta intentando cargar la misma escena: " + escena);
+    public static void LoadScene(Scenes scene) {
+        if (actualScene == scene) {
+            Debug.LogWarning("[APP] Se esta intentando cargar la misma scene: " + scene);
             return;
         }
-        if (eScenes.MENU == escena) {
-            //ALE cProductManager.UnloadBundles();
-        }
-        else {
-            //ALE cMainUIManager.HideLogWin();
-        }
         Debug.Log("[App] Load Scene");
-        actualEscena = escena;
-        instance.StartCoroutine(instance.LoadSceneCor((int)escena));
-        //cDataManager.AddJuegosAction(eAcciones.LoadScene, -1, 0, (int)escena, escena.ToString());
+        actualScene = scene;
+        instance.StartCoroutine(instance.LoadSceneCor((int)scene));
+        //cDataManager.AddJuegosAction(eAcciones.LoadScene, -1, 0, (int)scene, scene.ToString());
     }
     private IEnumerator LoadSceneCor(int buildIndex) {
         //SHOW LOADING
@@ -123,16 +114,23 @@ public class cAppManager : MonoBehaviour {
         }
         //colorAdjustments.colorFilter.value = new Color(0, 0, 0);
 
-        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(buildIndex);
-        while (!loadOperation.isDone) {
+        AsyncOperation asyncLoadOperation = SceneManager.LoadSceneAsync(buildIndex);
+        while (!asyncLoadOperation.isDone) {
+            Debug.Log("Caricamento della scena " + buildIndex + " in corso...");
             yield return null;
         }
         actualBuildScene = SceneManager.GetActiveScene().buildIndex;
 
+        Scene loadedScene = SceneManager.GetSceneByBuildIndex(buildIndex);
+        SceneManager.SetActiveScene(loadedScene);
+        Debug.Log("Scena " + buildIndex + " impostata come scena attiva.");
+
+        asyncLoadOperation = null;
+
         //HIDE LOADING
         //ALE cMainUIManager.HideLoading();
         /* ALE
-        if (eScenes.EV_BASE == actualEscena) {
+        if (Scenes.EV_BASE == actualScene) {
             if (0 < cProductManager.GetErrorLoadList().Count) {
                 string modelos = "";
                 foreach(string mod in cProductManager.GetErrorLoadList()) {
@@ -160,6 +158,46 @@ public class cAppManager : MonoBehaviour {
     }
 
 
+    //ALE FUNZIONI GENERICHE CAMBIO SCENA
+    public void GoToSceneAsync(Scenes scene)
+    {
+        if (actualScene == scene)
+        {
+            Debug.LogWarning("[APP] Se esta intentando cargar la misma scene: " + scene);
+            return;
+        }
+        Debug.Log("[App] Load Scene");
+        actualScene = scene;
+        StartCoroutine(GoToSceneAsyncRoutine((int)scene));
+    }
+
+    IEnumerator GoToSceneAsyncRoutine(int sceneIndex)
+    {
+        Scene sceneToLoad = SceneManager.GetSceneByBuildIndex(sceneIndex);
+        if(sceneToLoad.IsValid() && sceneToLoad.isLoaded)
+        {
+            Debug.Log("La scena " + sceneToLoad.name + " è già caricata.");
+            yield break;
+        }
+        AsyncOperation asyncLoadOperation = SceneManager.LoadSceneAsync(sceneIndex);
+        while (!asyncLoadOperation.isDone)
+        {
+            Debug.Log("Caricamento della scena " + sceneToLoad.name + " in corso...");
+            yield return null;
+        }
+        Debug.Log("Scena " + sceneToLoad.name + " caricata con successo.");
+
+        Scene loadedScene = SceneManager.GetSceneByBuildIndex(sceneIndex);
+        SceneManager.SetActiveScene(loadedScene);
+        Debug.Log("Scena " + sceneToLoad.name + " impostata come scena attiva.");
+
+        asyncLoadOperation = null;
+    }
+
+
+
+
+
     /*ALEpublic static void QuitApp() {
         //MOSTRAR CONFIRMACION
         //SI ES CLIENTE DESCONECTAR
@@ -171,12 +209,12 @@ public class cAppManager : MonoBehaviour {
 
     /*ALE private static void CierraApp() {
         cMainUIManager.ResetLog();
-        if (eScenes.MENU == GetActualEscena()) {
+        if (Scenes.MENU == GetActualEscena()) {
             Application.Quit();
         }
         else {
             cMultiplayerManager.Desconecta();
-            LoadScene(eScenes.MENU);
+            LoadScene(Scenes.MENU);
         }
     }*/
 }

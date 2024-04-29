@@ -17,6 +17,7 @@ public class ButtonsManager: MonoBehaviour
     public static ButtonsManager instance;//singleton
     
     State _currentState;
+    [SerializeField] private AudioSource _voiceAudio;
     private Button3D[] _button3Ds;
     private GameObject _currentEnvironment;
 
@@ -51,6 +52,13 @@ public class ButtonsManager: MonoBehaviour
         _video180StereoScene.SetActive(false);
         _currentEnvironment = _environmentMain;
     
+        //START VOICE AUDIO
+        if(_voiceAudio!= null)
+        {
+            _voiceAudio.Play();
+        }
+        
+
         //BOTTONI
         _button3Ds = FindObjectsOfType<Button3D>(); //pesa meno con Public lista , ma sbatti dopo
         foreach(Button3D button3D in _button3Ds)

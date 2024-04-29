@@ -1,12 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class IntroManager : MonoBehaviour
 {
     public static IntroManager instance;
-    [SerializeField] private AudioClip _voiceAudio;
-    private AudioSource _audioSource;
+    
+    public VideoPlayer videoPlayer;
     
 
     private void Awake()
@@ -16,14 +18,19 @@ public class IntroManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //START VOICE AUDIO
-        _audioSource = GetComponentInChildren<AudioSource>();
-        // START VIDEO
+        //QUANDO IL VIDEO FINISCE
+        videoPlayer.loopPointReached += EndVideo;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void EndVideo(VideoPlayer source)
     {
-        
+        videoPlayer.loopPointReached -= EndVideo;
+        videoPlayer.Stop();
+        cAppManager.instance.GoToSceneAsync(Scenes.HOME);
+        //ANIMAZIONI POSSIBILI
     }
+
+
+
+    
 }
