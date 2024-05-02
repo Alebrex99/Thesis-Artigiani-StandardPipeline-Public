@@ -9,7 +9,8 @@ public class IntroManager : MonoBehaviour
     public static IntroManager instance;
     
     public VideoPlayer videoPlayer;
-    
+    public AudioSource _voiceAudio;
+
 
     private void Awake()
     {
@@ -20,6 +21,11 @@ public class IntroManager : MonoBehaviour
     {
         //QUANDO IL VIDEO FINISCE
         videoPlayer.loopPointReached += EndVideo;
+        //START VOICE AUDIO
+        if (_voiceAudio != null)
+        {
+            _voiceAudio.Play();
+        }
     }
 
     private void EndVideo(VideoPlayer source)

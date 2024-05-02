@@ -20,6 +20,7 @@
 
 
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace OculusSampleFramework
@@ -38,17 +39,23 @@ namespace OculusSampleFramework
         private Coroutine _coroutine = null;
         private Vector3 _prevPos = Vector3.zero;
         private Vector3 _lastMovedToPos = Vector3.zero;
+        
+        private Vector3 offset;
+        [SerializeField] private float y_offset = 0.5f;
 
         private void Awake()
         {
             _cameraRig = FindObjectOfType<OVRCameraRig>();
-            _panelInitialPosition = transform.position;
+
+            //ALE ADD
+            offset = new Vector3(0, y_offset, 0);
+            _panelInitialPosition = transform.position - offset;
         }
 
         private void Update()
         {
             var centerEyeAnchorPos = _cameraRig.centerEyeAnchor.position;
-            var myPosition = transform.position;
+            var myPosition = transform.position - offset;
             //Distance from centereye since last time we updated panel position.
             float distanceFromLastMovement = Vector3.Distance(centerEyeAnchorPos, _lastMovedToPos);
             float headMovementSpeed = (_cameraRig.centerEyeAnchor.position - _prevPos).magnitude / Time.deltaTime;

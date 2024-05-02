@@ -17,7 +17,6 @@ public class ButtonsManager: MonoBehaviour
     public static ButtonsManager instance;//singleton
     
     State _currentState;
-    public AudioSource _voiceAudio;
     private Button3D[] _button3Ds;
     private GameObject _currentEnvironment;
 
@@ -52,11 +51,6 @@ public class ButtonsManager: MonoBehaviour
         _video180StereoScene.SetActive(false);
         _currentEnvironment = _environmentMain;
     
-        //START VOICE AUDIO
-        if(_voiceAudio!= null)
-        {
-            _voiceAudio.Play();
-        }
         
 
         //BOTTONI

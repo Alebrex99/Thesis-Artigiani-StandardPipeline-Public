@@ -21,7 +21,6 @@ public class Button3D : MonoBehaviour
     public static GameObject _currentEnvironment; //accessibile da qualunque altro script senza un rifeirmento necessario
 
     //mettere la logica direttamente nel bottone
-    private Button3D _currentButton;
 
     void Start ()
     {
@@ -52,7 +51,7 @@ public class Button3D : MonoBehaviour
 
     public void ChangeEnvironment()
     {
-        ButtonsManager.instance._voiceAudio.Stop();
+        //IntroManager.instance._voiceAudio.Stop();
         //se l'ambiente corrente è quello da accendere, lo spegni e accendi quello principale
         if (_currentEnvironment.name == _environmentOn.name)
         {
