@@ -114,26 +114,7 @@ namespace OculusSampleFramework
         #region MonoBehaviour handler
 
         void Start()
-        {
-            DebugUIBuilder.instance.AddLabel("OVROverlay Sample");
-            DebugUIBuilder.instance.AddDivider();
-            DebugUIBuilder.instance.AddLabel("Level Loading Example");
-            DebugUIBuilder.instance.AddButton("Simulate Level Load", TriggerLoad);
-            DebugUIBuilder.instance.AddButton("Destroy Cubes", TriggerUnload);
-            DebugUIBuilder.instance.AddDivider();
-            DebugUIBuilder.instance.AddLabel("OVROverlay vs. Application Render Comparison");
-            DebugUIBuilder.instance
-                .AddRadio("OVROverlay", "group", delegate (Toggle t) { RadioPressed(ovrOverlayID, "group", t); })
-                .GetComponentInChildren<Toggle>();
-            applicationRadioButton = DebugUIBuilder.instance
-                .AddRadio("Application", "group", delegate (Toggle t) { RadioPressed(applicationID, "group", t); })
-                .GetComponentInChildren<Toggle>();
-            noneRadioButton = DebugUIBuilder.instance
-                .AddRadio("None", "group", delegate (Toggle t) { RadioPressed(noneID, "group", t); })
-                .GetComponentInChildren<Toggle>();
-
-            DebugUIBuilder.instance.Show();
-
+        {  
             // Start with Overlay Quad
             CameraAndRenderTargetSetup();
             cameraRenderOverlay.enabled = true;
@@ -143,19 +124,7 @@ namespace OculusSampleFramework
 
         void Update()
         {
-            // Switch ui display types
-            if (OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Start))
-            {
-                if (inMenu) DebugUIBuilder.instance.Hide();
-                else DebugUIBuilder.instance.Show();
-                inMenu = !inMenu;
-            }
-
-            // Trigger loading simulator via keyboard
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                TriggerLoad();
-            }
+           
         }
 
         #endregion
@@ -253,8 +222,8 @@ namespace OculusSampleFramework
 
 #if UNITY_ANDROID
             // Gear VR display panel resolution
-            float hmdPanelResWidth = 2560;
-            float hmdPanelResHeight = 1440;
+            float hmdPanelResWidth = 2064; //2560x1440
+            float hmdPanelResHeight = 2208;
 #else
             // Rift display panel resolution
             float hmdPanelResWidth = 2160;
