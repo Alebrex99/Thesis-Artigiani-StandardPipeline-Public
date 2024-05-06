@@ -260,8 +260,8 @@ namespace OculusSampleFramework
 
 #if UNITY_ANDROID
             // Gear VR display panel resolution
-            float hmdPanelResWidth = 2560;
-            float hmdPanelResHeight = 1440;
+            float hmdPanelResWidth = 2064; //2560x1440
+            float hmdPanelResHeight = 2208;
 #else
             // Rift display panel resolution
             float hmdPanelResWidth = 2160;
