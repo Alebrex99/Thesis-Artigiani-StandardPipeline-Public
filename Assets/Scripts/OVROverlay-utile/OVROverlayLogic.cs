@@ -29,7 +29,13 @@ namespace OculusSampleFramework
     /// <summary>
     /// The rendering methods swappable via radio buttons
     /// </summary>
-   
+    /*public enum EUiDisplayType
+    {
+        EUDT_WorldGeoQuad,
+        EUDT_OverlayQuad,
+        EUDT_None,
+        EUDT_MaxDislayTypes
+    }*/
 
     /// <summary>
     /// Usage: demonstrate how to use overlay layers for a paneled UI system
@@ -41,7 +47,7 @@ namespace OculusSampleFramework
     /// You should be able to observe sharper and less aliased image when switch from world geometry to overlay layer.
     ///
     /// </summary>
-    public class OVROverlayLogic: MonoBehaviour
+    public class OVROverlayLogic : MonoBehaviour
     {
         bool inMenu;
 
@@ -114,9 +120,28 @@ namespace OculusSampleFramework
         #region MonoBehaviour handler
 
         void Start()
-        {  
+        {
+            /*DebugUIBuilder.instance.AddLabel("OVROverlay Sample");
+            DebugUIBuilder.instance.AddDivider();
+            DebugUIBuilder.instance.AddLabel("Level Loading Example");
+            DebugUIBuilder.instance.AddButton("Simulate Level Load", TriggerLoad);
+            DebugUIBuilder.instance.AddButton("Destroy Cubes", TriggerUnload);
+            DebugUIBuilder.instance.AddDivider();
+            DebugUIBuilder.instance.AddLabel("OVROverlay vs. Application Render Comparison");
+            DebugUIBuilder.instance
+                .AddRadio("OVROverlay", "group", delegate (Toggle t) { RadioPressed(ovrOverlayID, "group", t); })
+                .GetComponentInChildren<Toggle>();
+            applicationRadioButton = DebugUIBuilder.instance
+                .AddRadio("Application", "group", delegate (Toggle t) { RadioPressed(applicationID, "group", t); })
+                .GetComponentInChildren<Toggle>();
+            noneRadioButton = DebugUIBuilder.instance
+                .AddRadio("None", "group", delegate (Toggle t) { RadioPressed(noneID, "group", t); })
+                .GetComponentInChildren<Toggle>();
+
+            DebugUIBuilder.instance.Show();
+            */
             // Start with Overlay Quad
-            CameraAndRenderTargetSetup();
+            CameraAndRenderTargetSetup(); 
             cameraRenderOverlay.enabled = true;
             cameraRenderOverlay.currentOverlayShape = OVROverlay.OverlayShape.Quad;
             spawnedCubes.Capacity = numObjectsPerLevel * numLevels;
@@ -124,7 +149,20 @@ namespace OculusSampleFramework
 
         void Update()
         {
-           
+            // Switch ui display types
+            if (OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Start))
+            {
+                /*if (inMenu) DebugUIBuilder.instance.Hide();
+                else DebugUIBuilder.instance.Show();
+                inMenu = !inMenu;
+                */
+            }
+
+            // Trigger loading simulator via keyboard
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                //TriggerLoad();
+            }
         }
 
         #endregion
@@ -222,8 +260,8 @@ namespace OculusSampleFramework
 
 #if UNITY_ANDROID
             // Gear VR display panel resolution
-            float hmdPanelResWidth = 2064; //2560x1440
-            float hmdPanelResHeight = 2208;
+            float hmdPanelResWidth = 2560;
+            float hmdPanelResHeight = 1440;
 #else
             // Rift display panel resolution
             float hmdPanelResWidth = 2160;

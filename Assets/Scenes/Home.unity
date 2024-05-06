@@ -3629,7 +3629,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &317915888
 Transform:
   m_ObjectHideFlags: 0
@@ -3639,8 +3639,8 @@ Transform:
   m_GameObject: {fileID: 317915887}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.014999991, y: -3.39, z: -2.37}
-  m_LocalScale: {x: 4.0032783, y: 4.1415653, z: 2.791556}
+  m_LocalPosition: {x: 0.015, y: -3.51, z: -2.161684}
+  m_LocalScale: {x: 4.571699, y: 2.8663151, z: 2.791556}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8761634306736702439}
@@ -3700,7 +3700,7 @@ MonoBehaviour:
   layerTextureFormat: 0
   currentOverlayShape: 0
   textures:
-  - {fileID: 8400000, guid: efc2fe87454810243a92b600ed7967ba, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   isAlphaPremultiplied: 0
   useBicubicFiltering: 0
@@ -13648,7 +13648,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4435288314474964, guid: 86b26048b3afda744b007257161860dc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.016
+      value: 0.015
       objectReference: {fileID: 0}
     - target: {fileID: 4435288314474964, guid: 86b26048b3afda744b007257161860dc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -13697,14 +13697,14 @@ PrefabInstance:
     - target: {fileID: 20853760230088964, guid: 86b26048b3afda744b007257161860dc, type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 8400000, guid: efc2fe87454810243a92b600ed7967ba, type: 2}
+      objectReference: {fileID: 8400000, guid: ccb81e096f95a1540aea5039c6318314, type: 2}
     - target: {fileID: 20853760230088964, guid: 86b26048b3afda744b007257161860dc, type: 3}
       propertyPath: near clip plane
       value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 20853760230088964, guid: 86b26048b3afda744b007257161860dc, type: 3}
       propertyPath: orthographic size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 20853760230088964, guid: 86b26048b3afda744b007257161860dc, type: 3}
       propertyPath: m_OcclusionCulling
@@ -24642,7 +24642,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2146306783
 Transform:
   m_ObjectHideFlags: 0
@@ -27567,9 +27567,9 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7544956941781424618}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 162d89e5ac9117a47bc1228c3aa0148a, type: 3}
+  m_Script: {fileID: 11500000, guid: 65f4cd2c10df66240b26bdbf486d6873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 8801813002340179120}
