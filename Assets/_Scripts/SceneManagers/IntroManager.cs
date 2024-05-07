@@ -10,6 +10,9 @@ public class IntroManager : MonoBehaviour
 
     [SerializeField] private Transform trInitPos;
     public VideoPlayer videoPlayer;
+    [SerializeField] private GameObject goVideoPlayer;
+    [SerializeField] Animator animLogo;
+    [SerializeField] private float rotationVideoSpeed = 1;
     public AudioSource voiceAudio;
 
     int loopVideo = 0;
@@ -17,6 +20,31 @@ public class IntroManager : MonoBehaviour
     {
         instance = this;
     }
+
+    private void Update()
+    {
+        if (videoPlayer.isPlaying)
+        {
+            //Vector3 euler = Quaternion.LookRotation(goVideoPlayer.transform.position - cXRManager.GetTrCenterEye().position).eulerAngles;
+            //goVideoPlayer.transform.eulerAngles = new Vector3(0, euler.y, 0);
+            
+            //Method lectures:
+            Vector3 targetDirection = goVideoPlayer.transform.position - cXRManager.GetTrCenterEye().position;
+            targetDirection.y = 0;
+            targetDirection.Normalize();
+            float rotationStep = rotationVideoSpeed * Time.deltaTime;
+            
+            Vector3 newDirection = Vector3.RotateTowards(goVideoPlayer.transform.forward, targetDirection, rotationStep, 0.0f);
+            goVideoPlayer.transform.rotation = Quaternion.LookRotation(newDirection, goVideoPlayer.transform.up);
+        }
+        else
+        {
+            Vector3 euler = Quaternion.LookRotation(goVideoPlayer.transform.position - cXRManager.GetTrCenterEye().position).eulerAngles;
+            //SOSTITUIRE : goVideoPlayer se voglio un altro oggetto quando il video si spegne; es) goLogoCentral
+            goVideoPlayer.transform.eulerAngles = new Vector3(0, euler.y, 0);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +61,7 @@ public class IntroManager : MonoBehaviour
         ResetUserPosition();
 
     }
+
 
     private void EndVideo(VideoPlayer source)
     {

@@ -2937,6 +2937,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trInitPos: {fileID: 1759181255}
   videoPlayer: {fileID: 1895844041}
+  goVideoPlayer: {fileID: 170055779}
+  rotationVideoSpeed: 1
   voiceAudio: {fileID: 245571541}
 --- !u!4 &1872086173
 Transform:
