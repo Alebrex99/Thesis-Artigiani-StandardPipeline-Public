@@ -7,15 +7,24 @@ using UnityEngine.Video;
 public class IntroManager : MonoBehaviour
 {
     public static IntroManager instance;
-
     [SerializeField] private Transform trInitPos;
+
+    //VIDEO
     public VideoPlayer videoPlayer;
+    int loopVideo = 0;
+
+    //AUDIO
+    public AudioSource voiceAudio;
+
+    //cSceneInfo
+    private bool bShownVideo = false;
+    private float timeLastClick = 0;
     [SerializeField] private GameObject goVideoPlayer;
     [SerializeField] Animator animLogo;
     [SerializeField] private float rotationVideoSpeed = 1;
-    public AudioSource voiceAudio;
+    
 
-    int loopVideo = 0;
+
     private void Awake()
     {
         instance = this;
@@ -23,7 +32,7 @@ public class IntroManager : MonoBehaviour
 
     private void Update()
     {
-        if (videoPlayer.isPlaying)
+        if (bShownVideo)
         {
             //Vector3 euler = Quaternion.LookRotation(goVideoPlayer.transform.position - cXRManager.GetTrCenterEye().position).eulerAngles;
             //goVideoPlayer.transform.eulerAngles = new Vector3(0, euler.y, 0);
@@ -47,40 +56,39 @@ public class IntroManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        //QUANDO IL VIDEO FINISCE
-        
+    {   
         //START VOICE AUDIO
         if (voiceAudio != null && videoPlayer !=null)
         {
             videoPlayer.Play();
+            bShownVideo = true;
             voiceAudio.Play();
         }
         videoPlayer.loopPointReached += EndVideo;
         Invoke("EndAudio", voiceAudio.clip.length);
         ResetUserPosition();
-
     }
-
 
     private void EndVideo(VideoPlayer source)
     {
-        //cAppManager.GoToSceneAsync(Scenes.HOME);
-        //ANIMAZIONI POSSIBILI
         loopVideo++;
         if(loopVideo>= 2)
         {
-            source.Stop();
             source.loopPointReached -= EndVideo;
+            source.Stop();
+
+            //ANIMAZIONI POSSIBILI : LOGO -> VIDEO
+            /*animLogo.ResetTrigger("ShowVideo");
+            animLogo.SetTrigger("HideVideo");*/
+            bShownVideo = false; //smetterà di seguire l'utente
         }
     }
 
     private void EndAudio()
     {
         cAppManager.GoToSceneAsync(Scenes.HOME);
-        //ANIMAZIONI POSSIBILI
+        //ANIMAZIONI POSSIBILI : LOGO -> VIDEO
     }
-
 
     public Transform GetUserInitTr()
     {
@@ -92,6 +100,55 @@ public class IntroManager : MonoBehaviour
         cXRManager.SetUserPosition(GetUserInitTr().position, GetUserInitTr().rotation);
     }
 
+    public void SetVideo(VideoClip vc)
+    {
+        //setting video clip run time
+        videoPlayer.clip = vc;
+    }
+
+
+
+
+    //SOLO SE SI VUOLE AGGIUNGERE ANIMAZIONE LOGO -> VIDEO
+    public void ClickLogo()
+    {
+        Debug.Log("Tocado logo");
+        animLogo.ResetTrigger("HideVideo");
+        animLogo.SetTrigger("ShowVideo");
+        videoPlayer.loopPointReached += EndVideo;
+        videoPlayer.isLooping = true;
+        videoPlayer.Play();
+        bShownVideo = true;
+    }
+
+    public void ClickButtonVideo()
+    {
+        if (Time.realtimeSinceStartup - timeLastClick < 1)
+        {
+            return;
+        }
+        if (bShownVideo)
+        {
+            videoPlayer.loopPointReached -= EndVideo;
+            videoPlayer.Stop();
+            animLogo.ResetTrigger("ShowVideo");
+            animLogo.SetTrigger("HideVideo");
+            bShownVideo = false;
+            timeLastClick = Time.realtimeSinceStartup;
+        }
+        else
+        {
+            Debug.Log("Tocado logo");
+            animLogo.ResetTrigger("HideVideo");
+            animLogo.SetTrigger("ShowVideo");
+            videoPlayer.loopPointReached += EndVideo;
+            videoPlayer.isLooping = true;
+            videoPlayer.Play();
+            bShownVideo = true;
+            timeLastClick = Time.realtimeSinceStartup;
+            //cDataManager.AddResponse(eDataSesionAction.VIDEO, "");
+        }
+    }
 
 
 }

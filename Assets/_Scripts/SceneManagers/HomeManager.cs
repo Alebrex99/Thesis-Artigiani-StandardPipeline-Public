@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class HomeManager: MonoBehaviour
 {
@@ -17,11 +18,13 @@ public class HomeManager: MonoBehaviour
     public static HomeManager instance;//singleton
     public Transform trInitPos;
 
+    //cStBase
+    public Transform trLightButton;
+    //public cWatchManager scrWatch;
 
     [SerializeField] private GameObject _interactables;
     [SerializeField] private float _interactableActivationDelay = 1f;
     [SerializeField] private Transform interactablesInitPos;
-
 
     State _currentState;
     //private Button3D[] _buttons3D;
@@ -39,8 +42,12 @@ public class HomeManager: MonoBehaviour
     {
         instance = this;
     }
+
     private void Start()
     {
+        //SE HO TELEPORT: inserimento delle iscrizioni a eventi da cStEVBase
+
+
         _currentState = State.Main;
         //RenderSettings.skybox = skyboxMain;
 
@@ -65,6 +72,16 @@ public class HomeManager: MonoBehaviour
         LateActivation(_interactables, _interactableActivationDelay);
     }
 
+    private void Update()
+    {
+        if (trLightButton == null)
+        {
+            Debug.Log("NOOOO LUCEE");
+        }
+        trLightButton.position = cXRManager.GetTrCenterEye().position;
+        trLightButton.rotation = cXRManager.GetTrCenterEye().rotation;
+    }
+
     public void LateActivation(GameObject toActivate, float _activationDelay)
     {
         StartCoroutine(Activation(toActivate, _activationDelay));
@@ -85,6 +102,14 @@ public class HomeManager: MonoBehaviour
     {
         cXRManager.SetUserPosition(GetUserInitTr().position, GetUserInitTr().rotation);
     }
+
+  
+
+
+
+
+
+
 
     //FSM POSSIBILE: 
     //DA FARE DURANTE OGNI STATO : ANCORA DA DECIDERE
@@ -186,10 +211,6 @@ public class HomeManager: MonoBehaviour
         _currentEnvironment = buttonPressed.GetAssociatedEnvironment();
         _currentEnvironment.SetActive(true);
     }
-
-
-    
-
 
 
     private void ChangeState(Button3D buttonPressed)

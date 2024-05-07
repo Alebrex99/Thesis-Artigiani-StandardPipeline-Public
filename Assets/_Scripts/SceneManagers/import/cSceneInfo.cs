@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,10 @@ public class cSceneInfo : MonoBehaviour{
 
     private bool bShowVideo = false;
     private float timeLastClick = 0;
+
+    //ADDED FOR METRICS (ALE)
+    public Action OnButtonVideoPressed;
+
     private void Update() {
         if (bShowVideo) {
             Vector3 euler = Quaternion.LookRotation(goVideoPlayer.transform.position - cXRManager.GetTrCenterEye().position).eulerAngles;
@@ -51,6 +56,10 @@ public class cSceneInfo : MonoBehaviour{
         bShowVideo = true;
     }
     public void ClickButtonVideo() {
+        //MODIFICA METRICHE
+        if (OnButtonVideoPressed != null)
+            OnButtonVideoPressed();
+
         if (Time.realtimeSinceStartup - timeLastClick < 1) {
             return;
         }
