@@ -7,7 +7,7 @@ using UnityEngine.Video;
 public class IntroManager : MonoBehaviour
 {
     public static IntroManager instance;
-    public Transform trInitPos;
+    public Transform userInitPos;
 
     //VIDEO
     public VideoPlayer videoPlayer;
@@ -16,11 +16,12 @@ public class IntroManager : MonoBehaviour
     //AUDIO
     public AudioSource voiceAudio;
 
-    //cSceneInfo
+    //cSceneInfo : video + animation logo
     private bool bShownVideo = false;
     private float timeLastClick = 0;
     [SerializeField] private GameObject goVideoPlayer;
     [SerializeField] Animator animLogo;
+    [Range(0.1f, 10)]
     [SerializeField] private float rotationVideoSpeed = 1;
     
 
@@ -56,7 +57,8 @@ public class IntroManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {   
+    {
+        ResetUserPosition();
         //START VOICE AUDIO
         if (voiceAudio != null && videoPlayer !=null)
         {
@@ -66,7 +68,6 @@ public class IntroManager : MonoBehaviour
         }
         videoPlayer.loopPointReached += EndVideo;
         Invoke("EndAudio", voiceAudio.clip.length);
-        ResetUserPosition();
     }
 
     private void EndVideo(VideoPlayer source)
@@ -92,7 +93,7 @@ public class IntroManager : MonoBehaviour
 
     public Transform GetUserInitTr()
     {
-        return trInitPos;
+        return userInitPos;
     }
 
     public void ResetUserPosition()

@@ -16,7 +16,6 @@ public class HomeManager: MonoBehaviour
         Button4
     }
     public static HomeManager instance;//singleton
-    public Transform trInitPos;
 
     public AudioSource voiceInfoButtons; //voce spiegazione
 
@@ -36,6 +35,7 @@ public class HomeManager: MonoBehaviour
     [SerializeField] GameObject _video180StereoScene;
 
     //FEATURES DA cStBase
+    public Transform userInitPos;
     public Transform trLightButton;
     //public cWatchManager scrWatch;
 
@@ -97,7 +97,7 @@ public class HomeManager: MonoBehaviour
 
     public Transform GetUserInitTr()
     {
-        return trInitPos;
+        return userInitPos;
     }
 
     public void ResetUserPosition()

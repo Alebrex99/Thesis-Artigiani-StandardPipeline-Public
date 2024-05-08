@@ -27,9 +27,6 @@ public class WorldSpaceVideo : MonoBehaviour
        
     }
 
- 
-
-
     public void PlayPause()
     {
         if(_videoPlayer.isPlaying)

@@ -4,8 +4,8 @@ using TMPro;
 using UnityEngine;
 
 public class cLoading : MonoBehaviour {
-    public TextMeshProUGUI txMensaje;
-    public TextMeshProUGUI txPuntos;
+    public TextMeshProUGUI txMessage;
+    public TextMeshProUGUI txDots;
     public RectTransform icoLoading;
     public GameObject goPanel;
 
@@ -16,9 +16,9 @@ public class cLoading : MonoBehaviour {
 
     public void ShowLoading(string texto) {
         if (string.IsNullOrEmpty(texto)) { }
-            //ALE txMensaje.text =  cLanguageManager.GetString("_Loading", null);
+            //ALE txMessage.text =  cLanguageManager.GetString("_Loading", null);
         else
-            txMensaje.text = texto;
+            txMessage.text = texto;
         goPanel.SetActive(true);
         StopCoroutine("AnimaTexto");
         StartCoroutine("AnimaTexto");
@@ -35,15 +35,15 @@ public class cLoading : MonoBehaviour {
     private IEnumerator AnimaTexto() {
         float timeTexto = Time.time;
         float timeImag = Time.time;
-        txPuntos.text = ".";
+        txDots.text = ".";
         icoLoading.rotation = Quaternion.identity;
         icoLoading.transform.localEulerAngles = Vector3.zero;
         yield return null;
         while (true) {
             if (Time.time > timeTexto + 1) {
-                txPuntos.text += ".";
-                if (txPuntos.text.Length > 8) {
-                    txPuntos.text = ".";
+                txDots.text += ".";
+                if (txDots.text.Length > 8) {
+                    txDots.text = ".";
                 }
                 timeTexto = Time.time;
             }
