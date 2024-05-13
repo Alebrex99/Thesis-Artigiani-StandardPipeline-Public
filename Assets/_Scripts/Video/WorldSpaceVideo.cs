@@ -41,7 +41,7 @@ public class WorldSpaceVideo : MonoBehaviour
 
     public void ChangeVideoVolume()
     {
-        if(_volumeSlider != null)
+        if(_volumeSlider != null && _videoPlayer!= null)
         {
             _videoPlayer.SetDirectAudioVolume(0, _volumeSlider.value);
         }
