@@ -2003,7 +2003,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114845147238742862, guid: b0121989850b34d0ba1135a627e1ec18, type: 3}
       propertyPath: videoUrl
-      value: Assets/_Media/Backgrounds/BEACH LEJOS.mp4
+      value: BEACH LEJOS.mp4
       objectReference: {fileID: 0}
     - target: {fileID: 114845147238742862, guid: b0121989850b34d0ba1135a627e1ec18, type: 3}
       propertyPath: renderMode
@@ -2015,7 +2015,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114845147238742862, guid: b0121989850b34d0ba1135a627e1ec18, type: 3}
       propertyPath: videoSource
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

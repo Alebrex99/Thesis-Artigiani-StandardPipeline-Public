@@ -17865,7 +17865,7 @@ MonoBehaviour:
   isExternalSurface: 0
   externalSurfaceWidth: 0
   externalSurfaceHeight: 0
-  compositionDepth: 0
+  compositionDepth: 1
   noDepthBufferTesting: 0
   layerTextureFormat: 0
   currentOverlayShape: 0
