@@ -1933,7 +1933,7 @@ MonoBehaviour:
   _whenSelect:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 826887134}
         m_TargetAssemblyTypeName: Button3D, Assembly-CSharp
         m_MethodName: BackToHome
         m_Mode: 1
@@ -3551,7 +3551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1585551896868121886, guid: dda2aeea1faae654d8986620127b767e, type: 3}
       propertyPath: compositionDepth
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1585551896868121886, guid: dda2aeea1faae654d8986620127b767e, type: 3}
       propertyPath: useEfficientSharpen
@@ -3559,7 +3559,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1585551896868121886, guid: dda2aeea1faae654d8986620127b767e, type: 3}
       propertyPath: noDepthBufferTesting
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1585551896868121886, guid: dda2aeea1faae654d8986620127b767e, type: 3}
       propertyPath: useAutomaticFiltering
@@ -3584,6 +3584,10 @@ PrefabInstance:
     - target: {fileID: 2740586813578101109, guid: dda2aeea1faae654d8986620127b767e, type: 3}
       propertyPath: m_Name
       value: IntroBackground
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740586813578101109, guid: dda2aeea1faae654d8986620127b767e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2854077549055175818, guid: dda2aeea1faae654d8986620127b767e, type: 3}
       propertyPath: m_LocalScale.x
@@ -4704,7 +4708,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3431683346320275688, guid: dedbc5f246d143b4b8cae0a502150e5c, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 4294966751
+      value: 119
       objectReference: {fileID: 0}
     - target: {fileID: 5177004895577296242, guid: dedbc5f246d143b4b8cae0a502150e5c, type: 3}
       propertyPath: instanceId
@@ -4896,7 +4900,7 @@ MonoBehaviour:
   animLogo: {fileID: 0}
   voiceAudio: {fileID: 245571541}
   _buttonHomeInitPos: {fileID: 313009160}
-  _buttonHome: {fileID: 0}
+  _buttonHome: {fileID: 826887134}
   _activationDelay: 10
 --- !u!4 &1872086173
 Transform:
