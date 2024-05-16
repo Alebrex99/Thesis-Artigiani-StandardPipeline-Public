@@ -43,7 +43,8 @@ public class WorldSpaceVideo : MonoBehaviour
     {
         if(_volumeSlider != null && _videoPlayer!= null)
         {
-            _videoPlayer.SetDirectAudioVolume(0, _volumeSlider.value);
+            //_videoPlayer.SetDirectAudioVolume(0, _volumeSlider.value);
+            _videoPlayer.GetTargetAudioSource(0).volume = _volumeSlider.value;
         }
         
     }

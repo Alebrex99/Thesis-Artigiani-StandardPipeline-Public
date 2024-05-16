@@ -136,13 +136,13 @@ public class cAppManager : MonoBehaviour {
             Debug.Log("La scena " + sceneToLoad.name + " è già caricata.");
             yield break;
         }
+        OVRScreenFade.instance.FadeOut();
         AsyncOperation asyncLoadOperation = SceneManager.LoadSceneAsync(sceneIndex);
         while (!asyncLoadOperation.isDone)
         {
             Debug.Log("Caricamento della scena " + sceneToLoad.name + " in corso...");
             yield return null;
         }
-        OVRScreenFade.instance.FadeIn();
         Debug.Log("Scena " + sceneToLoad.name + " caricata con successo.");
         actualBuildScene = SceneManager.GetActiveScene().buildIndex;
 
@@ -150,32 +150,21 @@ public class cAppManager : MonoBehaviour {
         SceneManager.SetActiveScene(loadedScene);
         Debug.Log("Scena " + sceneToLoad.name + " impostata come scena attiva.");
 
+        OVRScreenFade.instance.FadeIn();
         asyncLoadOperation = null;
     }
 
     private IEnumerator LoadSceneCor(int buildIndex) {
         //SHOW LOADING
         //ALE cMainUIManager.ShowLoading();
-        float orig = 1;
-        while (orig > 0) {
-            //colorAdjustments.colorFilter.value = new Color(orig, orig, orig);
-            orig -= Time.deltaTime * fadeSpeed;
-            yield return null;
-        }
-        //colorAdjustments.colorFilter.value = new Color(0, 0, 0);
 
-        AsyncOperation asyncLoadOperation = SceneManager.LoadSceneAsync(buildIndex);
-        while (!asyncLoadOperation.isDone) {
-            Debug.Log("Caricamento della scena " + buildIndex + " in corso...");
+        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(buildIndex);
+        while (!loadOperation.isDone)
+        {
             yield return null;
         }
         actualBuildScene = SceneManager.GetActiveScene().buildIndex;
 
-        Scene loadedScene = SceneManager.GetSceneByBuildIndex(buildIndex);
-        SceneManager.SetActiveScene(loadedScene);
-        Debug.Log("Scena " + buildIndex + " impostata come scena attiva.");
-
-        asyncLoadOperation = null;
 
         //HIDE LOADING
         //ALE cMainUIManager.HideLoading();
@@ -190,13 +179,6 @@ public class cAppManager : MonoBehaviour {
             }
         }*/
 
-        orig = 0;
-        while (orig < 1) {
-            //colorAdjustments.colorFilter.value = new Color(orig, orig, orig);
-            orig += Time.deltaTime * fadeSpeed;
-            yield return null;
-        }
-        //colorAdjustments.colorFilter.value = new Color(1, 1, 1);
     }
    
 
