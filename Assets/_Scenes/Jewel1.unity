@@ -241,7 +241,7 @@ MonoBehaviour:
   externalSurfaceWidth: 4096
   externalSurfaceHeight: 2048
   compositionDepth: 0
-  noDepthBufferTesting: 1
+  noDepthBufferTesting: 0
   layerTextureFormat: 0
   currentOverlayShape: 5
   textures:
@@ -731,6 +731,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 273156286}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &491420655 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7114770129336771053, guid: df64bf5efda75be4db0c812f9277d678, type: 3}
+  m_PrefabInstance: {fileID: 1998068840}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &550685631
 GameObject:
   m_ObjectHideFlags: 0
@@ -1417,8 +1422,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7050f350067260f4fb288932435e0f77, type: 3}
   - {fileID: 8300000, guid: 617f2c717c1dedc4785b6201c6fe878f, type: 3}
   _immersionDelay: 5
-  videoPlayer: {fileID: 1295062259}
-  goVideoPlayer: {fileID: 1295062257}
+  videoPlayer: {fileID: 1470982786}
+  goVideoPlayer: {fileID: 491420655}
   rotationVideoSpeed: 1
   _jewel1: {fileID: 1726250171}
   _activationDelay: 30
@@ -1464,7 +1469,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1191839126}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1539,6 +1544,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1295062258}
   - component: {fileID: 1295062259}
+  - component: {fileID: 1295062260}
   m_Layer: 0
   m_Name: Video
   m_TagString: Untagged
@@ -1598,6 +1604,70 @@ VideoPlayer:
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
   m_VideoShaders: []
+--- !u!114 &1295062260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295062257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4444ce35d262aa648ad0c425a559b931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentOverlayType: 1
+  isDynamic: 1
+  isProtectedContent: 0
+  srcRectLeft:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  srcRectRight:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  destRectLeft:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  destRectRight:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  invertTextureRects: 0
+  overrideTextureRectMatrix: 0
+  overridePerLayerColorScaleAndOffset: 0
+  colorScale: {x: 1, y: 1, z: 1, w: 1}
+  colorOffset: {x: 0, y: 0, z: 0, w: 0}
+  useExpensiveSuperSample: 0
+  useExpensiveSharpen: 0
+  hidden: 0
+  isExternalSurface: 0
+  externalSurfaceWidth: 0
+  externalSurfaceHeight: 0
+  compositionDepth: 0
+  noDepthBufferTesting: 0
+  layerTextureFormat: 0
+  currentOverlayShape: 0
+  textures:
+  - {fileID: 8400000, guid: 391bcb7db4931814ab49f00fbee02447, type: 2}
+  - {fileID: 0}
+  isAlphaPremultiplied: 0
+  useBicubicFiltering: 0
+  useLegacyCubemapRotation: 0
+  useEfficientSupersample: 0
+  useEfficientSharpen: 0
+  useAutomaticFiltering: 0
+  _previewInEditor: 0
 --- !u!1 &1321432531
 GameObject:
   m_ObjectHideFlags: 0

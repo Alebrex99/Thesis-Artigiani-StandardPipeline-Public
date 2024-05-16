@@ -135,6 +135,10 @@ PrefabInstance:
       propertyPath: _previewInEditor
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1585551896868121886, guid: dda2aeea1faae654d8986620127b767e, type: 3}
+      propertyPath: noDepthBufferTesting
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2740586813578101109, guid: dda2aeea1faae654d8986620127b767e, type: 3}
       propertyPath: m_Name
       value: IMAGEN 180

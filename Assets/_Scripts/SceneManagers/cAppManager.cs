@@ -130,7 +130,6 @@ public class cAppManager : MonoBehaviour {
 
     IEnumerator GoToSceneAsyncRoutine(int sceneIndex)
     {
-        OVRScreenFade.instance.FadeIn();
         Scene sceneToLoad = SceneManager.GetSceneByBuildIndex(sceneIndex);
         if (sceneToLoad.IsValid() && sceneToLoad.isLoaded)
         {
@@ -143,6 +142,7 @@ public class cAppManager : MonoBehaviour {
             Debug.Log("Caricamento della scena " + sceneToLoad.name + " in corso...");
             yield return null;
         }
+        OVRScreenFade.instance.FadeIn();
         Debug.Log("Scena " + sceneToLoad.name + " caricata con successo.");
         actualBuildScene = SceneManager.GetActiveScene().buildIndex;
 
