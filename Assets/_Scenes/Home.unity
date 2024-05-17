@@ -17549,9 +17549,6 @@ MonoBehaviour:
   blockId: 76a013d1-7c16-4a60-9c1b-79b3691c0438
   instanceId: a9d56ee3-3a4f-4f72-a9f1-bc5b715a057f
   version: 1
-  installationRoutineCheckpoint:
-    _installationRoutineId: 
-    _installationVariants: []
 --- !u!4 &1191942629
 Transform:
   m_ObjectHideFlags: 0
@@ -26751,9 +26748,6 @@ MonoBehaviour:
   blockId: 5838e892-31a4-4f65-a415-dc108aefa14c
   instanceId: d20c7f53-7a5c-4b50-a27d-0c4fd4787e78
   version: 1
-  installationRoutineCheckpoint:
-    _installationRoutineId: 
-    _installationVariants: []
 --- !u!4 &2107742153
 Transform:
   m_ObjectHideFlags: 0
