@@ -854,8 +854,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 27673ac1-cdb0-443f-a07d-6ff1d34daeca
-  instanceId: 78c2dc7f-83e1-4afb-b8fa-9ec55cfc604d
+  instanceId: ab91cfd0-9a13-4b86-b903-11f29f235f95
   version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: 
+    _installationVariants: []
 --- !u!114 &3864337715041229691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1512,8 +1515,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: e47682b9-c270-40b1-b16d-90b627a5ce1b
-  instanceId: e8b35822-2961-4d96-8831-5f6eaeb33094
+  instanceId: 69758388-889b-41c6-87a3-c98c10c904bc
   version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: 
+    _installationVariants: []
 --- !u!114 &9031458781061674697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3908,8 +3914,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 5817f7c0-f2a5-45f9-a5ca-64264e0166e8
-  instanceId: 6c3b6fc3-7864-499b-906d-98653eb49962
+  instanceId: 9ec898b0-a6fe-4965-a996-d73ccfef876c
   version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: 
+    _installationVariants: []
 --- !u!114 &9194594536568796821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5720,8 +5729,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f61a01e5-61c7-4589-bd2d-107bccae8f02
-  instanceId: 1b992192-3c1a-42df-a523-fcc221f0f9a6
+  instanceId: 4b1407d0-a55c-4b8e-8a2c-175343a21df5
   version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: 
+    _installationVariants: []
 --- !u!114 &1678786108637742610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7530,8 +7542,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: c548f276-b935-4fcd-b6e0-4d85fca34abf
+  instanceId: ec07212a-d6b4-4bcd-a3e6-3a5df2cdb052
   version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: 
+    _installationVariants: []
 --- !u!114 &5167970054339291579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7940,6 +7955,7 @@ GameObject:
   - component: {fileID: 5517599754108440785}
   - component: {fileID: 9032703062339181542}
   - component: {fileID: 3431683346320275688}
+  - component: {fileID: 5118118867242137119}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
@@ -8010,7 +8026,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967263
+    m_Bits: 119
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -8022,6 +8038,22 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &5118118867242137119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3610883737138765705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8e1d778abf442e4bec449c360e9e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTime: 10
+  fadeColor: {r: 0.01, g: 0.01, b: 0.01, a: 1}
+  fadeOnStart: 1
+  renderQueue: -1
 --- !u!1 &3664844233466748821
 GameObject:
   m_ObjectHideFlags: 0
@@ -9423,8 +9455,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: bc3f7b21-a55c-4cf7-b9c6-78d4341573a4
-  instanceId: e7b97c33-ee87-4c82-a4e3-9f82e2c602d2
+  instanceId: 3303804d-2ede-48dc-ab51-6ff31b0a71a7
   version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: 
+    _installationVariants: []
 --- !u!114 &4916697682555012771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9646,8 +9681,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: 7eb0ec2e-da7b-4d88-b34d-770d143d1d2c
+  instanceId: 51ec26e9-3bdf-4a9e-87c9-cd786e2c4a48
   version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: 
+    _installationVariants: []
 --- !u!114 &4487916042506295237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10232,8 +10270,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 27673ac1-cdb0-443f-a07d-6ff1d34daeca
-  instanceId: 08744b45-9a97-4e8c-a060-07b03e9489bf
+  instanceId: 9186fcea-501f-4026-97ac-ccf61f5176e0
   version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: 
+    _installationVariants: []
 --- !u!114 &840192149345399125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11200,8 +11241,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 5817f7c0-f2a5-45f9-a5ca-64264e0166e8
-  instanceId: f9aab346-f062-4a72-bdbf-f3a87108e7d2
+  instanceId: 977d3087-d23d-42f0-843d-a46f01de64e0
   version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: 
+    _installationVariants: []
 --- !u!114 &8919748781615497628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12147,8 +12191,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: 17ce5e44-254d-4981-9d08-b7b23bcf6443
+  instanceId: af1b2ec6-34d2-469d-95a8-84355f13d1cc
   version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: 
+    _installationVariants: []
 --- !u!114 &7787407109730256385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12961,8 +13008,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 16328709-1c4d-473e-a024-a4f2f104969f
+  instanceId: a9fa1304-a450-4387-b764-76e6b26a9ef0
   version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: 
+    _installationVariants: []
 --- !u!114 &8896785944959933945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13331,8 +13381,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 0393ca30-f2a9-4865-a40f-f9a68d01c3a9
-  instanceId: cf471f8d-cea9-4117-a9af-29c75f2492c7
+  instanceId: 7e4480da-0694-4bb1-ab63-25ec97230f9e
   version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: 
+    _installationVariants: []
 --- !u!114 &5030639913197480324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13828,8 +13881,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: bc3f7b21-a55c-4cf7-b9c6-78d4341573a4
-  instanceId: 05191a81-1d5e-458a-8b0e-f8da04b87156
+  instanceId: 42a3cdde-242d-41a3-8cc7-afed1cfd9c9f
   version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: 
+    _installationVariants: []
 --- !u!114 &6018620129876326504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16873,8 +16929,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 81f55626-5fad-45e9-a1df-184f330da7ba
-  instanceId: 105ddb91-a370-4151-a605-396574c34369
+  instanceId: 08ba1124-e794-4a91-b220-5ee0a99377ac
   version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: 
+    _installationVariants: []
 --- !u!114 &7104186689246585070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18356,8 +18415,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f61a01e5-61c7-4589-bd2d-107bccae8f02
-  instanceId: 4c13e9ec-658b-43f2-a011-2cc8d129ebcc
+  instanceId: 5f9c1341-f83a-43e5-9d2a-c4f336f849cc
   version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: 
+    _installationVariants: []
 --- !u!114 &3120733271171801741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19754,6 +19816,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4890363388926466312, guid: 3b0c8f95c62c84f439d9e3c3ee51bd76, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4890363388926466312, guid: 3b0c8f95c62c84f439d9e3c3ee51bd76, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4890363388926466312, guid: 3b0c8f95c62c84f439d9e3c3ee51bd76, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4890363388926466312, guid: 3b0c8f95c62c84f439d9e3c3ee51bd76, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -19763,7 +19837,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4890363388926466312, guid: 3b0c8f95c62c84f439d9e3c3ee51bd76, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.106
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4890363388926466312, guid: 3b0c8f95c62c84f439d9e3c3ee51bd76, type: 3}
       propertyPath: m_LocalRotation.w
@@ -19793,6 +19867,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5873768356994576315, guid: 3b0c8f95c62c84f439d9e3c3ee51bd76, type: 3}
+      propertyPath: fadeDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8291163699517017989, guid: 3b0c8f95c62c84f439d9e3c3ee51bd76, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
