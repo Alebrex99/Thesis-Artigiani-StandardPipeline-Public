@@ -2346,7 +2346,7 @@ MonoBehaviour:
   layerTextureFormat: 0
   currentOverlayShape: 0
   textures:
-  - {fileID: 2800000, guid: 5bc643cd9699def4fa325cdbb94d5801, type: 3}
+  - {fileID: 2800000, guid: 94aeadc85c8874d44a9aa1b5dd7fa727, type: 3}
   - {fileID: 0}
   isAlphaPremultiplied: 0
   useBicubicFiltering: 0
@@ -3858,7 +3858,7 @@ MonoBehaviour:
   layerTextureFormat: 0
   currentOverlayShape: 0
   textures:
-  - {fileID: 2800000, guid: 5bc643cd9699def4fa325cdbb94d5801, type: 3}
+  - {fileID: 2800000, guid: 94aeadc85c8874d44a9aa1b5dd7fa727, type: 3}
   - {fileID: 0}
   isAlphaPremultiplied: 0
   useBicubicFiltering: 0
