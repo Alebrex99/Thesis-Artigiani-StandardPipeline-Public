@@ -48,7 +48,11 @@ public class cMainUIManager : MonoBehaviour{
             instance.goMainCanvas.SetActive(false);*/
     }
 
+    //POSSIBILITA MENU
+    public static void ShowMenu()
+    {
 
+    }
 
 
 

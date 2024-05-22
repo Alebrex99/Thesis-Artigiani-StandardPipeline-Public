@@ -213,6 +213,30 @@ public class cAppManager : MonoBehaviour {
 
     public static void BackHome()
     {
+        //swtich in base alla scena attuale in cui sono 
+        switch (actualScene)
+        {
+            case Scenes.INTRO:
+                IntroManager.instance.videoPlayer.Stop();
+                break;
+            case Scenes.HOME:
+                
+                break;
+            case Scenes.JEWEL1:
+                
+                break;
+            case Scenes.JEWEL2:
+                
+                break;
+            case Scenes.JEWEL3:
+                
+                break;
+            case Scenes.JEWEL4:
+                
+                break;
+            default:
+                break;
+        }
         LoadScene(Scenes.HOME);
     }
 
