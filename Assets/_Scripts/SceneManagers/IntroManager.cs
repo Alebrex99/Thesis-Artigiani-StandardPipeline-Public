@@ -16,10 +16,12 @@ public class IntroManager : MonoBehaviour
     [SerializeField] private float rotationVideoSpeed = 1;
     private bool bShownVideo = false;
 
-    //cSceneInfo : video + animation logo
+    //cSceneInfo + MENU : video + animation logo
     public Transform userInitPos;
     private float timeLastClick = 0;
     [SerializeField] Animator animLogo;
+    [SerializeField] private GameObject menuCanvas;
+    [SerializeField] private cMenuLoad srcMenuLoad; //solo se il pannello del menu ha comportamenti particolari
 
     //AUDIO
     public AudioSource voiceAudio;
@@ -33,6 +35,7 @@ public class IntroManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
     }
 
     private void OnEnable()
@@ -70,9 +73,11 @@ public class IntroManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         ResetUserPosition();
+        //MENU : cStMenu
+        
         _buttonHome.gameObject.SetActive(false);
+        ShowMenuCanvas();
         //START VOICE AUDIO
         if (voiceAudio != null && videoPlayer !=null)
         {
@@ -86,6 +91,22 @@ public class IntroManager : MonoBehaviour
         StartCoroutine(LateActivation(_buttonHome.gameObject, _activationButtonDelay));
         //_buttonHome.OnButtonPressed += OnButtonPressedEffect;
     }
+
+    //GESTIONE MENU SCARICAMENTO CONFIG: cStMenu
+    public void ShowMenuCanvas()
+    {
+        menuCanvas.SetActive(true); //show canvas of the Menu (managed from cMenuLoad)
+        menuCanvas.transform.position = cXRManager.GetTrCenterEye().position + cXRManager.GetTrCenterEye().forward*0.8f; // ALE 0.5f
+        menuCanvas.transform.rotation = cXRManager.GetTrCenterEye().localRotation; //ALE
+        Debug.Log("DOVREBBE ESSERE OK LA POSIZIONE DEL MENU");
+        srcMenuLoad.ShowMenu();
+    }
+    public void HideMenuCanvas()
+    {
+        srcMenuLoad.HideMenu();
+        menuCanvas.SetActive(false);
+    }
+
 
     /*private void OnButtonPressedEffect(Button3D buttonPressed, bool isButtonPressed)
     {

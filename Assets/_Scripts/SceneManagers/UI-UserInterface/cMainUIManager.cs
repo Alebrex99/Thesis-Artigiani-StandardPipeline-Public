@@ -47,6 +47,30 @@ public class cMainUIManager : MonoBehaviour{
         /*ALE if (!instance.scrAlert.IsShowing())
             instance.goMainCanvas.SetActive(false);*/
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static void ShowAlert(string mens, Action func = null, bool showCancel = false) {
         instance.goMainCanvas.SetActive(true);
         instance.goMainCanvas.transform.position = cXRManager.GetTrCenterEye().position + cXRManager.GetTrCenterEye().forward * 0.5f;

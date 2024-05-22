@@ -21,7 +21,7 @@ public class ReadConfig : MonoBehaviour
         instance = this;
         //CSV
         filePathCsv = Application.persistentDataPath + "/config.csv";
-        StartCoroutine(ReadCSVFile(filePathCsv));
+        //StartCoroutine(ReadCSVFile(filePathCsv)); //commentato se chiamata da cMenuLoad
     }
 
     // Start is called before the first frame update
