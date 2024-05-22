@@ -20850,6 +20850,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goMainCanvas: {fileID: 964032469}
   scrLoading: {fileID: 1401071246}
+  loadingDistance: 0.5
 --- !u!1 &1415730248
 GameObject:
   m_ObjectHideFlags: 0
@@ -27157,6 +27158,27 @@ Transform:
   - {fileID: 1505020117}
   m_Father: {fileID: 8761634306736702439}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: -90}
+--- !u!65 &1956238528
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1209400726}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.7796963, y: 0.4856004, z: 0.5286149}
+  m_Center: {x: -0.002548039, y: 0.01905182, z: 0.059878647}
 --- !u!1 &1969895895
 GameObject:
   m_ObjectHideFlags: 0
@@ -29504,6 +29526,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3117616286895852237, guid: 45f285228c5c02142a675c390fe7bfd1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 316689633}
+    - targetCorrespondingSourceObject: {fileID: 3117616286895852237, guid: 45f285228c5c02142a675c390fe7bfd1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1956238528}
     - targetCorrespondingSourceObject: {fileID: 5744658601956913716, guid: 45f285228c5c02142a675c390fe7bfd1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 747489478936998026}

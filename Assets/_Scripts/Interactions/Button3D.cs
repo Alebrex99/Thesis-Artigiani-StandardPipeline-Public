@@ -56,10 +56,9 @@ public class Button3D : MonoBehaviour
 
     public void BackToHome()
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false); //sistemato con il trigger sul info canvas
         cAppManager.BackHome();
         /*Scenes scene = Scenes.HOME;
-        cAppManager.SelectedScene = (int)scene;
         cAppManager.LoadScene(scene);*/
     }
 

@@ -337,6 +337,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8922143692331551082}
   - component: {fileID: 8100876294507403975}
+  - component: {fileID: 7595434567031638939}
   m_Layer: 0
   m_Name: BottonHome
   m_TagString: Untagged
@@ -377,6 +378,27 @@ MonoBehaviour:
   ButtonName: ButtonHome
   _environmentOn: {fileID: 0}
   _environmentMain: {fileID: 0}
+--- !u!65 &7595434567031638939
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363589446126237819}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.17785247, y: 0.115857534, z: 0.17531174}
+  m_Center: {x: 0.007852726, y: 0.13484704, z: -0.022778101}
 --- !u!1 &1329649033326303782
 GameObject:
   m_ObjectHideFlags: 0

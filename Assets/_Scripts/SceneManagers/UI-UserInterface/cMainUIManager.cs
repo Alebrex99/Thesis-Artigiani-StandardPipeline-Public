@@ -8,6 +8,8 @@ using UnityEngine.Events;
 public class cMainUIManager : MonoBehaviour{
     public GameObject goMainCanvas;
     public cLoading scrLoading;
+    [Range(0, 2)]
+    public float loadingDistance = 0.5f;
     //ALE public cAlertWindow scrAlert;
     //ALE public cUITutorial scrTutorial;
     //ALE public TextMeshProUGUI txLog;
@@ -25,17 +27,21 @@ public class cMainUIManager : MonoBehaviour{
 
     public static void ShowLoading(string text = null) {
         instance.goMainCanvas.SetActive(true);
-        instance.goMainCanvas.transform.parent = cXRManager.GetTrCenterEye();//ALE
-        instance.goMainCanvas.transform.position = cXRManager.GetTrCenterEye().position + cXRManager.GetTrCenterEye().forward*0.5f; //0.5f
-        instance.goMainCanvas.transform.rotation = Quaternion.LookRotation(instance.goMainCanvas.transform.position - cXRManager.GetTrCenterEye().position);
-        instance.goMainCanvas.transform.eulerAngles = new Vector3(0, instance.goMainCanvas.transform.eulerAngles.y, 0);
+        //instance.goMainCanvas.transform.parent = cXRManager.GetTrCenterEye();//ALE
+        //instance.goMainCanvas.transform.position = cXRManager.GetTrCenterEye().position + cXRManager.GetTrCenterEye().forward * instance.loadingDistance; //0.5f
+        //instance.goMainCanvas.transform.rotation = Quaternion.LookRotation(instance.goMainCanvas.transform.position - cXRManager.GetTrCenterEye().position);
+        //instance.goMainCanvas.transform.eulerAngles = new Vector3(0, instance.goMainCanvas.transform.eulerAngles.y, 0);
+
+        //in posizione locale della camera : dove effettivamente guardo
+        instance.goMainCanvas.transform.position = cXRManager.GetTrCenterEye().position + cXRManager.GetTrCenterEye().forward* instance.loadingDistance; // ALE 0.5f
+        instance.goMainCanvas.transform.rotation = cXRManager.GetTrCenterEye().localRotation; //ALE
         instance.scrLoading.ShowLoading(text);
     }
     public static void HideLoading() {
         instance.scrLoading.HideLoading();
         instance.goMainCanvas.SetActive(false); //ALE
         // Reset goMainCanvas to its original parent
-        cMainUIManager.instance.goMainCanvas.transform.parent = null; //ALE
+        //cMainUIManager.instance.goMainCanvas.transform.parent = null; //ALE
         /*ALE if (!instance.scrAlert.IsShowing())
             instance.goMainCanvas.SetActive(false);*/
     }

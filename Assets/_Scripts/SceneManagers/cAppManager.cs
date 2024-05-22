@@ -90,7 +90,6 @@ public class cAppManager : MonoBehaviour {
     public static Scenes GetActualScene() {
         return actualScene;
     }
-
     public static int GetActualBuildScene()
     {
         return actualBuildScene;
@@ -113,9 +112,9 @@ public class cAppManager : MonoBehaviour {
         Debug.Log("[App] Load Scene");
         actualScene = scene; //SET LA SCENA CORRENTE (es. Intro)
         actualBuildScene = (int)scene;
-        //instance.StartCoroutine(instance.GoToSceneAsyncRoutine((int)scene));
         instance.StartCoroutine(instance.ChangeSceneCor(actualBuildScene));
         //instance.StartCoroutine(instance.ChangeScene2(actualBuildScene));
+        //instance.StartCoroutine(instance.GoToSceneAsyncRoutine((int)scene));
     }
 
     IEnumerator GoToSceneAsyncRoutine(int sceneIndex)
@@ -146,7 +145,7 @@ public class cAppManager : MonoBehaviour {
         OVRScreenFade.instance.FadeIn();
         asyncLoadOperation = null;
     }
-    //VERSIONE LOADING (JESUS + ALE)
+    //VERSIONE LOADING (ALE)
     IEnumerator ChangeSceneCor(int sceneIndex)
     {
         cMainUIManager.ShowLoading(); //cDontDestroy.instance.gameObject.SetActive(true);
@@ -159,7 +158,7 @@ public class cAppManager : MonoBehaviour {
             Debug.Log("La scena " + sceneToLoad.name + " è già caricata.");
             yield break;
         }
-        //OVRScreenFade.instance.FadeOut();
+        OVRScreenFade.instance.FadeOut();
         
         asyncLoadOperation = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
         yield return new WaitForEndOfFrame();
@@ -190,8 +189,8 @@ public class cAppManager : MonoBehaviour {
 
         actualBuildScene = SceneManager.GetActiveScene().buildIndex;
         asyncLoadOperation = null;
-        //OVRScreenFade.instance.FadeIn();
-        cMainUIManager.HideLoading(); 
+        cMainUIManager.HideLoading();
+        OVRScreenFade.instance.FadeIn();
     }
     IEnumerator ChangeScene2(int sceneIndex)
     {
