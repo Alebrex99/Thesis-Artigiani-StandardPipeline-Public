@@ -28,11 +28,19 @@ public class IntroManager : MonoBehaviour
     [SerializeField] private Transform _buttonHomeInitPos;
     [SerializeField] private Button3D _buttonHome;
     [Range(0, 60)]
-    [SerializeField] private float _activationDelay = 1f;
+    [SerializeField] private float _activationButtonDelay = 1f;
 
     private void Awake()
     {
         instance = this;
+    }
+
+    private void OnEnable()
+    {
+        //READ CSV FILE: loading distance + fadetime + rotation video speed + activation delay
+        //READ FROM FILE CSV
+        //stampa tutta la lista come una stringa
+        string introData = ReadConfig.configData.Find((string line) => line.Contains("INTRO"));
     }
 
     private void Update()
@@ -62,6 +70,7 @@ public class IntroManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         ResetUserPosition();
         _buttonHome.gameObject.SetActive(false);
         //START VOICE AUDIO
@@ -74,9 +83,7 @@ public class IntroManager : MonoBehaviour
         videoPlayer.loopPointReached += EndVideo;
         //Invoke(nameof(EndAudio), voiceAudio.clip.length);
 
-
-        //attivazione bottone Home (puoi metterlo in EndVideo volendo)
-        StartCoroutine(LateActivation(_buttonHome.gameObject, _activationDelay));
+        StartCoroutine(LateActivation(_buttonHome.gameObject, _activationButtonDelay));
         //_buttonHome.OnButtonPressed += OnButtonPressedEffect;
     }
 

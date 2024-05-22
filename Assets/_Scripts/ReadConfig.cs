@@ -5,30 +5,32 @@ using TMPro;
 using System;
 using System.IO;
 
-public class ReadText : MonoBehaviour
+public class ReadConfig : MonoBehaviour
 {
-    public static ReadText instance;
-    [SerializeField] private TextMeshProUGUI myText;
-    private string filePath;
+    public static ReadConfig instance;
+    //[SerializeField] private TextMeshProUGUI myText;
+    private string filePathCsv;
+    private string filePathTxt;
     private int currentLineIndex = 0;
 
     //CSV
-    private List<string> configData = new List<string>();
+    public static List<string> configData = new List<string>();
 
     void Awake()
     {
         instance = this;
+        //CSV
+        filePathCsv = Application.persistentDataPath + "/config.csv";
+        StartCoroutine(ReadCSVFile(filePathCsv));
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        filePath = Application.persistentDataPath + "/append.txt";
+        filePathTxt = Application.persistentDataPath + "/append.txt";
         //myText.text = GetLineAtIndex(currentLineIndex);
 
-        //CSV
-        filePath = Application.persistentDataPath + "/config.csv";
-        StartCoroutine(ReadCSVFile(filePath));
+       
     }
 
     private IEnumerator ReadCSVFile(string filePath)
@@ -59,13 +61,15 @@ public class ReadText : MonoBehaviour
                     Debug.Log("Data: " + data_values[0].ToString() + " " + data_values[1].ToString());*/
                     
                     //Usa Lista
+                    var line_values = line.Split(';'); //accesso ai valori della riga
                     configData.Add(line);
                     Debug.Log("Line: " + line);
+                   
                 }
             }
         }
 
-        /*StreamReader streamReader = new StreamReader(filePath);
+        /*StreamReader streamReader = new StreamReader(filePathCsv);
         bool endOfFile = false;
         while (!endOfFile)
         {
@@ -81,14 +85,17 @@ public class ReadText : MonoBehaviour
         }*/
     }
 
-
+    public static void ReadFile()
+    {
+        instance.StartCoroutine(instance.ReadCSVFile(instance.filePathCsv));
+    }
 
 
 
     //TXT
-    private string GetLineAtIndex(int index)
+    /*private string GetLineAtIndex(int index)
     {
-        string[] lines = File.ReadAllLines(filePath);
+        string[] lines = File.ReadAllLines(filePathTxt);
         if(index < lines.Length)
         {
             return lines[index];
@@ -102,8 +109,8 @@ public class ReadText : MonoBehaviour
     public void NextLine()
     {
         currentLineIndex++;
-        myText.text = GetLineAtIndex(currentLineIndex);
-    }
+        //myText.text = GetLineAtIndex(currentLineIndex);
+    }*/
 
 
 }

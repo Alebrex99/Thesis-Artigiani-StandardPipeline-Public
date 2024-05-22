@@ -8,6 +8,8 @@ using UnityEngine.Events;
 public class cMainUIManager : MonoBehaviour{
     public GameObject goMainCanvas;
     public cLoading scrLoading;
+    [Range(0,10)]
+    private float loadingTime= 1f;
     [Range(0, 2)]
     public float loadingDistance = 0.5f;
     //ALE public cAlertWindow scrAlert;
