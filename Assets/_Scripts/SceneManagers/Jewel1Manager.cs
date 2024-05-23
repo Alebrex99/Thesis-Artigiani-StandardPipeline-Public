@@ -86,7 +86,8 @@ public class Jewel1Manager : MonoBehaviour
     private IEnumerator LateActivation(GameObject toActivate, float _activationDelay)
     {
         yield return new WaitForSeconds(_activationDelay);
-        toActivate.transform.position = _jewelInitPos.position + new Vector3(0, toActivate.transform.position.y, 0);
+        //toActivate.transform.position = _jewelInitPos.position + new Vector3(0, toActivate.transform.position.y, 0);
+        toActivate.transform.position = _jewelInitPos.position;
         toActivate.SetActive(true);
     }
 
