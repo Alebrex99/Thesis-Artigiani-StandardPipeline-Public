@@ -8,6 +8,8 @@ using UnityEngine.Events;
 public class cMainUIManager : MonoBehaviour{
     public GameObject goMainCanvas;
     public cLoading scrLoading;
+    public cMenuLoad scrMenuLoad;
+
     [Range(0,10)]
     private float loadingTime= 1f;
     [Range(0, 2)]
@@ -22,19 +24,20 @@ public class cMainUIManager : MonoBehaviour{
 
     private void Awake() {
         instance = this;
-        goMainCanvas.SetActive(false);
+        goMainCanvas.SetActive(false); //all'inizio è tutto disattivato
         logUpdated = new UnityEvent<string>();
         //ALE pnLogs.SetActive(false);
     }
 
     public static void ShowLoading(string text = null) {
         instance.goMainCanvas.SetActive(true);
-        //instance.goMainCanvas.transform.parent = cXRManager.GetTrCenterEye();//ALE
+        instance.goMainCanvas.transform.parent = cXRManager.GetTrCenterEye();//ALE, puoi anche non metterlo come Parent se vuoi
+        //ORIGINAL VERSION:
         //instance.goMainCanvas.transform.position = cXRManager.GetTrCenterEye().position + cXRManager.GetTrCenterEye().forward * instance.loadingDistance; //0.5f
         //instance.goMainCanvas.transform.rotation = Quaternion.LookRotation(instance.goMainCanvas.transform.position - cXRManager.GetTrCenterEye().position);
         //instance.goMainCanvas.transform.eulerAngles = new Vector3(0, instance.goMainCanvas.transform.eulerAngles.y, 0);
 
-        //in posizione locale della camera : dove effettivamente guardo
+        //ALE VERSION : IN FRONT OF THE USER
         instance.goMainCanvas.transform.position = cXRManager.GetTrCenterEye().position + cXRManager.GetTrCenterEye().forward* instance.loadingDistance; // ALE 0.5f
         instance.goMainCanvas.transform.rotation = cXRManager.GetTrCenterEye().localRotation; //ALE
         instance.scrLoading.ShowLoading(text);
@@ -42,16 +45,26 @@ public class cMainUIManager : MonoBehaviour{
     public static void HideLoading() {
         instance.scrLoading.HideLoading();
         instance.goMainCanvas.SetActive(false); //ALE
-        // Reset goMainCanvas to its original parent
-        //cMainUIManager.instance.goMainCanvas.transform.parent = null; //ALE
+        //Reset goMainCanvas to its original parent
+        cMainUIManager.instance.goMainCanvas.transform.parent = null; //ALE
+        
         /*ALE if (!instance.scrAlert.IsShowing())
             instance.goMainCanvas.SetActive(false);*/
     }
 
-    //POSSIBILITA MENU
-    public static void ShowMenu()
+    //GESTIONE MENU SCARICAMENTO CONFIG: cStMenu
+    public static void ShowMenuCanvas()
     {
+        instance.goMainCanvas.SetActive(true); //show canvas of the Menu (managed from cMenuLoad)
+        instance.goMainCanvas.transform.position = cXRManager.GetTrCenterEye().position + cXRManager.GetTrCenterEye().forward * instance.loadingDistance; // ALE 0.5f
 
+        instance.goMainCanvas.transform.rotation = cXRManager.GetTrCenterEye().localRotation; //ALE
+        instance.scrMenuLoad.ShowMenu();
+    }
+    public static void HideMenuCanvas()
+    {
+        instance.scrMenuLoad.HideMenu();
+        instance.goMainCanvas.SetActive(false); //ALE
     }
 
 

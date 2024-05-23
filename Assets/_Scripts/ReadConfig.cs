@@ -9,10 +9,10 @@ public class ReadConfig : MonoBehaviour
 {
     public static ReadConfig instance;
     //[SerializeField] private TextMeshProUGUI myText;
-    private string filePathCsv;
-    private string filePathTxt;
+    public static string filePathCsv;
+    public static string filePathTxt;
     private int currentLineIndex = 0;
-
+   
     //CSV
     public static List<string> configData = new List<string>();
 
@@ -33,19 +33,19 @@ public class ReadConfig : MonoBehaviour
        
     }
 
-    private IEnumerator ReadCSVFile(string filePath)
+    public static IEnumerator ReadCSVFile()
     {
-        filePath = filePath.Replace("\\", "/");
+        filePathCsv = filePathCsv.Replace("\\", "/");
         yield return new WaitForEndOfFrame();
 
-        if(!File.Exists(filePath))
+        if(!File.Exists(filePathCsv))
         {
-            Debug.LogError("File not found: " + filePath);
+            Debug.LogError("File not found: " + filePathCsv);
             yield break;
         }
         else
         {
-            using (StreamReader sr = new StreamReader(filePath))
+            using (StreamReader sr = new StreamReader(filePathCsv))
             {
                 bool endOfFile = false;
                 while (!endOfFile)
@@ -64,7 +64,6 @@ public class ReadConfig : MonoBehaviour
                     var line_values = line.Split(';'); //accesso ai valori della riga
                     configData.Add(line);
                     Debug.Log("Line: " + line);
-                   
                 }
             }
         }
@@ -87,7 +86,7 @@ public class ReadConfig : MonoBehaviour
 
     public static void ReadFile()
     {
-        instance.StartCoroutine(instance.ReadCSVFile(instance.filePathCsv));
+        instance.StartCoroutine(ReadCSVFile());
     }
 
 

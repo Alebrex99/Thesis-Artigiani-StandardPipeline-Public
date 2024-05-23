@@ -192,7 +192,7 @@ public class cAppManager : MonoBehaviour {
         cMainUIManager.HideLoading();
         OVRScreenFade.instance.FadeIn();
     }
-    IEnumerator ChangeScene2(int sceneIndex)
+    /*IEnumerator ChangeScene2(int sceneIndex)
     {
         cMainUIManager.ShowLoading();
         Scene sceneToLoad = SceneManager.GetSceneByBuildIndex(sceneIndex);
@@ -209,7 +209,7 @@ public class cAppManager : MonoBehaviour {
 
         actualBuildScene = SceneManager.GetActiveScene().buildIndex;
         cMainUIManager.HideLoading();
-    }
+    }*/
 
     public static void BackHome()
     {

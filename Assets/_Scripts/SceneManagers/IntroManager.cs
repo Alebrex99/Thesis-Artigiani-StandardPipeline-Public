@@ -20,8 +20,8 @@ public class IntroManager : MonoBehaviour
     public Transform userInitPos;
     private float timeLastClick = 0;
     [SerializeField] Animator animLogo;
-    [SerializeField] private GameObject menuCanvas;
-    [SerializeField] private cMenuLoad srcMenuLoad; //solo se il pannello del menu ha comportamenti particolari
+    //[SerializeField] private GameObject menuCanvas;
+    //[SerializeField] private cMenuLoad srcMenuLoad; //solo se il pannello del menu ha comportamenti particolari
 
     //AUDIO
     public AudioSource voiceAudio;
@@ -69,44 +69,53 @@ public class IntroManager : MonoBehaviour
             goVideoPlayer.transform.eulerAngles = new Vector3(0, euler.y, 0);
         }
     }
-
-    // Start is called before the first frame update
     void Start()
     {
+        _buttonHome.gameObject.SetActive(false);
+        goVideoPlayer.gameObject.SetActive(false);
         ResetUserPosition();
         //MENU : cStMenu
-        
-        _buttonHome.gameObject.SetActive(false);
-        ShowMenuCanvas();
-        //START VOICE AUDIO
-        if (voiceAudio != null && videoPlayer !=null)
+        //chiama invoke con la conversione del nome del metodo in stringa
+        StartCoroutine(ShowMenuCanvasDelayed());
+        //cMainUIManager.ShowMenuCanvas(); //Problema : qui la posizione dell'occhio è a terra, ecco perchè il Menu compare a terra
+        //SE FUNZIONA IL MENU : TUTTO LO START VIENE SPOSTATO DENTRO LA INIT APPLICATION
+
+    }
+    public void InitApplication()
+    {
+        //INIT ALL CONFIGURATION THAT ARE IN BACKGROUND (READ CONFIG FILE): CHIAMATO DA cMenuLoad
+        cMainUIManager.HideMenuCanvas();
+        cMainUIManager.ShowLoading();
+        StartCoroutine(InitApplicationCor());
+    }
+    private IEnumerator InitApplicationCor()
+    {
+        //LEGGO FILE CONFIG:
+        yield return StartCoroutine(ReadConfig.ReadCSVFile());
+        Debug.Log("FILE LETTOOOO");
+        cMainUIManager.HideLoading();
+
+        //ACCENDO LA SCENA
+        goVideoPlayer.gameObject.SetActive(true);
+        videoPlayer.loopPointReached += EndVideo;
+        //Start voice Audio
+        if (voiceAudio != null && videoPlayer != null)
         {
             videoPlayer.Play();
             bShownVideo = true;
             voiceAudio.Play();
         }
-        videoPlayer.loopPointReached += EndVideo;
         //Invoke(nameof(EndAudio), voiceAudio.clip.length);
-
         StartCoroutine(LateActivation(_buttonHome.gameObject, _activationButtonDelay));
         //_buttonHome.OnButtonPressed += OnButtonPressedEffect;
     }
 
-    //GESTIONE MENU SCARICAMENTO CONFIG: cStMenu
-    public void ShowMenuCanvas()
+    private IEnumerator ShowMenuCanvasDelayed()
     {
-        menuCanvas.SetActive(true); //show canvas of the Menu (managed from cMenuLoad)
-        menuCanvas.transform.position = cXRManager.GetTrCenterEye().position + cXRManager.GetTrCenterEye().forward*0.8f; // ALE 0.5f
-        menuCanvas.transform.rotation = cXRManager.GetTrCenterEye().localRotation; //ALE
-        Debug.Log("DOVREBBE ESSERE OK LA POSIZIONE DEL MENU");
-        srcMenuLoad.ShowMenu();
-    }
-    public void HideMenuCanvas()
-    {
-        srcMenuLoad.HideMenu();
-        menuCanvas.SetActive(false);
-    }
 
+       yield return new WaitUntil(() => cXRManager.GetTrCenterEye().position != GetUserInitTr().position);
+       cMainUIManager.ShowMenuCanvas();
+    }
 
     /*private void OnButtonPressedEffect(Button3D buttonPressed, bool isButtonPressed)
     {
@@ -115,7 +124,6 @@ public class IntroManager : MonoBehaviour
         String buttonPressedName = buttonPressed.getButtonName();
 
     }*/
-
 
     private void EndVideo(VideoPlayer source)
     {
@@ -132,29 +140,24 @@ public class IntroManager : MonoBehaviour
             cAppManager.LoadScene(Scenes.HOME);
         }
     }
-
     private void EndAudio()
     {
         cAppManager.LoadScene(Scenes.HOME);
         //ANIMAZIONI POSSIBILI : LOGO -> VIDEO
     }
-
     public Transform GetUserInitTr()
     {
         return userInitPos;
     }
-
     public void ResetUserPosition()
     {
         cXRManager.SetUserPosition(GetUserInitTr().position, GetUserInitTr().rotation);
     }
-
     public void SetVideo(VideoClip vc)
     {
         //setting video clip run time
         videoPlayer.clip = vc;
     }
-
     private IEnumerator LateActivation(GameObject toActivate, float _activationDelay)
     {
         yield return new WaitForSeconds(_activationDelay);
@@ -162,7 +165,26 @@ public class IntroManager : MonoBehaviour
         toActivate.SetActive(true);
     }
 
-   
+
+
+    //POSSIBILE GESTIONE DI UN CANVAS MENU SOLO INTRO (FATTO NEI PERSISTENTI)
+    //GESTIONE MENU SCARICAMENTO CONFIG: cStMenu
+    /*public void ShowMenuCanvas()
+    {
+        menuCanvas.SetActive(true); //show canvas of the Menu (managed from cMenuLoad)
+        menuCanvas.transform.position = cXRManager.GetTrCenterEye().position + cXRManager.GetTrCenterEye().forward * 0.8f; // ALE 0.5f
+        menuCanvas.transform.rotation = cXRManager.GetTrCenterEye().localRotation; //ALE
+        Debug.Log("DOVREBBE ESSERE OK LA POSIZIONE DEL MENU");
+        srcMenuLoad.ShowMenu();
+    }
+    public void HideMenuCanvas()
+    {
+        srcMenuLoad.HideMenu();
+        menuCanvas.SetActive(false);
+    }*/
+
+
+
 
 
 
