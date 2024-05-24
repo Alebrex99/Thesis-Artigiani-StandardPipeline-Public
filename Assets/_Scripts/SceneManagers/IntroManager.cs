@@ -19,7 +19,6 @@ public class IntroManager : MonoBehaviour
     //cSceneInfo + MENU : video + animation logo
     public Transform userInitPos;
     private float timeLastClick = 0;
-    private OVRScreenFade screenFade;
     [SerializeField] Animator animLogo;
     //[SerializeField] private GameObject menuCanvas;
     //[SerializeField] private cMenuLoad srcMenuLoad; //solo se il pannello del menu ha comportamenti particolari
@@ -36,7 +35,6 @@ public class IntroManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        screenFade.fadeTime = 5;
 
     }
 
@@ -67,7 +65,7 @@ public class IntroManager : MonoBehaviour
     {
         _buttonHome.gameObject.SetActive(false);
         goVideoPlayer.gameObject.SetActive(false);
-        
+        OVRScreenFade.instance.fadeTime = 5;
         ResetUserPosition();
         //MENU : cStMenu
         //chiama invoke con la conversione del nome del metodo in stringa

@@ -6667,7 +6667,6 @@ MonoBehaviour:
   _buttonHomeInitPos: {fileID: 313009160}
   _buttonHome: {fileID: 769258050}
   _activationButtonDelay: 5
-  _buttonLoad: {fileID: 0}
 --- !u!4 &1872086173
 Transform:
   m_ObjectHideFlags: 0

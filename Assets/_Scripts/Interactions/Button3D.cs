@@ -60,7 +60,11 @@ public class Button3D : MonoBehaviour
         cAppManager.LoadScene(scene);*/
     }
 
-
+    public void CallConversationalAgent()
+    {
+        cAppManager.CallConversationalAgent();
+        //FAI COSE SE E' CHIAMABILE SOLO DA BOTTONI
+    }
 
 
 

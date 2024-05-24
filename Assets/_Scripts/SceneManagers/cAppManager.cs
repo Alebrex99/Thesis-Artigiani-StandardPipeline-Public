@@ -240,7 +240,10 @@ public class cAppManager : MonoBehaviour {
         LoadScene(Scenes.HOME);
     }
 
-
+    public static void CallConversationalAgent()
+    {
+        //CHIAMATA ALL'AI : METTO SE DEVE ESSERE POSSIBILE OVUNQUE
+    }
 
 
 
