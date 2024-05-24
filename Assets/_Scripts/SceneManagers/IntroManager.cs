@@ -19,6 +19,7 @@ public class IntroManager : MonoBehaviour
     //cSceneInfo + MENU : video + animation logo
     public Transform userInitPos;
     private float timeLastClick = 0;
+    private OVRScreenFade screenFade;
     [SerializeField] Animator animLogo;
     //[SerializeField] private GameObject menuCanvas;
     //[SerializeField] private cMenuLoad srcMenuLoad; //solo se il pannello del menu ha comportamenti particolari
@@ -35,15 +36,8 @@ public class IntroManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        screenFade.fadeTime = 5;
 
-    }
-
-    private void OnEnable()
-    {
-        //READ CSV FILE: loading distance + fadetime + rotation video speed + activation delay
-        //READ FROM FILE CSV
-        //stampa tutta la lista come una stringa
-        string introData = ReadConfig.configData.Find((string line) => line.Contains("INTRO"));
     }
 
     private void Update()
@@ -73,10 +67,11 @@ public class IntroManager : MonoBehaviour
     {
         _buttonHome.gameObject.SetActive(false);
         goVideoPlayer.gameObject.SetActive(false);
+        
         ResetUserPosition();
         //MENU : cStMenu
         //chiama invoke con la conversione del nome del metodo in stringa
-        StartCoroutine(ShowMenuCanvasDelayed());
+        StartCoroutine(InitMenuCanvas());
         //cMainUIManager.ShowMenuCanvas(); //Problema : qui la posizione dell'occhio è a terra, ecco perchè il Menu compare a terra
         //SE FUNZIONA IL MENU : TUTTO LO START VIENE SPOSTATO DENTRO LA INIT APPLICATION
 
@@ -95,6 +90,11 @@ public class IntroManager : MonoBehaviour
         Debug.Log("FILE LETTOOOO");
         cMainUIManager.HideLoading();
 
+        //READ CSV FILE: loading distance + fadetime + rotation video speed + activation delay
+        //READ FROM FILE CSV
+        string introData = ReadConfig.configData.Find((string line) => line.Contains("INTRO"));
+
+
         //ACCENDO LA SCENA
         goVideoPlayer.gameObject.SetActive(true);
         videoPlayer.loopPointReached += EndVideo;
@@ -110,9 +110,8 @@ public class IntroManager : MonoBehaviour
         //_buttonHome.OnButtonPressed += OnButtonPressedEffect;
     }
 
-    private IEnumerator ShowMenuCanvasDelayed()
+    private IEnumerator InitMenuCanvas()
     {
-
        yield return new WaitUntil(() => cXRManager.GetTrCenterEye().position != GetUserInitTr().position);
        cMainUIManager.ShowMenuCanvas();
     }
@@ -161,8 +160,9 @@ public class IntroManager : MonoBehaviour
     private IEnumerator LateActivation(GameObject toActivate, float _activationDelay)
     {
         yield return new WaitForSeconds(_activationDelay);
-        toActivate.transform.position = _buttonHomeInitPos.position;
         toActivate.SetActive(true);
+        toActivate.transform.position = _buttonHomeInitPos.position;
+        toActivate.transform.rotation = _buttonHomeInitPos.rotation;
     }
 
 

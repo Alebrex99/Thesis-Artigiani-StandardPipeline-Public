@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LoadingTrigger : MonoBehaviour
 {
+    //OGGETTI DA IGNORARE:
+    [SerializeField] private GameObject[] goToIgnore;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,10 +22,11 @@ public class LoadingTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("SOLO PLAYER DENTRO TRIGGER");
-        if (other.gameObject != GetComponent<OVRCameraRig>())
+        if (goToIgnore.Contains<GameObject>(other.gameObject))
         {
-            Debug.Log("RILEVATI OGGETTI NEL TRIGGER");
-            other.gameObject.SetActive(false);
+            other.gameObject.SetActive(true);
         }
+        //se in questo trigger si trovano i goToIgnore, non devono essere disattivati
+
     }
 }
