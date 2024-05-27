@@ -673,6 +673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuLoadPanel: {fileID: 1673048061}
   goBtLoad: {fileID: 316255049}
+  goBtLoadPhysic: {fileID: 1794126556}
   imProgressBar: {fileID: 0}
 --- !u!1 &121264427
 GameObject:
@@ -6522,13 +6523,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5118118867242137119, guid: dedbc5f246d143b4b8cae0a502150e5c, type: 3}
+    - target: {fileID: 2858387313437244855, guid: dedbc5f246d143b4b8cae0a502150e5c, type: 3}
       propertyPath: fadeTime
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5118118867242137119, guid: dedbc5f246d143b4b8cae0a502150e5c, type: 3}
-      propertyPath: renderQueue
-      value: 5000
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

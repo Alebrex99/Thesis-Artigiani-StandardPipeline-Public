@@ -7,6 +7,8 @@ using UnityEngine.Video;
 public class IntroManager : MonoBehaviour
 {
     public static IntroManager instance;
+    //INIT APPLICATION: config
+
 
     //VIDEO (cSceneInfo)
     public VideoPlayer videoPlayer;
@@ -65,7 +67,7 @@ public class IntroManager : MonoBehaviour
     {
         _buttonHome.gameObject.SetActive(false);
         goVideoPlayer.gameObject.SetActive(false);
-        OVRScreenFade.instance.fadeTime = 5;
+        cOVRScreenFade.instance.fadeTime = 5;
         ResetUserPosition();
         //MENU : cStMenu
         //chiama invoke con la conversione del nome del metodo in stringa
@@ -84,8 +86,9 @@ public class IntroManager : MonoBehaviour
     private IEnumerator InitApplicationCor()
     {
         //LEGGO FILE CONFIG:
-        yield return StartCoroutine(ReadConfig.ReadCSVFile());
-        Debug.Log("FILE LETTOOOO");
+        yield return new WaitForSeconds(2); //Attesa per vedere il Loading (+carino)
+        yield return StartCoroutine(ReadConfig.ReadCSVFile()); //si attende fino alla fine del caricamento del file config
+        Debug.Log("[Init Application]: FILE CONFIG.CSV READ");
         cMainUIManager.HideLoading();
 
         //READ CSV FILE: loading distance + fadetime + rotation video speed + activation delay

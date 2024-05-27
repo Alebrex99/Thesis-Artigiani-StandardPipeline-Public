@@ -126,7 +126,7 @@ public class cAppManager : MonoBehaviour {
             Debug.Log("La scena " + sceneToLoad.name + " è già caricata.");
             yield break;
         }
-        OVRScreenFade.instance.FadeOut();
+        cOVRScreenFade.instance.FadeOut();
         
         AsyncOperation asyncLoadOperation = SceneManager.LoadSceneAsync(sceneIndex);
         while (!asyncLoadOperation.isDone)
@@ -158,7 +158,7 @@ public class cAppManager : MonoBehaviour {
             Debug.Log("La scena " + sceneToLoad.name + " è già caricata.");
             yield break;
         }
-        OVRScreenFade.instance.FadeOut();
+        cOVRScreenFade.instance.FadeOut();
         
         asyncLoadOperation = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
         yield return new WaitForEndOfFrame();
@@ -190,7 +190,7 @@ public class cAppManager : MonoBehaviour {
         actualBuildScene = SceneManager.GetActiveScene().buildIndex;
         asyncLoadOperation = null;
         cMainUIManager.HideLoading();
-        OVRScreenFade.instance.FadeIn();
+        cOVRScreenFade.instance.FadeIn();
     }
     /*IEnumerator ChangeScene2(int sceneIndex)
     {
@@ -240,9 +240,12 @@ public class cAppManager : MonoBehaviour {
         LoadScene(Scenes.HOME);
     }
 
+    //AI : CONVERSATIONAL AGENT
     public static void CallConversationalAgent()
     {
-        //CHIAMATA ALL'AI : METTO SE DEVE ESSERE POSSIBILE OVUNQUE
+        //CHIAMATA ALL'AI : METTO SE DEVE ESSERE POSSIBILE OVUNQUE; altrimenti solo da bottoni
+        //USO di socket.io: scrivi codice di inzializzazione
+
     }
 
 

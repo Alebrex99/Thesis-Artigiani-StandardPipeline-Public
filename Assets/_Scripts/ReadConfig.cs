@@ -40,7 +40,7 @@ public class ReadConfig : MonoBehaviour
 
         if(!File.Exists(filePathCsv))
         {
-            Debug.LogError("File not found: " + filePathCsv);
+            Debug.LogError("File not found: " + filePathCsv + "Create a config file to load main project variables");
             yield break;
         }
         else

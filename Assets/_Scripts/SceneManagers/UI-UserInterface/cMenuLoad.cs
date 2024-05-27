@@ -9,6 +9,7 @@ public class cMenuLoad : MonoBehaviour
 {
     public GameObject menuLoadPanel;
     public GameObject goBtLoad;
+    public GameObject goBtLoadPhysic;
     public Image imProgressBar;
     // Start is called before the first frame update
     private void Awake()
@@ -21,6 +22,7 @@ public class cMenuLoad : MonoBehaviour
     {
         menuLoadPanel.SetActive(true);
         goBtLoad.SetActive(true);
+        goBtLoadPhysic.SetActive(true);
         //possibili animazioni ... progress bar
     }
 
@@ -29,6 +31,7 @@ public class cMenuLoad : MonoBehaviour
         //stop animazioni ... progress bar
         menuLoadPanel.SetActive(false);
         goBtLoad.SetActive(false);
+        goBtLoadPhysic.SetActive(false);
     }
 
     public void ClickLoad()
@@ -38,6 +41,11 @@ public class cMenuLoad : MonoBehaviour
         
         IntroManager.instance.InitApplication();
         //cMainUIManager.HideLoading();   
+    }
+
+    public bool IsShowing()
+    {
+        return menuLoadPanel.activeSelf;
     }
 
 }
