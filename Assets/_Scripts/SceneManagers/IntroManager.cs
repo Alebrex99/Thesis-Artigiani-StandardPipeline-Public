@@ -86,8 +86,8 @@ public class IntroManager : MonoBehaviour
     private IEnumerator InitApplicationCor()
     {
         //LEGGO FILE CONFIG:
-        yield return new WaitForSeconds(2); //Attesa per vedere il Loading (+carino)
         yield return StartCoroutine(ReadConfig.ReadCSVFile()); //si attende fino alla fine del caricamento del file config
+        yield return new WaitForSeconds(2); //Attesa per vedere il Loading (+carino)
         Debug.Log("[Init Application]: FILE CONFIG.CSV READ");
         cMainUIManager.HideLoading();
 
@@ -97,6 +97,7 @@ public class IntroManager : MonoBehaviour
 
 
         //ACCENDO LA SCENA
+        chairInitPos.GetChild(0).gameObject.SetActive(true); //attivo sedia
         goVideoPlayer.gameObject.SetActive(true);
         videoPlayer.loopPointReached += EndVideo;
         //Start voice Audio

@@ -37,19 +37,9 @@ public class LoadingTrigger : MonoBehaviour
         }
         if (cLoading.IsShowing())
         {
-            triggeredObjs.Add(other.gameObject);
+            //triggeredObjs.Add(other.gameObject);
             other.gameObject.SetActive(false);
             Debug.Log("LOADING: spengo " + other.gameObject.name);
         }
-
-        
-    }
-
-    private void OnDisable()
-    {
-        if(triggeredObjs.Count == 0) return;
-        triggeredObjs.ForEach(go => go.SetActive(true)); //come è l'if inline?
-
-        triggeredObjs.ForEach(go => Debug.Log("USCITO: " + go.name));
     }
 }
