@@ -16,6 +16,7 @@ public class cSocketManager : MonoBehaviour
     private bool isConnected = false;
     //MESSAGGIO DA INVIARE DA VOICE -> TO TEXT
     private string message = "Hello from Unity!";
+    private int countChunk = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -88,9 +89,13 @@ public class cSocketManager : MonoBehaviour
         //REACTION FROM SERVER : receves CHUNKS FROM SERVER
         socket.On("audio_response_chunk", response =>
         {
-            var base64String = response.GetValue<string>(1); //prima: "audio_chunk"; possible: data[index]
+            Debug.Log("Audio response chunk: " + response.ToString());
+            //NON FUNZIONANO I SEGUENTI: non stampano nulla (guardare la GetValue()
+            var base64String = response.GetValue<string>(countChunk); //prima: "audio_chunk"; possible: data[index]
             var chunk = Convert.FromBase64String(base64String);
             Debug.Log($"Received chunk of length {chunk.Length}");
+            countChunk++;
+
         });
 
         socket.On("audio_response_end", response =>
