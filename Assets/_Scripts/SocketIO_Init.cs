@@ -20,7 +20,7 @@ public class SocketIO_Init : MonoBehaviour
     async void Start()
     {
         client = new SocketIO("http://localhost:5000");
-        client_unity = new SocketIOUnity("http://localhost:5000");
+        //client_unity = new SocketIOUnity("http://localhost:5000");
         client.OnConnected += async (sender, e) =>
         {
             Debug.Log("Connected to server");
@@ -67,6 +67,7 @@ public class SocketIO_Init : MonoBehaviour
     IEnumerator SendMessages(string message) //params -> ENTERO MESSAGE TO SEND
     {
         //TESTING
+        /*
         while (true)
         {
             if (isConnected)
@@ -83,10 +84,10 @@ public class SocketIO_Init : MonoBehaviour
                 Debug.Log("Message sent");
             }
             yield return null;
-        }
+        }*/
 
         //TO SEND MESSAGES FROM USER REALMEMENT, NON CON CONSOLE
-        /*if (isConnected)
+        if (isConnected)
         {
             //TRASCRITION THE AUDIO
             Debug.Log("Enter message to send: ");
@@ -99,7 +100,7 @@ public class SocketIO_Init : MonoBehaviour
             client.EmitAsync("chat_message", message).Wait();
             Debug.Log("Message sent");
         }
-        yield return null;*/
+        yield return null;
         
     }
 

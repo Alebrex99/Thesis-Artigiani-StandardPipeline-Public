@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using SocketIOClient;
 using SocketIOClient.Newtonsoft.Json;
@@ -23,7 +23,9 @@ public class SocketManager : MonoBehaviour
     void Start()
     {
         //TODO: check the Uri if Valid.
-        var uri = new Uri("http://192.168.1.107:11100");
+        //var uri = new Uri("http://192.168.1.107:11100"); //DEFAULT: IP non corretto
+        //var uri = new Uri("http://localhost:11100"); //Funziona con SERVER DI PROVA
+        var uri = new Uri("http://localhost:5000"); //Funziona con server MIKEL
         socket = new SocketIOUnity(uri, new SocketIOOptions
         {
             Query = new Dictionary<string, string>
@@ -82,6 +84,8 @@ public class SocketManager : MonoBehaviour
         if (!IsJSON(txt))
         {
             socket.Emit(eventName, txt);
+            //socket.Emit(txt); //il server da errore perchè vuole un JSON= json.decoder.JSONDecodeError: Expecting ',' delimiter: line 1 column 4 (char 3)
+
         }
         else
         {
