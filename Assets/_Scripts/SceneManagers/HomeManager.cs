@@ -53,9 +53,10 @@ public class HomeManager: MonoBehaviour
     private void Start()
     {
         ResetUserPosition();
-        //SE HO TELEPORT: inserimento delle iscrizioni a eventi da cStEVBase
         _currentState = State.Main;
         //RenderSettings.skybox = skyboxMain;
+        
+        //Start environment HOME
         _environmentMain.SetActive(true);
         //spegni tutto il resto
         _waitingRoom.SetActive(false);
@@ -71,14 +72,12 @@ public class HomeManager: MonoBehaviour
         //_buttonsMain3D = FindObjectsOfType<Button3D>(); //pesa meno con Public lista , ma sbatti dopo
         foreach (Button3D button3D in _buttonsMain3D)
         {
-            //Debug.Log(button3D.getButtonName());
             button3D.OnButtonPressed += OnButtonPressedEffect;
         }
         foreach(GameObject interactable in _interactables)
         {
             interactable.SetActive(false);
         }
-        //_interactables.SetActive(false);
         StartCoroutine(LateActivation(_interactables, _interactableActivationDelay));
     }
     private void Update()

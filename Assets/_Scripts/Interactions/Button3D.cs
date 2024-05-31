@@ -77,9 +77,8 @@ public class Button3D : MonoBehaviour
     //PER DEMO + PER MY HISTORY ECC.
     public void ChangeEnvironment()
     {
-        //IntroManager.instance.voiceAudio.Stop();
         //se l'ambiente corrente è quello da accendere, lo spegni e accendi quello principale
-        if (_currentEnvironment.name == _environmentOn.name)
+        if (_currentEnvironment == _environmentOn)
         {
             _currentEnvironment.SetActive(false);
             _currentEnvironment = _environmentMain;
@@ -93,6 +92,8 @@ public class Button3D : MonoBehaviour
             _currentEnvironment.SetActive(true);
  
         }
+        Debug.Log(_currentEnvironment.name);
+        Debug.Log(_environmentOn.name);
         /* if (RenderSettings.skybox == _skyboxOn)
         {
             RenderSettings.skybox = _skyboxOff;
