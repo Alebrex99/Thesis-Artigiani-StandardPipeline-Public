@@ -126,16 +126,17 @@ public class cSocketManager : MonoBehaviour
             //audioQueue.Enqueue(chunk); //Uso di una coda
             //Uso Buffer: sarà uno stream unico = unico byte[]
             Buffer.BlockCopy(chunk, 0, audioBuffer, audioBuffer.Length, chunk.Length); 
-            if (!isPlaying) //serve per evitare che partano N coroutine separatamente...
-            {
-                StartCoroutine(PlayAudioBuffer(audioBuffer));
-            }
+            //pak si riempie -> delay sicuramente -> in audio response end 
+            //Se è tanto delay -> PROVA 2 COROUTINES
+           
         });
         socket.On("audio_response_end", response =>
         {
             Debug.Log("Audio response end: " + response.ToString());
-            //StopAllCoroutines(); //ferma tutte le coroutine
-            //conversation.ForEach(chunk => Debug.Log(chunk.ToString())); //stampa la lunghezza di ogni chunk
+            if (!isPlaying) //serve per evitare che partano N coroutine separatamente...
+            {
+                StartCoroutine(PlayAudioBuffer(audioBuffer));
+            }
         });
 
 
@@ -200,17 +201,26 @@ public class cSocketManager : MonoBehaviour
         return floatArr;
     }
 
-    /*private IEnumerator UseAudioChunk()
+    private IEnumerator UseAudioBuffer(byte[] audioBuffer)
     {
         isPlaying = true;
-        
+        /*
         while (audioQueue.Count>0)
         {
             var chunk = audioQueue.Dequeue();
             yield return StartCoroutine(PlayAudioBuffer(chunk));    
         }
+        isPlaying = false;*/
+        yield return new WaitForSeconds(5f);
+        while (Buffer.ByteLength(audioBuffer) > 0) //ottimizzato
+        {
+            float[] audioBufferFloat = ConvertByteToFloat(audioBuffer);
+      
+            yield return StartCoroutine(PlayAudioBuffer(audioBuffer)); //es) buffer fino a metà
+        }
         isPlaying = false;
-    }*/
+
+    }
     private IEnumerator PlayAudioBuffer(byte[] audioBuffer)
     {
         isPlaying = true;
@@ -228,6 +238,7 @@ public class cSocketManager : MonoBehaviour
             yield return null;
         }
         isPlaying = false;
+        this.audioBuffer = null; //svuota a fine di ogni conversazione
     }
 
     void OnApplicationQuit()
@@ -237,6 +248,8 @@ public class cSocketManager : MonoBehaviour
         //await socket.DisconnectAsync(); //cambio ad asincrono di SocketIO
         Debug.Log("Application ending after " + Time.realtimeSinceStartup + " seconds");
     }
+
+
 
     public void EmitTest()
     {

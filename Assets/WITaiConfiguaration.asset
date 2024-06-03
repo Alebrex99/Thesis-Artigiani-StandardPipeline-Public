@@ -549,7 +549,7 @@ MonoBehaviour:
   _configData:
   - {fileID: -1976716001850445251}
   _configurationId: e4a7da21-5c1b-4e85-a1c8-41985ee5a376
-  timeoutMS: 10000
+  timeoutMS: 100000
   endpointConfiguration:
     _uriScheme: 
     _authority: 

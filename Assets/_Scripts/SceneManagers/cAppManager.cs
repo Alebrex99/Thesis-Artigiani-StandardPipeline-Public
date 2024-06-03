@@ -257,14 +257,7 @@ public class cAppManager : MonoBehaviour {
         Debug.Log("Toggle Conversational Agent");
         instance._dictationActivation.ToggleActivation();
     }
-    public static void CallConversationalAgent(string voiceToText)
-    {
-        //CHIAMATA ALL'AI : METTO SE DEVE ESSERE POSSIBILE OVUNQUE; altrimenti solo da bottoni
-        Debug.Log("Call Conversational Agent: " + voiceToText);
-
-    }
-
-
+    
 
 
 
