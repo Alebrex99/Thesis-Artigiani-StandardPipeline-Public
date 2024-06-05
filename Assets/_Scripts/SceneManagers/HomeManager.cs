@@ -26,12 +26,15 @@ public class HomeManager: MonoBehaviour
     [SerializeField] private Transform mainInteractablesInitPos;
     [SerializeField] private Button3D[] _buttonsMain3D;
 
-    //GESTIONE FSM
+    //GESTIONE FSM / AMBIENTI HOME
     State _currentState;
     private GameObject _currentEnvironment;
     [SerializeField] GameObject _environmentMain;
-    [SerializeField] GameObject _waitingRoom;
-    [SerializeField] GameObject _office;
+    [SerializeField] GameObject _envMyMotivation;
+    [SerializeField] GameObject _envOffice;
+    [SerializeField] GameObject _envMyExperience;
+
+    //DEPRECATED
     [SerializeField] GameObject _video2DScene;
     [SerializeField] GameObject _video180StereoScene;
 
@@ -42,7 +45,7 @@ public class HomeManager: MonoBehaviour
 
     //MY HISTORY + MI TALLER
     [SerializeField] GameObject myHistory;
-    private bool isInfoOpened=false;
+    private bool isMyHistoryOpened=false;
 
 
     private void Awake()
@@ -59,12 +62,11 @@ public class HomeManager: MonoBehaviour
         //Start environment HOME
         _environmentMain.SetActive(true);
         //spegni tutto il resto
-        _waitingRoom.SetActive(false);
-        _office.SetActive(false);
+        _envMyMotivation.SetActive(false);
+        _envOffice.SetActive(false);
         _video2DScene.SetActive(false);
         _video180StereoScene.SetActive(false);
         _currentEnvironment = _environmentMain;
-
         //MY HISTORY + MI TALLER
         myHistory.SetActive(false);
         
@@ -147,15 +149,15 @@ public class HomeManager: MonoBehaviour
     }
     public void OpenCloseInformations()
     {
-        if (isInfoOpened)
+        if (isMyHistoryOpened)
         {
             myHistory.SetActive(false);
-            isInfoOpened = false;
+            isMyHistoryOpened = false;
         }
         else
         {
             myHistory.SetActive(true);
-            isInfoOpened = true;
+            isMyHistoryOpened = true;
         }
     }
 
