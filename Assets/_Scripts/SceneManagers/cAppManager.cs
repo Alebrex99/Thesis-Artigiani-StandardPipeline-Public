@@ -39,7 +39,7 @@ public class cAppManager : MonoBehaviour {
     private float fadeTime = 5;
 
     //CONVERSATIONAL AGENT
-    [SerializeField] private DictationActivation _dictationActivation;
+    [SerializeField] private cDictationActivation _dictationActivation;
 
 
     void Awake() {

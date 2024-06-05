@@ -26,7 +26,7 @@ public class cSocketManager : MonoBehaviour
 
     //RICEZIONE SERVER -> CLIENT
     public static List<byte> conversation = new List<byte>();
-    private byte[] audioBuffer; //inizializzare a 320.992 -> 400Kbyte 
+    private byte[] audioBuffer;
     private float[] audioBufferFloat; //N bytes / 4byte (1 float = 4 byte)questi sono i SAMPLES dell' AudioClip
     private bool bufferReady = false;
     private int bufferIndex = 0;
@@ -37,7 +37,7 @@ public class cSocketManager : MonoBehaviour
     public AudioSource receiverAudioSrc;
     public AudioClip clip;
     //Audio clip creata
-    private int channels = 1;
+    private int channels = 2;
     private int frequency = 44100;
 
     [SerializeField] private GameObject objectToSpin;
@@ -71,12 +71,9 @@ public class cSocketManager : MonoBehaviour
         socket.JsonSerializer = new NewtonsoftJsonSerializer();
 
         //-------------- reserved socketio events-----------------------
-        /*Un "ping" è un messaggio inviato dal client al server per verificare se 
-         * il server è ancora raggiungibile e per misurare il tempo di latenza 
-         * tra il client e il server. Il server risponderà quindi con un "pong" 
-         * per confermare la ricezione del messaggio e includerà informazioni 
-         * sulla latenza, come ad esempio il tempo impiegato per ricevere 
-         * il messaggio di ping.*/
+        /*Un "ping" è un messaggio inviato dal client al server per verificare se il server è ancora raggiungibile e per misurare il tempo di latenza 
+         * tra il client e il server. Il server risponderà quindi con un "pong" per confermare la ricezione del messaggio e includerà informazioni 
+         * sulla latenza, come ad esempio il tempo impiegato per ricevere il messaggio di ping.*/
         socket.OnConnected += (sender, e) =>
         {
             Debug.Log("socket.OnConnected");
@@ -166,8 +163,8 @@ public class cSocketManager : MonoBehaviour
         socket.unityThreadScope = UnityThreadScope.Update; //dove tale thread sta andando
         socket.OnUnityThread("spin", (response) =>
         {
-            objectToSpin.transform.Rotate(0, 45, 0);
-            objectToSpin.transform.position = new Vector3(2, 2, 2);
+            //objectToSpin.transform.Rotate(0, 45, 0);
+            //objectToSpin.transform.position = new Vector3(2, 2, 2);
         });
         //Corrisponde esattamente a :
         /*socket.On("audio_response_end", response =>
@@ -187,8 +184,8 @@ public class cSocketManager : MonoBehaviour
         socket.OnAnyInUnityThread((name, response) =>
         {
             //ReceivedText.text += "Received On " + name + " : " + response.GetValue<string>() + "\n"; //response.GetValue().GetRawText()
-            objectToSpin.transform.Rotate(0, 45, 0);
-            objectToSpin.transform.position = new Vector3(2, 2, 2);
+            //objectToSpin.transform.Rotate(0, 45, 0);
+            //objectToSpin.transform.position = new Vector3(2, 2, 2);
         });
     }
 
@@ -200,8 +197,6 @@ public class cSocketManager : MonoBehaviour
             PlayAudioBuffer(audioBufferFloat);
             bufferReady = false;
         }
-
-
         //-------------------------EMITTING FROM CLIENT TO SERVER------------------------
         if (OVRInput.GetDown(OVRInput.RawButton.B))
         {
@@ -216,16 +211,35 @@ public class cSocketManager : MonoBehaviour
 
     private float[] ConvertByteToFloat(byte[] array)
     {
+        //DEBUG BYTE ARRAY:
+        Debug.Log("Byte array: " + BitConverter.ToString(array));
+
         float[] floatArr = new float[array.Length / 4];
         for (int i = 0; i < floatArr.Length; i++)
         {
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(array, i * 4, 4);
-            float value = BitConverter.ToSingle(array, i * 4);
+            float value = BitConverter.ToSingle(array, i * 4); //float = 4 bytes, quindi converti a indice ogni 4
             floatArr[i] = Mathf.Clamp(value, -1f, 1f);
-            Debug.Log("Float value: " + floatArr[i]);
         }
+
+        //DEBUG FLOAT ARRAY:
+        string floatString = string.Join(", ", floatArr.Select(f => f.ToString()));
+        Debug.Log("Float array: " + floatString);
         return floatArr;
+    }
+
+    private byte[] ConvertFloatToByte(float[] array)
+    {
+        byte[] byteArr = new byte[array.Length * 4];
+        for (int i = 0; i < array.Length; i++)
+        {
+            var bytes = BitConverter.GetBytes(array[i] * 0x80000000);
+            Array.Copy(bytes, 0, byteArr, i * 4, bytes.Length);
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(byteArr, i * 4, 4);
+        }
+        return byteArr;
     }
 
     private void PlayAudioBuffer(float[] audioBufferFloat)
@@ -279,28 +293,6 @@ public class cSocketManager : MonoBehaviour
         isPlaying = false;
     }
 
-    private IEnumerator UseAudioBuffer(byte[] audioBuffer)
-    {
-        isPlaying = true;
-        /*
-        while (audioQueue.Count>0)
-        {
-            var chunk = audioQueue.Dequeue();
-            yield return StartCoroutine(PlayAudioBuffer(chunk));    
-        }
-        isPlaying = false;*/
-        yield return new WaitForSeconds(5f);
-        while (Buffer.ByteLength(audioBuffer) > 0) //ottimizzato
-        {
-            float[] audioBufferFloat = ConvertByteToFloat(audioBuffer);
-      
-            //yield return StartCoroutine(PlayAudioBuffer(audioBufferFloat)); //es) buffer fino a metà
-        }
-        isPlaying = false;
-
-    }
-    
-
     void OnApplicationQuit()
     {
         //StartCoroutine(Disconnect());
@@ -309,9 +301,29 @@ public class cSocketManager : MonoBehaviour
         Debug.Log("Application ending after " + Time.realtimeSinceStartup + " seconds");
     }
 
+    //Per UNITY JSON serialization:
+    [System.Serializable]
+    public class DataResponse
+    {
+        public string audio_chunk;
+    }
 
 
-
+    public void SendMessageToServer(string message, string evenName = "")
+    {
+        //TO SEND MESSAGES FROM CLIENT TO SERVER
+        if (isConnected)
+        {
+            //TRASCRITION THE AUDIO
+            Debug.Log("Enter message to send: ");
+            if (message.ToLower() == "exit")
+            {
+                socket.Disconnect(); //gstione interna di SocketIOUnity
+            }
+            socket.Emit("chat_message", message); //.Wait() (usato nei thread per attendere che il thread finisca) ma si bloccava prima
+            Debug.Log("Message sent");
+        }
+    }
 
 
 
@@ -370,13 +382,6 @@ public class cSocketManager : MonoBehaviour
         socket.Emit("class", testClass2);
     }
 
-    //Per UNITY JSON serialization:
-    [System.Serializable]
-    public class DataResponse
-    {
-        public string audio_chunk;
-    }
-
     // Test class for emit
     class TestClass
     {
@@ -398,11 +403,6 @@ public class cSocketManager : MonoBehaviour
             this.text = text;
         }
     }
-
-
-
-
-
 
     //FUNZIONI ULTERIORI DA POTER USARE PER DISCONNESSIONE E INVIO MESSAGGI
     IEnumerator SendMessages(string message) //params -> ENTERO MESSAGE TO SEND
@@ -429,5 +429,26 @@ public class cSocketManager : MonoBehaviour
             yield return socket.DisconnectAsync();
             isConnected = false;
         }
+    }
+
+    //SECOND STEP : REPRODUCE REAL TIME CHUNKS WHEN I RECEVICE THEM
+    private IEnumerator UseAudioBuffer(byte[] audioBuffer)
+    {
+        isPlaying = true;
+        /*
+        while (audioQueue.Count>0)
+        {
+            var chunk = audioQueue.Dequeue();
+            yield return StartCoroutine(PlayAudioBuffer(chunk));    
+        }
+        isPlaying = false;*/
+        yield return new WaitForSeconds(5f);
+        while (Buffer.ByteLength(audioBuffer) > 0) //ottimizzato
+        {
+            float[] audioBufferFloat = ConvertByteToFloat(audioBuffer);
+
+            //yield return StartCoroutine(PlayAudioBuffer(audioBufferFloat)); //es) buffer fino a metà
+        }
+        isPlaying = false;
     }
 }

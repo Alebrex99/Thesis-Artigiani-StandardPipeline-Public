@@ -25,7 +25,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae5a46bda3295124c99b0e6537ac7252, type: 3}
   m_Name: WITaiConfiguaration
   m_EditorClassIdentifier: 
-  _clientAccessToken: N3KALX22HGUCAZHAVKO5NHMSGQ4LONVO
+  _clientAccessToken: MTERV6IAYNNLVLKEJZFQFVQ5WGCZTY63
   _appInfo:
     name: conversational_agent
     id: 1314758409691531
@@ -33,9 +33,9 @@ MonoBehaviour:
     isPrivate: 1
     createdAt: 2024-06-03T02:23:16-0700
     trainingStatus: 1
-    lastTrainDuration: 0
-    lastTrainedAt: 1969-12-31T16:00:00-0800
-    nextTrainAt: 1969-12-31T16:00:00-0800
+    lastTrainDuration: 12
+    lastTrainedAt: 2024-06-05T03:31:58-0700
+    nextTrainAt: 2024-06-05T03:31:46-0700
     intents: []
     entities: []
     traits: []
@@ -568,4 +568,4 @@ MonoBehaviour:
   - Oculus.Voice.Demo, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Meta.WitAi.Samples, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   relaxedResolution: 0
-  _lastRefreshSeconds: 1717406745.4750361
+  _lastRefreshSeconds: 1717593400.37187

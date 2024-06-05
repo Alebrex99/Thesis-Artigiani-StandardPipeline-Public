@@ -660,7 +660,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1023379275}
   - component: {fileID: 1023379274}
-  - component: {fileID: 1023379273}
+  - component: {fileID: 1023379276}
   m_Layer: 0
   m_Name: App Dictation Experience
   m_TagString: Untagged
@@ -668,19 +668,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1023379273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1023379272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8304dcac029408f42893d86756f3cc30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dictation: {fileID: 1023379274}
 --- !u!114 &1023379274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -752,34 +739,10 @@ MonoBehaviour:
         m_Calls: []
     _onStartListening:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 779796652}
-          m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
-          m_MethodName: set_text
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: Listening
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
     _onStoppedListening:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 779796652}
-          m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
-          m_MethodName: set_text
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: Stop listening
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
     _onMicLevelChanged:
       m_PersistentCalls:
         m_Calls: []
@@ -788,31 +751,7 @@ MonoBehaviour:
         m_Calls: []
     _onFullTranscription:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1108437471}
-          m_TargetAssemblyTypeName: TextToVoiceHandler, Assembly-CSharp
-          m_MethodName: VoiceToText
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 779796652}
-          m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
-          m_MethodName: set_text
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
     _onDictationSessionStarted:
       m_PersistentCalls:
         m_Calls: []
@@ -822,8 +761,8 @@ MonoBehaviour:
   runtimeConfiguration:
     witConfiguration: {fileID: 11400000, guid: cabc8a716cdd1dc4789c4bfcc5bf927e, type: 2}
     minKeepAliveVolume: 0.0005
-    minKeepAliveTimeInSeconds: 5
-    minTranscriptionKeepAliveTimeInSeconds: 5
+    minKeepAliveTimeInSeconds: 2
+    minTranscriptionKeepAliveTimeInSeconds: 2
     maxRecordingTime: 20
     soundWakeThreshold: 0.0005
     sampleLengthInMs: 10
@@ -856,6 +795,19 @@ Transform:
   - {fileID: 1108437470}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1023379276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023379272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7329b41f3df95fa47aa0190e7834afd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dictation: {fileID: 1023379274}
 --- !u!1 &1108437469
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,6 +818,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1108437470}
   - component: {fileID: 1108437471}
+  - component: {fileID: 1108437472}
   m_Layer: 0
   m_Name: ResponseHandler
   m_TagString: Untagged
@@ -900,6 +853,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6cf61c8974d6d4c92dd5b7656a0df7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  text_window: {fileID: 779796652}
+  appDictationExperience: {fileID: 1023379274}
+--- !u!114 &1108437472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108437469}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 591c3d6f017c11b4faa41506d75635b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Voice: {fileID: 0}
+  ValidateEarly: 0
+  intent: 
+  confidenceThreshold: 0.6
+  valueMatchers: []
+  formattedValueEvents: []
+  onMultiValueEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onDidNotMatch:
+    m_PersistentCalls:
+      m_Calls: []
+  onOutOfDomain:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1126902225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1288,7 +1270,7 @@ PrefabInstance:
     - target: {fileID: 8935408469716265020, guid: 19969238b3fb14e43abea42e13f03c0f, type: 3}
       propertyPath: _dictationActivation
       value: 
-      objectReference: {fileID: 1023379273}
+      objectReference: {fileID: 1023379276}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
