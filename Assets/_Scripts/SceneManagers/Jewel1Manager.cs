@@ -130,7 +130,7 @@ public class Jewel1Manager : MonoBehaviour
 
     private void OnDestroy()
     {
-        videoPlayer.Stop();
+        //videoPlayer.Stop();
         envAudioSrc.Stop();
     }
 
