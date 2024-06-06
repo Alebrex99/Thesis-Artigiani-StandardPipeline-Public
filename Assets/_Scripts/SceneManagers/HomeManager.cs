@@ -20,7 +20,7 @@ public class HomeManager: MonoBehaviour
     //GESTIONE BOTTONI
     public AudioSource envAudioSrc; //voce spiegazione
     public AudioClip _buttonExplainClip;
-    [SerializeField] private GameObject[] _interactables; //interagibili principali (bottoni main ecc)
+    [SerializeField] private GameObject[] _lateActivatedObj; //interagibili principali (bottoni main ecc)
     [Range(0,60)]
     [SerializeField] private float _interactableActivationDelay = 1f;
     [SerializeField] private Transform mainInteractablesInitPos;
@@ -44,7 +44,7 @@ public class HomeManager: MonoBehaviour
     //public cWatchManager scrWatch;
 
     //MY HISTORY + MI TALLER
-    [SerializeField] GameObject myHistory;
+    [SerializeField] GameObject informations;
     private bool isMyHistoryOpened=false;
 
 
@@ -64,11 +64,13 @@ public class HomeManager: MonoBehaviour
         //spegni tutto il resto
         _envMyMotivation.SetActive(false);
         _envOffice.SetActive(false);
+        _envMyExperience.SetActive(false);
+        
         _video2DScene.SetActive(false);
         _video180StereoScene.SetActive(false);
         _currentEnvironment = _environmentMain;
         //MY HISTORY + MI TALLER
-        myHistory.SetActive(false);
+        informations.SetActive(false);
         
         //BOTTONI
         //_buttonsMain3D = FindObjectsOfType<Button3D>(); //pesa meno con Public lista , ma sbatti dopo
@@ -76,11 +78,11 @@ public class HomeManager: MonoBehaviour
         {
             button3D.OnButtonPressed += OnButtonPressedEffect;
         }
-        foreach(GameObject interactable in _interactables)
+        foreach(GameObject lateObj in _lateActivatedObj)
         {
-            interactable.SetActive(false);
+            lateObj.SetActive(false);
         }
-        StartCoroutine(LateActivation(_interactables, _interactableActivationDelay));
+        StartCoroutine(LateActivation(_lateActivatedObj, _interactableActivationDelay));
     }
     private void Update()
     {
@@ -151,12 +153,12 @@ public class HomeManager: MonoBehaviour
     {
         if (isMyHistoryOpened)
         {
-            myHistory.SetActive(false);
+            informations.SetActive(false);
             isMyHistoryOpened = false;
         }
         else
         {
-            myHistory.SetActive(true);
+            informations.SetActive(true);
             isMyHistoryOpened = true;
         }
     }
