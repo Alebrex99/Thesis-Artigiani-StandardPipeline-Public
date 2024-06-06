@@ -40,6 +40,8 @@ public class cXRManager : MonoBehaviour{
     //ALE public static Transform GetTrMunyecaRight() { return instance.trMunyecaRight; }
     public static Transform GetTrLeftHand() { return instance.trLeftHand; }
     public static Transform GetTrRightHand() { return instance.trRightHand; }
+    public static Transform GetTrUserPosition() { return instance.trUserPosition; }
+
 
     public static void SetUserPosition(Vector3 position, Quaternion rotation) {
         instance.trUserPosition.position = position;

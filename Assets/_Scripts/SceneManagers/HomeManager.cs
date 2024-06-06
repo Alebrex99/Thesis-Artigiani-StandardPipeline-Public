@@ -1,3 +1,4 @@
+using Evereal.VRVideoPlayer;
 using Meta.WitAi;
 using System;
 using System.Collections;
@@ -33,6 +34,7 @@ public class HomeManager: MonoBehaviour
     [SerializeField] GameObject _envMyMotivation;
     [SerializeField] GameObject _envOffice;
     [SerializeField] GameObject _envMyExperience;
+    [SerializeField] GameObject chairInitpos;
 
     //DEPRECATED
     [SerializeField] GameObject _video2DScene;
@@ -88,6 +90,14 @@ public class HomeManager: MonoBehaviour
     {
         trLightButton.position = cXRManager.GetTrCenterEye().position;
         trLightButton.rotation = cXRManager.GetTrCenterEye().rotation;
+
+        //La sedia segue il tuo sguardo
+        Vector3 lookDirection = cXRManager.GetTrCenterEye().forward;
+        // Calcola la rotazione target in base alla direzione dello sguardo
+        Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+        // Solo la rotazione attorno all'asse Y è necessaria
+        Vector3 euler = targetRotation.eulerAngles;
+        chairInitpos.transform.eulerAngles = new Vector3(0, euler.y, 0);
     }
     private IEnumerator LateActivation(GameObject[] toActivate, float _activationDelay)
     {
