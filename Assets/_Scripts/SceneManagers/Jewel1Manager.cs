@@ -11,11 +11,14 @@ public class Jewel1Manager : MonoBehaviour
     public Transform userInitPos;
     public Transform trLightJewel;
 
-    //GESTIONE AUDIO + IMMERSIONE
+    //GESTIONE SCENA + IMMERSIONE
     public AudioSource envAudioSrc;
     public AudioClip[] _envClips;
     [Range(0, 60)]
     [SerializeField] private float _immersionDelay = 1f;
+    [Range(0, 60)]
+    [SerializeField] private float _activationDelay = 1f;
+    [SerializeField] private GameObject[] _lateActivatedObj;
 
     //VIDEO SOROLLA
     public VideoPlayer videoPlayer;
@@ -28,9 +31,8 @@ public class Jewel1Manager : MonoBehaviour
 
     //JEWEL 1
     [SerializeField] private Jewel _jewel1;
-    [Range(0, 60)]
-    [SerializeField] private float _activationDelay = 1f;
     [SerializeField] private Transform _jewelInitPos;
+
 
     // Start is called before the first frame update
     private void Awake()
@@ -41,9 +43,12 @@ public class Jewel1Manager : MonoBehaviour
     void Start()
     {
         ResetUserPosition();
-        _jewel1.gameObject.SetActive(false);
         StartCoroutine(PlayEnvMedia());
-        StartCoroutine(LateActivation(_jewel1.gameObject, _activationDelay));
+        foreach (GameObject lateObj in _lateActivatedObj)
+        {
+            lateObj.SetActive(false);
+        }
+        StartCoroutine(LateActivation(_lateActivatedObj, _activationDelay));
 
     }
 
@@ -72,23 +77,25 @@ public class Jewel1Manager : MonoBehaviour
             goVideoPlayer.transform.eulerAngles = new Vector3(0, euler.y, 0);
         }
     }
-
     public Transform GetUserInitTr()
     {
         return userInitPos;
     }
-
     public void ResetUserPosition()
     {
         cXRManager.SetUserPosition(GetUserInitTr().position, GetUserInitTr().rotation);
     }
 
-    private IEnumerator LateActivation(GameObject toActivate, float _activationDelay)
+    private IEnumerator LateActivation(GameObject[] toActivate, float _activationDelay)
     {
         yield return new WaitForSeconds(_activationDelay);
         //toActivate.transform.position = _jewelInitPos.position + new Vector3(0, toActivate.transform.position.y, 0);
-        toActivate.transform.position = _jewelInitPos.position;
-        toActivate.SetActive(true);
+        for (int i = 0; i < toActivate.Length; i++)
+        {
+            toActivate[i].SetActive(true);
+            //toActivate[i].transform.position = mainInteractablesInitPos.position; //togliere se si usa cPanelHMDFollower
+        }
+        _jewel1.transform.position = _jewelInitPos.position;
     }
 
     private IEnumerator PlayEnvMedia()
@@ -98,7 +105,7 @@ public class Jewel1Manager : MonoBehaviour
         yield return new WaitForSeconds(_immersionDelay);
         envAudioSrc.PlayOneShot(_envClips[1], 0.7f); //Environment explanation
         yield return new WaitForSeconds(_immersionDelay);
-        PlayPicture();
+        //PlayPicture(); //se verrà messo un video (per ora solo quadro)
 
     }
 
@@ -114,6 +121,17 @@ public class Jewel1Manager : MonoBehaviour
             videoPlayer.Play();
             bShowVideo = true;
         }
+    }
+
+    public AudioSource GetAudioSource()
+    {
+        return envAudioSrc;
+    }
+
+    private void OnDestroy()
+    {
+        videoPlayer.Stop();
+        envAudioSrc.Stop();
     }
 
 }

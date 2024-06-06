@@ -1,5 +1,6 @@
 using Evereal.VRVideoPlayer;
 using Meta.WitAi;
+using Oculus.Voice.Windows;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ public class HomeManager: MonoBehaviour
     public AudioClip _buttonExplainClip;
     [SerializeField] private GameObject[] _lateActivatedObj; //interagibili principali (bottoni main ecc)
     [Range(0,60)]
-    [SerializeField] private float _interactableActivationDelay = 1f;
+    [SerializeField] private float _activationDelay = 1f;
     [SerializeField] private Transform mainInteractablesInitPos;
     [SerializeField] private Button3D[] _buttonsMain3D;
 
@@ -53,6 +54,10 @@ public class HomeManager: MonoBehaviour
     private void Awake()
     {
         instance = this;
+        foreach (Button3D button3D in _buttonsMain3D)
+        {
+            button3D.OnButtonPressed += OnButtonPressedEffect;
+        }
     }
 
     private void Start()
@@ -76,15 +81,11 @@ public class HomeManager: MonoBehaviour
         
         //BOTTONI
         //_buttonsMain3D = FindObjectsOfType<Button3D>(); //pesa meno con Public lista , ma sbatti dopo
-        foreach (Button3D button3D in _buttonsMain3D)
-        {
-            button3D.OnButtonPressed += OnButtonPressedEffect;
-        }
         foreach(GameObject lateObj in _lateActivatedObj)
         {
             lateObj.SetActive(false);
         }
-        StartCoroutine(LateActivation(_lateActivatedObj, _interactableActivationDelay));
+        StartCoroutine(LateActivation(_lateActivatedObj, _activationDelay));
     }
     private void Update()
     {
@@ -102,7 +103,7 @@ public class HomeManager: MonoBehaviour
     private IEnumerator LateActivation(GameObject[] toActivate, float _activationDelay)
     {
         yield return new WaitForSeconds(_activationDelay);
-        //ATTIVO INTERAGIBILI MAIN
+
         for(int i=0; i<toActivate.Length; i++)
         {
             toActivate[i].SetActive(true);
@@ -174,13 +175,13 @@ public class HomeManager: MonoBehaviour
     }
 
 
-
-    private void OnDisable()
+    private void OnDestroy()
     {
         foreach (Button3D button3D in _buttonsMain3D)
         {
             button3D.OnButtonPressed -= OnButtonPressedEffect;
         }
+
     }
 
 

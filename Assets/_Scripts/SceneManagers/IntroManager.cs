@@ -168,6 +168,11 @@ public class IntroManager : MonoBehaviour
     }
 
 
+    private void OnDestroy()
+    {
+        videoPlayer.Stop();
+    }
+
 
     //POSSIBILE GESTIONE DI UN CANVAS MENU SOLO INTRO (FATTO NEI PERSISTENTI)
     //GESTIONE MENU SCARICAMENTO CONFIG: cStMenu

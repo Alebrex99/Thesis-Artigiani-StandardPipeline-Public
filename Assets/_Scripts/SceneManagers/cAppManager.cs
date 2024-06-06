@@ -228,13 +228,19 @@ public class cAppManager : MonoBehaviour {
         switch (actualScene)
         {
             case Scenes.INTRO:
-                IntroManager.instance.videoPlayer.Stop();
+                if (IntroManager.instance != null)
+                {
+                    IntroManager.instance.videoPlayer.Stop();
+                }
                 break;
             case Scenes.HOME:
                 
                 break;
             case Scenes.JEWEL1:
-                
+                if(Jewel1Manager.instance != null)
+                {
+                    Jewel1Manager.instance.GetAudioSource().Stop();
+                }
                 break;
             case Scenes.JEWEL2:
                 
