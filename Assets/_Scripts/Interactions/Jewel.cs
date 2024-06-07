@@ -27,19 +27,20 @@ public class Jewel : MonoBehaviour
     public void TouchJewel()
     {
         Debug.Log("Jewel touched");
+        isJewelTouched = !isJewelTouched;
         //Scatena l'azione in modo da fare cose nel rispettivo manager di scena
         if (OnJewelTouched != null)
             OnJewelTouched(this, isJewelTouched);
         //se la clip non è già avviata
-        if (!isJewelTouched)
+        if (isJewelTouched)
         {
-            audioSourceJewel.PlayOneShot(jewelClip, 1f);
+            //audioSourceJewel.PlayOneShot(jewelClip, 1f);
+            StartCoroutine(FadeInAudio(audioSourceJewel, 3f));
         }
         else
         {
-            StartCoroutine(FadeOutAudio(audioSourceJewel, 5f));
+            StartCoroutine(FadeOutAudio(audioSourceJewel, 3f));
         }
-        isJewelTouched = !isJewelTouched;
     }
 
     private IEnumerator FadeOutAudio(AudioSource audioSrc, float fadeTime)
@@ -52,8 +53,31 @@ public class Jewel : MonoBehaviour
             yield return null;
         }
 
-        audioSrc.Stop();
+        audioSrc.Pause();
         audioSrc.volume = startVolume;
     }
+
+    private IEnumerator FadeInAudio(AudioSource audioSrc, float fadeTime)
+    {
+        float startVolume = audioSrc.volume;
+        audioSrc.volume = 0f;
+        if (isJewelTouched)
+        {
+            audioSrc.Play();
+        }
+        else audioSrc.UnPause();
+
+        float currentTime = 0f;
+        while (currentTime < fadeTime)
+        {
+            currentTime += Time.deltaTime;
+            audioSrc.volume = Mathf.Lerp(0f, startVolume, currentTime / fadeTime);
+            yield return null;
+        }
+
+        audioSrc.volume = startVolume;
+    }
+
+
 
 }

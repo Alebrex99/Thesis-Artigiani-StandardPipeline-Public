@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -21,12 +22,13 @@ public class Jewel1Manager : MonoBehaviour
     [SerializeField] private float _activationDelay = 1f;
     [SerializeField] private GameObject[] _lateActivatedObj;
 
-    //VIDEO SOROLLA
+    //VIDEO/QUADRO SOROLLA
     public VideoPlayer videoPlayer;
     [SerializeField] private GameObject goVideoPlayer;
+    [SerializeField] private GameObject sorollaPicture;
+    [SerializeField] private GameObject jewel1Informations;
     int loopVideo = 0;
     private bool bShowVideo = false;
-    private bool bShowJewel = false;
     [Range(0.1f, 10)]
     [SerializeField] private float rotationVideoSpeed = 1;
 
@@ -46,6 +48,7 @@ public class Jewel1Manager : MonoBehaviour
     {
         ResetUserPosition();
         StartCoroutine(PlayEnvMedia());
+        jewel1Informations.SetActive(false);
         foreach (GameObject lateObj in _lateActivatedObj)
         {
             lateObj.SetActive(false);
@@ -116,12 +119,14 @@ public class Jewel1Manager : MonoBehaviour
     private void OnJewel1Touched(Jewel jewel, bool isJewelTouched)
     {
         //riduci regolarmente l'audio dell'ambiente nel giro di 5 secondi
-        if(!isJewelTouched) {
-            StartCoroutine(FadeOutAudio(envAudioSrc, 5f));
+        sorollaPicture.SetActive(!isJewelTouched);
+        jewel1Informations.SetActive(isJewelTouched);
+        if(isJewelTouched) {
+            StartCoroutine(FadeOutAudio(envAudioSrc, 2f));
         }
         else
         {
-            StartCoroutine(FadeInAudio(envAudioSrc, 5f));
+            StartCoroutine(FadeInAudio(envAudioSrc, 2f));
         }
         //StartCoroutine(FadeOutAudio(envAudioSrc, 5f));
     }
@@ -137,7 +142,7 @@ public class Jewel1Manager : MonoBehaviour
             yield return null;
         }
 
-        audioSrc.Stop();
+        audioSrc.Pause();
         audioSrc.volume = startVolume;
     }
 
@@ -146,7 +151,7 @@ public class Jewel1Manager : MonoBehaviour
         audioSrc.clip = _envClips[1];
         float startVolume = audioSrc.volume;
         audioSrc.volume = 0f;
-        audioSrc.Play();
+        audioSrc.UnPause();
 
         float currentTime = 0f;
         while (currentTime < fadeTime)
@@ -158,11 +163,6 @@ public class Jewel1Manager : MonoBehaviour
 
         audioSrc.volume = startVolume;
     }
-
-
-
-
-
 
 
 
@@ -193,7 +193,9 @@ public class Jewel1Manager : MonoBehaviour
     private void OnDestroy()
     {
         //videoPlayer.Stop();
-        //envAudioSrc.Stop();
+        //envAudioSrc.Stop(); //non puoi farlo!
+        _jewel1.OnJewelTouched -= OnJewel1Touched;
+        StopAllCoroutines();
     }
 
 }
