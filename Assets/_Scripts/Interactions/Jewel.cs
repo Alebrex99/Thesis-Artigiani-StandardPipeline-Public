@@ -1,12 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Jewel : MonoBehaviour
 {
+    [SerializeField] private AudioSource audioSourceJewel;
+    [SerializeField] private AudioClip jewelClip;
+    public Action<Jewel, bool> OnJewelTouched;
+    private bool isJewelTouched = false;
+
     // Start is called before the first frame update
     void Start()
     {  
+        isJewelTouched = false;
+        audioSourceJewel.clip = jewelClip;
     }
 
     // Update is called once per frame
@@ -18,5 +27,33 @@ public class Jewel : MonoBehaviour
     public void TouchJewel()
     {
         Debug.Log("Jewel touched");
+        //Scatena l'azione in modo da fare cose nel rispettivo manager di scena
+        if (OnJewelTouched != null)
+            OnJewelTouched(this, isJewelTouched);
+        //se la clip non è già avviata
+        if (!isJewelTouched)
+        {
+            audioSourceJewel.PlayOneShot(jewelClip, 1f);
+        }
+        else
+        {
+            StartCoroutine(FadeOutAudio(audioSourceJewel, 5f));
+        }
+        isJewelTouched = !isJewelTouched;
     }
+
+    private IEnumerator FadeOutAudio(AudioSource audioSrc, float fadeTime)
+    {
+        float startVolume = audioSrc.volume;
+
+        while (audioSrc.volume > 0)
+        {
+            audioSrc.volume -= startVolume * Time.deltaTime / fadeTime;
+            yield return null;
+        }
+
+        audioSrc.Stop();
+        audioSrc.volume = startVolume;
+    }
+
 }

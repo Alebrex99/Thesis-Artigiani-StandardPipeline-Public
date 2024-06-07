@@ -663,7 +663,7 @@ GameObject:
   - component: {fileID: 153049745}
   - component: {fileID: 153049744}
   - component: {fileID: 153049741}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Unity Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -690,7 +690,7 @@ MonoBehaviour:
   _pixelsPerUnit: 334
   _renderingLayers:
     serializedVersion: 2
-    m_Bits: 32
+    m_Bits: 8
 --- !u!223 &153049742
 Canvas:
   m_ObjectHideFlags: 0
@@ -1340,6 +1340,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VolumeButton
       objectReference: {fileID: 0}
+    - target: {fileID: 693168603103582409, guid: 97e33494e27fdd147a0d4020ab527ed5, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 693168603103582417, guid: 97e33494e27fdd147a0d4020ab527ed5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1351,6 +1355,10 @@ PrefabInstance:
     - target: {fileID: 693168603103582417, guid: 97e33494e27fdd147a0d4020ab527ed5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: CanvasGroupAlphaToggle, FLUID.WIP
+      objectReference: {fileID: 0}
+    - target: {fileID: 693168604819487361, guid: 97e33494e27fdd147a0d4020ab527ed5, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 693168604819487367, guid: 97e33494e27fdd147a0d4020ab527ed5, type: 3}
       propertyPath: m_Sprite
@@ -1880,7 +1888,7 @@ GameObject:
   - component: {fileID: 926125048}
   - component: {fileID: 926125047}
   - component: {fileID: 926125046}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: VolumeSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1985,9 +1993,17 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -4.9999847
       objectReference: {fileID: 0}
+    - target: {fileID: 4182830316347795615, guid: 872bebe50d1f163458ff0e7236489dba, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5039319179575063454, guid: 872bebe50d1f163458ff0e7236489dba, type: 3}
       propertyPath: m_Name
       value: SliderWithAnimator
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039319179575063454, guid: 872bebe50d1f163458ff0e7236489dba, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5039319179575063455, guid: 872bebe50d1f163458ff0e7236489dba, type: 3}
       propertyPath: m_Pivot.x
@@ -2073,6 +2089,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5956651014232068960, guid: 872bebe50d1f163458ff0e7236489dba, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6173714411018427131, guid: 872bebe50d1f163458ff0e7236489dba, type: 3}
       propertyPath: m_RaycastPadding.w
       value: -36
@@ -2116,6 +2136,18 @@ PrefabInstance:
     - target: {fileID: 6192302217150116908, guid: 872bebe50d1f163458ff0e7236489dba, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6695229949387949803, guid: 872bebe50d1f163458ff0e7236489dba, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500677051661763414, guid: 872bebe50d1f163458ff0e7236489dba, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9020048437265267011, guid: 872bebe50d1f163458ff0e7236489dba, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2232,7 +2264,7 @@ GameObject:
   - component: {fileID: 1148738119}
   - component: {fileID: 1148738121}
   - component: {fileID: 1148738120}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Video2DScreen_OnCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2620,7 +2652,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1209111530}
   - component: {fileID: 1209111532}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Control
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2664,7 +2696,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1213363124}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: PlayerControls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3067,7 +3099,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1872220472}
   - component: {fileID: 1872220473}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Sound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3126,7 +3158,7 @@ GameObject:
   - component: {fileID: 1895844042}
   - component: {fileID: 1895844041}
   - component: {fileID: 1895844040}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Video2DPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

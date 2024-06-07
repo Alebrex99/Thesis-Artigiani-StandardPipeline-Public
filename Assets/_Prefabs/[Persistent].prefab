@@ -2835,6 +2835,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8742799672250243081}
+    - target: {fileID: 5521521212453901764, guid: c5021b252d1b48e47945db015b768d83, type: 3}
+      propertyPath: m_VertexColorAlwaysGammaSpace
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5535404580648872581, guid: c5021b252d1b48e47945db015b768d83, type: 3}
       propertyPath: m_Name
       value: UIInfo-FlatCanvas
@@ -2969,6 +2973,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3392227397735414325, guid: dedbc5f246d143b4b8cae0a502150e5c, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294967255
+      objectReference: {fileID: 0}
     - target: {fileID: 6231356964685255241, guid: dedbc5f246d143b4b8cae0a502150e5c, type: 3}
       propertyPath: _interactors.Array.size
       value: 2
@@ -2985,6 +2993,10 @@ PrefabInstance:
       propertyPath: _interactors.Array.data[1]
       value: 
       objectReference: {fileID: 6691159784741459864}
+    - target: {fileID: 7431158140743977615, guid: dedbc5f246d143b4b8cae0a502150e5c, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294967255
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

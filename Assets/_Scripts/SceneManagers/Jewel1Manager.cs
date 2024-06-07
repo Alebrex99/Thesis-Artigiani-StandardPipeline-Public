@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,6 +39,7 @@ public class Jewel1Manager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        _jewel1.OnJewelTouched += OnJewel1Touched;
     }
 
     void Start()
@@ -90,24 +92,80 @@ public class Jewel1Manager : MonoBehaviour
     {
         yield return new WaitForSeconds(_activationDelay);
         //toActivate.transform.position = _jewelInitPos.position + new Vector3(0, toActivate.transform.position.y, 0);
+        //ATTIVA TUTTO
         for (int i = 0; i < toActivate.Length; i++)
         {
             toActivate[i].SetActive(true);
             //toActivate[i].transform.position = mainInteractablesInitPos.position; //togliere se si usa cPanelHMDFollower
         }
+        //SETTA POSIZIONI
         _jewel1.transform.position = _jewelInitPos.position;
     }
 
     private IEnumerator PlayEnvMedia()
     {
 
-        envAudioSrc.PlayOneShot(_envClips[0], 1f); //Environment sounds
+        //envAudioSrc.PlayOneShot(_envClips[0], 1f); //Environment sounds (già nel video)
         yield return new WaitForSeconds(_immersionDelay);
         envAudioSrc.PlayOneShot(_envClips[1], 0.7f); //Environment explanation
-        yield return new WaitForSeconds(_immersionDelay);
+        //yield return new WaitForSeconds(_immersionDelay);
         //PlayPicture(); //se verrà messo un video (per ora solo quadro)
 
     }
+
+    private void OnJewel1Touched(Jewel jewel, bool isJewelTouched)
+    {
+        //riduci regolarmente l'audio dell'ambiente nel giro di 5 secondi
+        if(!isJewelTouched) {
+            StartCoroutine(FadeOutAudio(envAudioSrc, 5f));
+        }
+        else
+        {
+            StartCoroutine(FadeInAudio(envAudioSrc, 5f));
+        }
+        //StartCoroutine(FadeOutAudio(envAudioSrc, 5f));
+    }
+
+    private IEnumerator FadeOutAudio(AudioSource audioSrc, float fadeTime)
+    {
+        audioSrc.clip = _envClips[1];
+        float startVolume = audioSrc.volume;
+
+        while (audioSrc.volume > 0)
+        {
+            audioSrc.volume -= startVolume * Time.deltaTime / fadeTime;
+            yield return null;
+        }
+
+        audioSrc.Stop();
+        audioSrc.volume = startVolume;
+    }
+
+    private IEnumerator FadeInAudio(AudioSource audioSrc, float fadeTime)
+    {
+        audioSrc.clip = _envClips[1];
+        float startVolume = audioSrc.volume;
+        audioSrc.volume = 0f;
+        audioSrc.Play();
+
+        float currentTime = 0f;
+        while (currentTime < fadeTime)
+        {
+            currentTime += Time.deltaTime;
+            audioSrc.volume = Mathf.Lerp(0f, startVolume, currentTime / fadeTime);
+            yield return null;
+        }
+
+        audioSrc.volume = startVolume;
+    }
+
+
+
+
+
+
+
+
 
     private void PlayPicture()
     {
@@ -126,6 +184,10 @@ public class Jewel1Manager : MonoBehaviour
     public AudioSource GetAudioSource()
     {
         return envAudioSrc;
+    }
+    public AudioClip[] GetEnvAudioCLips()
+    {
+       return _envClips;
     }
 
     private void OnDestroy()
