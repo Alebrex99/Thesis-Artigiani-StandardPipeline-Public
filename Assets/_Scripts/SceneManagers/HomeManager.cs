@@ -36,7 +36,8 @@ public class HomeManager: MonoBehaviour
     [SerializeField] GameObject _envOffice;
     [SerializeField] GameObject _envMyExperience;
     [SerializeField] GameObject chairInitpos;
-    private float rotationChairSpeed = 0.6f;
+    [Range(0.1f, 1)]
+    [SerializeField] private float rotationChairSpeed = 0.6f;
 
     //DEPRECATED
     [SerializeField] GameObject _video2DScene;
