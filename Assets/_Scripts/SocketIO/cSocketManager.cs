@@ -3,16 +3,9 @@ using System.Collections.Generic;
 using SocketIOClient;
 using SocketIOClient.Newtonsoft.Json;
 using UnityEngine;
-using UnityEngine.UI;
 using Newtonsoft.Json.Linq;
-using UnityEditor.PackageManager;
 using System.Collections;
-using System.Buffers.Text;
 using static SocketIOUnity;
-using TMPro.Examples;
-using OVRSimpleJSON;
-using UnityEngine.XR;
-using System.IO;
 using System.Linq;
 using UnityEditor;
 

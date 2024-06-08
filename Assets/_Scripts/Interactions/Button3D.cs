@@ -4,7 +4,6 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 using JetBrains.Annotations;
-using UnityEditor.UI;
 
 public class Button3D : MonoBehaviour
 {
