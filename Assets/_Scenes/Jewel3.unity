@@ -1596,7 +1596,7 @@ MonoBehaviour:
   isAlphaPremultiplied: 0
   useBicubicFiltering: 0
   useLegacyCubemapRotation: 0
-  useEfficientSupersample: 1
+  useEfficientSupersample: 0
   useEfficientSharpen: 1
   useAutomaticFiltering: 1
   _previewInEditor: 1
