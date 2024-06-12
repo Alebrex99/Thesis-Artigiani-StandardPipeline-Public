@@ -167,10 +167,9 @@ public class IntroManager : MonoBehaviour
         toActivate.transform.rotation = _buttonHomeInitPos.rotation;
     }
 
-    //USATO ON DISABLE
-    private void OnDisable()
+    private void OnDestroy()
     {
-        StopAllCoroutines();
+        videoPlayer.loopPointReached -= EndVideo;
     }
 
 

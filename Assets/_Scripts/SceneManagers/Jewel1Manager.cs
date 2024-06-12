@@ -196,7 +196,6 @@ public class Jewel1Manager : MonoBehaviour
         //videoPlayer.Stop();
         //envAudioSrc.Stop(); //non puoi farlo!
         _jewel1.OnJewelTouched -= OnJewel1Touched;
-        StopAllCoroutines();
     }
 
 }

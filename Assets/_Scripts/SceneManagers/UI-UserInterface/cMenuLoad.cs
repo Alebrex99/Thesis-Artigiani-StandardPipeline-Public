@@ -38,7 +38,7 @@ public class cMenuLoad : MonoBehaviour
     {
         menuLoadPanel.SetActive(false);
         goBtLoad.SetActive(false);
-        
+        goBtLoadPhysic.SetActive(false);
         IntroManager.instance.InitApplication();
         //cMainUIManager.HideLoading();   
     }
