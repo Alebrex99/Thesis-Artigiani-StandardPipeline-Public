@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LoadingTrigger : MonoBehaviour
 {
@@ -16,7 +17,8 @@ public class LoadingTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-    
+        cMainUIManager.instance.OnLoadingEnd += OnLoadingEndEffect;
+        
     }
 
     // Update is called once per frame
@@ -25,21 +27,48 @@ public class LoadingTrigger : MonoBehaviour
 
     }
 
+    private void OnLoadingEndEffect()
+    {
+        triggeredObjs.ForEach(obj =>
+        {
+            if (obj != null)
+            {
+                obj.SetActive(true);
+                Debug.Log("RIACCENDO: " + obj.name);
+            }
+
+        });
+        triggeredObjs.Clear();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
 
         Debug.Log("ENTRATO: " + other.gameObject.name);
         if (cMenuLoad.IsShowing() && goToSwitchOffMenu.Contains(other.gameObject))
         {
-            other.gameObject.SetActive(false); //solo se in lista di spegnimento
-            Debug.Log("MENU: spengo " + other.gameObject.name);
-
+            if(other.GetComponentInParent<OVRCameraRig>() == null)
+            {
+                other.gameObject.SetActive(false);
+                Debug.Log("MENU: spengo " + other.gameObject.name);
+            }
         }
         if (cLoading.IsShowing())
         {
-            //triggeredObjs.Add(other.gameObject);
-            other.gameObject.SetActive(false);
-            Debug.Log("LOADING: spengo " + other.gameObject.name);
+            if (other.GetComponentInParent<OVRCameraRig>() == null)
+            {
+                other.gameObject.SetActive(false);
+                triggeredObjs.Add(other.gameObject);
+                Debug.Log("LOADING: spengo " + other.gameObject.name);
+            }
+            
+           
         }
     }
+
+    private void OnDestroy()
+    {
+        cMainUIManager.instance.OnLoadingEnd -= OnLoadingEndEffect;
+    }
+    
 }

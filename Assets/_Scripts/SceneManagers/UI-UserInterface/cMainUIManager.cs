@@ -20,6 +20,7 @@ public class cMainUIManager : MonoBehaviour{
     //ALE public GameObject pnLogs;
 
     public static cMainUIManager instance;
+    public Action OnLoadingEnd;
     private static UnityEvent<string> logUpdated;
 
     private void Awake() {
@@ -46,8 +47,10 @@ public class cMainUIManager : MonoBehaviour{
     public static void HideLoading() {
         instance.scrLoading.HideLoading();
         instance.goMainCanvas.SetActive(false); //ALE
+        //azione per gestire il caricamenrto meglio (riaccendere ciò che serve)
+        instance.OnLoadingEnd?.Invoke();
         //cMainUIManager.instance.goMainCanvas.transform.parent = null; //ALE
-        
+
         /*ALE if (!instance.scrAlert.IsShowing())
             instance.goMainCanvas.SetActive(false);*/
     }
