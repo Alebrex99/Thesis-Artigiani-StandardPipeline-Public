@@ -121,7 +121,8 @@ public class cAppManager : MonoBehaviour {
         Debug.Log("[App] Load Scene: " + scene + " Unload Scene: " + actualScene);
         actualScene = scene; //SET LA SCENA CORRENTE (es. Intro)
         actualBuildScene = (int)scene;
-        instance.StartCoroutine(instance.ChangeSceneCor(actualBuildScene));
+        //instance.StartCoroutine(instance.ChangeSceneCor(actualBuildScene));
+        instance.StartCoroutine(instance.GoToSceneAsyncRoutine(actualBuildScene));
     }
 
     IEnumerator GoToSceneAsyncRoutine(int sceneIndex)
@@ -135,7 +136,8 @@ public class cAppManager : MonoBehaviour {
         }
         cOVRScreenFade.instance.FadeOut();
         
-        AsyncOperation asyncLoadOperation = SceneManager.LoadSceneAsync(sceneIndex);
+        asyncLoadOperation = SceneManager.LoadSceneAsync(sceneIndex);
+        yield return new WaitForEndOfFrame();
         while (!asyncLoadOperation.isDone)
         {
             Debug.Log("Caricamento della scena " + sceneToLoad.name + " in corso...");
@@ -144,13 +146,14 @@ public class cAppManager : MonoBehaviour {
         Debug.Log("Scena " + sceneToLoad.name + " caricata con successo.");
         actualBuildScene = SceneManager.GetActiveScene().buildIndex;
 
+        ////ATTIVA SCENA NUOVA (me lo assicuro)
         Scene loadedScene = SceneManager.GetSceneByBuildIndex(sceneIndex);
         SceneManager.SetActiveScene(loadedScene);
         Debug.Log("Scena " + sceneToLoad.name + " impostata come scena attiva.");
 
-        cMainUIManager.HideLoading();
-        OVRScreenFade.instance.FadeIn();
         asyncLoadOperation = null;
+        cMainUIManager.HideLoading();
+        cOVRScreenFade.instance.FadeIn();
     }
     //VERSIONE LOADING (ALE)
     IEnumerator ChangeSceneCor(int sceneIndex)
@@ -173,7 +176,7 @@ public class cAppManager : MonoBehaviour {
         while (!asyncLoadOperation.isDone)
         {
             //Debug.Log("Caricamento della scena " + sceneToLoad.name + " in corso...");
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
         //Debug.Log("Scena " + sceneToLoad.name + " caricata con successo.");
         asyncLoadOperation = null;
@@ -192,7 +195,7 @@ public class cAppManager : MonoBehaviour {
         while (!asyncLoadOperation.isDone)
         {
             //Debug.Log("Scaricamento della scena " + sceneToUnload.name + " in corso...");
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
 
         actualBuildScene = SceneManager.GetActiveScene().buildIndex;
@@ -252,8 +255,6 @@ public class cAppManager : MonoBehaviour {
                 break;
         }
         LoadScene(Scenes.HOME);
-        //PROVA
-        //LoadScene(SceneManager.GetSceneByName("Test_rig"));
     }
 
     //AI : CONVERSATIONAL AGENT
