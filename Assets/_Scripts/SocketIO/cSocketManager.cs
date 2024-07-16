@@ -21,6 +21,7 @@ public class cSocketManager : MonoBehaviour
 
     //RICEZIONE SERVER -> CLIENT
     public static List<byte> conversation = new List<byte>();
+    public Queue<byte[]> audioQueue = new Queue<byte[]>();
     //private byte[] audioBuffer;
     private float[] audioBufferFloat; //N bytes / 4byte (1 float = 4 byte)questi sono i SAMPLES dell' AudioClip
     private bool bufferReady = false;
@@ -97,7 +98,7 @@ public class cSocketManager : MonoBehaviour
         };
        
 
-        //--------------------- CONNECTION ASYNC -------------------------------
+        //--------------------- CONNECTION -------------------------------
         Debug.Log("Connecting...");
         socket.Connect(); //gestione interna di SocketIOUnity
         //await socket.ConnectAsync(); //cambio ad asincrono
@@ -124,6 +125,9 @@ public class cSocketManager : MonoBehaviour
 
             //GESTIONE AUDIO BUFFER REAL TIME
             conversation.AddRange(chunk); //lista perchè il buffer non è dinamico
+            audioQueue.Enqueue(chunk); 
+            //uso MEMORY STREAM
+
             //chunk.CopyTo(audioBuffer, bufferIndex); //copia il chunk in audioBuffer
             //Buffer.BlockCopy(chunk, 0, audioBuffer, bufferIndex, chunk.Length); 
             //bufferIndex += chunk.Length;
@@ -159,12 +163,12 @@ public class cSocketManager : MonoBehaviour
          * N.B. NON PUOI USARE OnUnityThread e On contemporaneamente sullo stesso evento
          * Set (unityThreadScope) the thread scope function where the code should run. 
          * Options are: .Update, .LateUpdate or .FixedUpdate, default: UnityThreadScope.Update */
-        socket.unityThreadScope = UnityThreadScope.Update; //dove tale thread sta andando
-        socket.OnUnityThread("spin", (response) =>
+        //socket.unityThreadScope = UnityThreadScope.Update; //dove tale thread sta andando
+        /*socket.OnUnityThread("spin", (response) =>
         {
             //objectToSpin.transform.Rotate(0, 45, 0);
             //objectToSpin.transform.position = new Vector3(2, 2, 2);
-        });
+        });*/
         //Corrisponde esattamente a :
         /*socket.On("audio_response_end", response =>
         {
@@ -180,18 +184,18 @@ public class cSocketManager : MonoBehaviour
         
         //Per reagire a qualunque tipo di evento emesso (corrisponde a socket.onAny()):
         //ReceivedText.text = "";
-        socket.OnAnyInUnityThread((name, response) =>
+        /*socket.OnAnyInUnityThread((name, response) =>
         {
             //ReceivedText.text += "Received On " + name + " : " + response.GetValue<string>() + "\n"; //response.GetValue().GetRawText()
             //objectToSpin.transform.Rotate(0, 45, 0);
             //objectToSpin.transform.position = new Vector3(2, 2, 2);
-        });
+        });*/
     }
 
     void Update()
     {
-        //POLLING AUDIO BUFFER: non permette di creare audio source in runtime altrimenti
-        if (bufferReady) //&& !receiverAudioSrc.isPlaying && receiverAudioSrc.clip != null && receiverAudioSrc.clip.loadState == AudioDataLoadState.Loaded
+        //POLLING AUDIO BUFFER (o usa un unity thread dispatcher): non permette di creare audio source in runtime altrimenti
+        if (bufferReady && !receiverAudioSrc.isPlaying)
         {         
             PlayAudioBuffer(audioBufferFloat);
         }
@@ -243,9 +247,10 @@ public class cSocketManager : MonoBehaviour
     private void LoadHelperNLayer()
     {
         Debug.Log("Status : Loading...");
-        byte[] audioBuffer = new byte[conversation.Count];
-        conversation.CopyTo(audioBuffer);
-        var memStream = new MemoryStream(audioBuffer);
+        //byte[] audioBuffer = new byte[conversation.Count];
+        //conversation.CopyTo(audioBuffer);
+        //gestisci il caso in cui, mentre vengono ricevuti i dati, io rimando altri dati, quindi se ho già un file audio in riproduzione, lo stoppo, 
+        var memStream = new MemoryStream(conversation.ToArray());
         try
         {  
             mpgFile = new MpegFile(memStream);
@@ -290,6 +295,17 @@ public class cSocketManager : MonoBehaviour
         //this.audioBufferFloat = new float[0];
         //Debug.Log("Audio Buffer cleared: " + audioBuffer.Length);
         bufferReady = false;
+    }
+
+    public void ToggleAudioBuffer()
+    {
+        if (receiverAudioSrc.isPlaying)
+        {
+            receiverAudioSrc.Stop();
+            conversation.Clear();
+            mpgFile = null;
+            audioBufferFloat = new float[0];
+        }
     }
 
     void OnApplicationQuit()

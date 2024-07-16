@@ -261,7 +261,10 @@ public class cAppManager : MonoBehaviour {
     public static void ToggleConversationalAgent()
     {
         Debug.Log("Toggle Conversational Agent");
+        //TOGGLE per aprire il canale per parlare
         instance._dictationActivation.ToggleActivation();
+        //TOGGLE per zittire il conversational agent
+        cSocketManager.instance.ToggleAudioBuffer();
     }
     
 
