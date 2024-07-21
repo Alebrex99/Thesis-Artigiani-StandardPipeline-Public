@@ -104,8 +104,8 @@ public class cSocketManager : MonoBehaviour
         socket.OnConnected += (sender, e) =>
         {
             //Debug.Log("socket.OnConnected");
-            //socket.Emit("chat_message", "hola"); //message to INIT, chiama internamente EmitAsync
-            //Debug.Log("Initial message sent from connect");
+            socket.Emit("chat_message", "hola"); //message to INIT, chiama internamente EmitAsync
+            Debug.Log("Initial message sent from connect");
             isConnected = true; // Set isConnected to true when connected
         };
         socket.OnPing += (sender, e) =>

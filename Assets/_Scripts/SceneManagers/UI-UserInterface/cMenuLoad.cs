@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class cMenuLoad : MonoBehaviour
 {
     public GameObject menuLoadPanel;
-    public GameObject goBtLoad;
     public GameObject goBtLoadPhysic;
     public Image imProgressBar;
     // Start is called before the first frame update
@@ -21,9 +20,9 @@ public class cMenuLoad : MonoBehaviour
     public void ShowMenu()
     {
         menuLoadPanel.SetActive(true);
-        if (goBtLoad != null && goBtLoadPhysic!=null) 
+        if (goBtLoadPhysic!=null) 
         { 
-            goBtLoad.SetActive(true);
+            //goBtLoad.SetActive(true);
             goBtLoadPhysic.SetActive(true); 
         }
         //possibili animazioni ... progress bar
@@ -33,9 +32,9 @@ public class cMenuLoad : MonoBehaviour
     {
         //stop animazioni ... progress bar
         menuLoadPanel.SetActive(false);
-        if(goBtLoad != null && goBtLoadPhysic != null)
+        if(goBtLoadPhysic != null)
         {
-            goBtLoad.SetActive(false);
+            //goBtLoad.SetActive(false);
             goBtLoadPhysic.SetActive(false);
         }
        
@@ -44,9 +43,9 @@ public class cMenuLoad : MonoBehaviour
     public void ClickLoad()
     {
         menuLoadPanel.SetActive(false);
-        if(goBtLoad != null && goBtLoadPhysic != null)
+        if(goBtLoadPhysic != null)
         {
-            goBtLoad.SetActive(false);
+            //goBtLoad.SetActive(false);
             goBtLoadPhysic.SetActive(false);
         }
         IntroManager.instance.InitApplication();

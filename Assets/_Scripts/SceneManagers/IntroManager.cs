@@ -21,6 +21,8 @@ public class IntroManager : MonoBehaviour
     //SCENE : cSceneInfo + MENU : video + animation logo
     public Transform userInitPos;
     public Transform chairInitPos;
+    [Range(0.1f, 1)]
+    [SerializeField] private float rotationChairSpeed = 0.6f;
     private float timeLastClick = 0;
     [SerializeField] Animator animLogo;
     //[SerializeField] private GameObject menuCanvas;
@@ -43,6 +45,13 @@ public class IntroManager : MonoBehaviour
 
     private void Update()
     {
+        Vector3 targetDirectionChair = cXRManager.GetTrCenterEye().forward;
+        targetDirectionChair.y = 0;
+        targetDirectionChair.Normalize();
+        float rotationStepChair = rotationChairSpeed * Time.deltaTime;
+        Vector3 newDirectionChair = Vector3.RotateTowards(chairInitPos.forward, targetDirectionChair, rotationStepChair, 0.0f);
+        chairInitPos.rotation = Quaternion.LookRotation(newDirectionChair, chairInitPos.up);
+        
         if (bShownVideo)
         {
             //Vector3 euler = Quaternion.LookRotation(goVideoPlayer.transform.position - cXRManager.GetTrCenterEye().position).eulerAngles;
@@ -69,11 +78,12 @@ public class IntroManager : MonoBehaviour
         _buttonHome.gameObject.SetActive(false);
         goVideoPlayer.gameObject.SetActive(false);
         ResetUserPosition();
-        chairInitPos.GetChild(0).gameObject.SetActive(true); //attivo sedia
-        //MENU : cStMenu
-        //chiama invoke con la conversione del nome del metodo in stringa
+        chairInitPos.gameObject.SetActive(true); //attivo sedia
+        chairInitPos.transform.rotation = cXRManager.GetTrCenterEye().localRotation;
+        //imposta la posizione in base all'utente
+        chairInitPos.position = cXRManager.GetTrCenterEye().position + cXRManager.GetTrCenterEye().up * 0.6f + cXRManager.GetTrCenterEye().forward * -0.125f; //ALE 0.5f
         StartCoroutine(InitMenuCanvas());
-        //cMainUIManager.ShowMenuCanvas(); //Problema : qui la posizione dell'occhio � a terra, ecco perch� il Menu compare a terra
+        //cMainUIManager.ShowMenuCanvas(); //Problema : qui la posizione dell'occhio è a terra, ecco perché il Menu compare a terra
         //SE FUNZIONA IL MENU : TUTTO LO START VIENE SPOSTATO DENTRO LA INIT APPLICATION
 
     }
@@ -96,7 +106,6 @@ public class IntroManager : MonoBehaviour
         //READ FROM FILE CSV
         string introData = ReadConfig.configData.Find((string line) => line.Contains("INTRO"));
 
-
         //ACCENDO LA SCENA
         goVideoPlayer.gameObject.SetActive(true);
         videoPlayer.loopPointReached += EndVideo;
@@ -109,7 +118,6 @@ public class IntroManager : MonoBehaviour
         }
         //Invoke(nameof(EndAudio), voiceAudio.clip.length);
         StartCoroutine(LateActivation(_buttonHome.gameObject, _activationButtonDelay));
-        //_buttonHome.OnButtonPressed += OnButtonPressedEffect;
     }
 
     private IEnumerator InitMenuCanvas()

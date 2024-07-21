@@ -1971,19 +1971,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1362378033090752062, guid: 872bebe50d1f163458ff0e7236489dba, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 1362378033090752062, guid: 872bebe50d1f163458ff0e7236489dba, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1362378033090752062, guid: 872bebe50d1f163458ff0e7236489dba, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 2234939863975593771, guid: 872bebe50d1f163458ff0e7236489dba, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 2234939863975593771, guid: 872bebe50d1f163458ff0e7236489dba, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2702,7 +2702,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1213363124
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3061,6 +3061,7 @@ MonoBehaviour:
   rotationVideoSpeed: 1
   userInitPos: {fileID: 1405176340}
   chairInitPos: {fileID: 33310818}
+  rotationChairSpeed: 0.6
   animLogo: {fileID: 0}
   voiceAudio: {fileID: 245571541}
   _buttonHomeInitPos: {fileID: 313009160}
@@ -3526,7 +3527,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7812462294705991510, guid: e1cc94dc54f039f4ab4185cea2162610, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1cc94dc54f039f4ab4185cea2162610, type: 3}

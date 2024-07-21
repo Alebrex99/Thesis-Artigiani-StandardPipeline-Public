@@ -59,7 +59,7 @@ public class cMainUIManager : MonoBehaviour{
     {
         instance.goMainCanvas.SetActive(true); //show canvas of the Menu (managed from cMenuLoad)
         instance.goMainCanvas.transform.position = cXRManager.GetTrCenterEye().position + cXRManager.GetTrCenterEye().forward * instance.loadingDistance; // ALE 0.5f
-        instance.goMainCanvas.transform.rotation = Quaternion.LookRotation(instance.goMainCanvas.transform.position - cXRManager.GetTrCenterEye().localPosition); //ALE
+        instance.goMainCanvas.transform.rotation = Quaternion.LookRotation(instance.goMainCanvas.transform.position - cXRManager.GetTrCenterEye().position); //ALE
         instance.goMainCanvas.transform.eulerAngles = new Vector3(0, instance.goMainCanvas.transform.eulerAngles.y, 0);
         instance.scrMenuLoad.ShowMenu();
     }
