@@ -10,7 +10,7 @@ public class ReadConfig : MonoBehaviour
     public static ReadConfig instance;
     //[SerializeField] private TextMeshProUGUI myText;
     public static string filePathCsv;
-    public static string filePathTxt;
+    //public static string filePathTxt;
     private int currentLineIndex = 0;
    
     //CSV
@@ -27,7 +27,7 @@ public class ReadConfig : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        filePathTxt = Application.persistentDataPath + "/append.txt";
+        //filePathTxt = Application.persistentDataPath + "/append.txt";
         //myText.text = GetLineAtIndex(currentLineIndex);
 
        

@@ -18,6 +18,7 @@ using UnityEngine.UIElements;
 using UnityEngine.Profiling;
 using Meta.Voice.Samples.Dictation;
 using static OVRPlugin;
+using NLayer.Decoder;
 
 
 public class cSocketManager : MonoBehaviour
@@ -95,8 +96,6 @@ public class cSocketManager : MonoBehaviour
             Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
         });
         socket.JsonSerializer = new NewtonsoftJsonSerializer();
-
-
         //------------------RESERVED SOCKETIO EVENTS-----------------------
         /*Un "ping" è un messaggio inviato dal client al server per verificare se il server è ancora raggiungibile e per misurare il tempo di latenza 
          * tra il client e il server. Il server risponderà quindi con un "pong" per confermare la ricezione del messaggio e includerà informazioni 

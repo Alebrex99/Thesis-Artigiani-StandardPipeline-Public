@@ -52,11 +52,18 @@ namespace OculusSampleFramework
             offset = new Vector3(0, y_offset, 0);
             _panelInitialPosition = transform.position - offset;
         }
+        private void Start()
+        {
+            if (_coroutine == null)
+            {
+                _coroutine = StartCoroutine(LerpToHMD());
+            }
+        }
 
 
         private void Update()
         {
-            var centerEyeAnchorPos = _cameraRig.centerEyeAnchor.position;
+            /*var centerEyeAnchorPos = _cameraRig.centerEyeAnchor.position;
             var myPosition = transform.position - offset;
             //Distance from centereye since last time we updated panel position.
             float distanceFromLastMovement = Vector3.Distance(centerEyeAnchorPos, _lastMovedToPos);
@@ -78,7 +85,7 @@ namespace OculusSampleFramework
                 }
             }
 
-            _prevPos = _cameraRig.centerEyeAnchor.position;
+            _prevPos = _cameraRig.centerEyeAnchor.position;*/
         }
 
         private Vector3 CalculateIdealAnchorPosition()

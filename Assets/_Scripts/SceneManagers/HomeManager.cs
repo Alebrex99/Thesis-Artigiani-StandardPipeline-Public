@@ -19,8 +19,9 @@ public class HomeManager: MonoBehaviour
     public static HomeManager instance;//singleton
 
     //GESTIONE BOTTONI
-    public AudioSource envAudioSrc; //voce spiegazione
-    public AudioClip _buttonExplainClip;
+    public AudioSource[] envAudioSrc; //voce spiegazione
+    private bool isRotated = false;
+    public AudioClip[] _buttonExplainClips;
     [SerializeField] private GameObject[] _lateActivatedObj; //interagibili principali (bottoni main ecc)
     [Range(0,60)]
     [SerializeField] private float _activationDelay = 1f;
@@ -31,7 +32,7 @@ public class HomeManager: MonoBehaviour
     State _currentState;
     private GameObject _currentEnvironment;
     [SerializeField] GameObject _environmentMain;
-    [SerializeField] GameObject _envMyMotivation;
+    //[SerializeField] GameObject _envMyMotivation;
     [SerializeField] GameObject _envOffice;
     [SerializeField] GameObject _envMyExperience;
     [SerializeField] Transform chairInitPos;
@@ -39,8 +40,8 @@ public class HomeManager: MonoBehaviour
     [SerializeField] private float rotationChairSpeed = 0.6f;
 
     //DEPRECATED
-    [SerializeField] GameObject _video2DScene;
-    [SerializeField] GameObject _video180StereoScene;
+    //[SerializeField] GameObject _video2DScene;
+    //[SerializeField] GameObject _video180StereoScene;
 
     //FEATURES DA cStBase
     public Transform userInitPos;
@@ -64,18 +65,19 @@ public class HomeManager: MonoBehaviour
     private void Start()
     {
         ResetUserPosition();
+        envAudioSrc[0].clip = _buttonExplainClips[0];
+        envAudioSrc[1].clip = _buttonExplainClips[1];
+
         _currentState = State.Main;
-        //RenderSettings.skybox = skyboxMain;
-        
         //Start environment HOME
         _environmentMain.SetActive(true);
         //spegni tutto il resto
-        _envMyMotivation.SetActive(false);
         _envOffice.SetActive(false);
         _envMyExperience.SetActive(false);
-        
-        _video2DScene.SetActive(false);
-        _video180StereoScene.SetActive(false);
+
+        //_envMyMotivation.SetActive(false);
+        //_video2DScene.SetActive(false);
+        //_video180StereoScene.SetActive(false);
         _currentEnvironment = _environmentMain;
         //MY HISTORY + MI TALLER
         informations.SetActive(false);
@@ -96,6 +98,7 @@ public class HomeManager: MonoBehaviour
         trLightButton.position = cXRManager.GetTrCenterEye().position;
         trLightButton.rotation = cXRManager.GetTrCenterEye().rotation;
 
+        //SEDIA
         Vector3 targetDirection = cXRManager.GetTrCenterEye().forward;
         targetDirection.y = 0;
         targetDirection.Normalize();
@@ -110,7 +113,69 @@ public class HomeManager: MonoBehaviour
         // Solo la rotazione attorno all'asse Y è necessaria
         Vector3 euler = targetRotation.eulerAngles;
         chairInitPos.transform.eulerAngles = new Vector3(0, euler.y, 0);*/
+
+        //QUANDO TI GIRI VERSO I BOTTINI SECONDARI -> AVVIA SECONDA CLIP
+        var forwardCamx = new Vector3(cXRManager.GetTrCenterEye().forward.x, 0, cXRManager.GetTrCenterEye().forward.z);
+        var forwardButtx = new Vector3(mainInteractablesInitPos.forward.x, 0, mainInteractablesInitPos.forward.z);
+        var angleRotation = Vector3.SignedAngle(forwardCamx, forwardButtx, -Vector3.up);
+
+        Debug.Log(angleRotation);
+        if(angleRotation > 70 && angleRotation <180)
+        {
+            if (!envAudioSrc[1].isPlaying && !isRotated)
+            {
+                isRotated = true;
+                StartCoroutine(FadeOutAudio(envAudioSrc[0], 2f));
+                StartCoroutine(FadeInAudio(envAudioSrc[1], 2f));
+            }
+        }
+        else
+        {
+            if (!envAudioSrc[0].isPlaying && isRotated)
+            {
+                isRotated = false;
+                StartCoroutine(FadeOutAudio(envAudioSrc[1], 2f));
+                StartCoroutine(FadeInAudio(envAudioSrc[0], 2f));
+            }
+        }
+        
     }
+    private IEnumerator FadeOutAudio(AudioSource audioSrc, float fadeTime)
+    {
+        //audioSrc.clip = _envClips[1]; //decidi la CLip da settare (da usare con 2 audio source)
+        float startVolume = audioSrc.volume;
+
+        while (audioSrc.volume > 0)
+        {
+            audioSrc.volume -= startVolume * Time.deltaTime / fadeTime;
+            yield return null;
+        }
+
+        audioSrc.Pause();
+        audioSrc.volume = startVolume;
+    }
+    private IEnumerator FadeInAudio(AudioSource audioSrc, float fadeTime)
+    {
+        //audioSrc.clip = _envClips[1]; //decidi la clip da settare (da usare con 2 audio source)
+        float startVolume = audioSrc.volume;
+        audioSrc.volume = 0f;
+        if(isRotated)
+        {
+            audioSrc.Play();
+        }
+        else audioSrc.UnPause();
+
+        float currentTime = 0f;
+        while (currentTime < fadeTime)
+        {
+            currentTime += Time.deltaTime;
+            audioSrc.volume = Mathf.Lerp(0f, startVolume, currentTime / fadeTime);
+            yield return null;
+        }
+
+        audioSrc.volume = startVolume;
+    }
+
     private IEnumerator LateActivation(GameObject[] toActivate, float _activationDelay)
     {
         yield return new WaitForSeconds(_activationDelay);
@@ -123,7 +188,11 @@ public class HomeManager: MonoBehaviour
         //SETTO E ATTIVO CLIP SPIEGAZIONE BOTTONI
         if(envAudioSrc!= null)
         {
-            envAudioSrc.PlayOneShot(_buttonExplainClip); //start when the buttons appear
+            envAudioSrc[0].PlayOneShot(_buttonExplainClips[0]); //start when the buttons appear
+        }
+        if (isRotated)
+        {
+            envAudioSrc[1].PlayOneShot(_buttonExplainClips[1]);
         }
     }
     public Transform GetUserInitTr()
@@ -193,6 +262,8 @@ public class HomeManager: MonoBehaviour
         }
 
     }
+
+
 
 
 

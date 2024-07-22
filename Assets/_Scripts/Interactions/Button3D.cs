@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 using JetBrains.Annotations;
+using UnityEngine.UI;
 
 public class Button3D : MonoBehaviour
 {
@@ -11,7 +12,8 @@ public class Button3D : MonoBehaviour
     public Action<Button3D, bool> OnButtonPressed;
     private bool isButtonPressed = false;
     public string ButtonName;
-
+    [SerializeField] Image infoimage;
+    [SerializeField] Image closeimage;
     //Elementi da spegnere e da accendere
     //[SerializeField] Material _skyboxOn;
     //[SerializeField] Material _skyboxMain;
@@ -91,10 +93,16 @@ public class Button3D : MonoBehaviour
             _currentEnvironment.SetActive(false);
             _currentEnvironment = _environmentOn;
             _currentEnvironment.SetActive(true);
- 
         }
+
         Debug.Log(_currentEnvironment.name);
         Debug.Log(_environmentOn.name);
+
+        if (infoimage != null && closeimage != null)
+        {
+            infoimage.gameObject.SetActive(!infoimage.gameObject.activeSelf);
+        }
+
         /* if (RenderSettings.skybox == _skyboxOn)
         {
             RenderSettings.skybox = _skyboxOff;
@@ -103,7 +111,6 @@ public class Button3D : MonoBehaviour
         {
             RenderSettings.skybox = _skyboxOn;
         }*/
-
     }
 
 
