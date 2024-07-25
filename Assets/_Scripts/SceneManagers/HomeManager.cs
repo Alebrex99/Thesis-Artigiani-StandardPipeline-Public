@@ -59,14 +59,11 @@ public class HomeManager: MonoBehaviour
     private void Awake()
     {
         instance = this;
+
         foreach (Button3D button3D in _buttonsMain3D)
         {
             button3D.OnButtonPressed += OnButtonPressedEffect;
         }
-    }
-
-    private void Start()
-    {
         ResetUserPosition();
         envAudioSrc[0].clip = _buttonExplainClips[0];
         envAudioSrc[1].clip = _buttonExplainClips[1];
@@ -84,16 +81,21 @@ public class HomeManager: MonoBehaviour
         _currentEnvironment = _environmentMain;
         //MY HISTORY + MI TALLER
         informations.SetActive(false);
-        
+
         //BOTTONI
         //_buttonsMain3D = FindObjectsOfType<Button3D>(); //pesa meno con Public lista , ma sbatti dopo
-        foreach(GameObject lateObj in _lateActivatedObj)
+        foreach (GameObject lateObj in _lateActivatedObj)
         {
             lateObj.SetActive(false);
         }
 
         //SEDIA
         chairInitPos.GetChild(0).gameObject.SetActive(true); //attivo sedia
+    }
+
+    private void Start()
+    {
+        
         //ATTIVAZIONI RITARDATE
         StartCoroutine(LateActivation(_lateActivatedObj, _activationDelay));
     }
@@ -110,7 +112,7 @@ public class HomeManager: MonoBehaviour
         Vector3 newDirection = Vector3.RotateTowards(chairInitPos.forward, targetDirection, rotationStep, 0.0f);
         chairInitPos.rotation = Quaternion.LookRotation(newDirection, chairInitPos.up);
 
-        Debug.Log(" ENV CHANGED: " + isEnvironmentChanged + " isBack home: " + cAppManager.isBackHome + "isRotated: " + isRotated);
+        //Debug.Log(" ENV CHANGED: " + isEnvironmentChanged + " isBack home: " + cAppManager.isBackHome + "isRotated: " + isRotated);
         //QUANDO TI GIRI VERSO I BOTTINI SECONDARI -> AVVIA SECONDA CLIP
         if (!isEnvironmentChanged && !cAppManager.isBackHome && isLateActive)
         {
@@ -268,6 +270,7 @@ public class HomeManager: MonoBehaviour
         {
             button3D.OnButtonPressed -= OnButtonPressedEffect;
         }
+        StopAllCoroutines();
 
     }
 

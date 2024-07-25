@@ -97,6 +97,7 @@ namespace OculusSampleFramework
         private IEnumerator LerpToHMD()
         {
             Vector3 newPanelPosition = CalculateIdealAnchorPosition();
+            Debug.Log("CALL coroutine Lerp buttons: " + newPanelPosition);
             //Vector3 newPanelPosition = trButtonIdeal.position;
             _lastMovedToPos = _cameraRig.centerEyeAnchor.position;
             float startTime = Time.time;

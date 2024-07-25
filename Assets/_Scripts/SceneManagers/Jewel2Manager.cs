@@ -41,10 +41,6 @@ public class Jewel2Manager : MonoBehaviour
     {
         instance = this;
         _jewel2.OnJewelTouched += OnJewel2Touched;
-    }
-
-    void Start()
-    {
         ResetUserPosition();
         //StartCoroutine(PlayEnvMedia());
         jewel2Informations.SetActive(false);
@@ -52,6 +48,10 @@ public class Jewel2Manager : MonoBehaviour
         {
             lateObj.SetActive(false);
         }
+    }
+
+    void Start()
+    {
         //StartCoroutine(LateActivation(_lateActivatedObj, _activationDelay));
         StartCoroutine(LateActivationJewel(_lateActivatedObj, _immersionDelay)); //dopo 15 secondi compare gioiello + audio1 
         StartCoroutine(LateActivationButtons(_lateActivatedObj, _activationDelay));
@@ -109,7 +109,7 @@ public class Jewel2Manager : MonoBehaviour
 
         //envAudioSrc.PlayOneShot(_envClips[0], 1f); //Environment sounds (già nel video)
         yield return new WaitForSeconds(_immersionDelay);
-        envAudioSrc.PlayOneShot(_envClips[1], 1); //Environment explanation
+        envAudioSrc.PlayOneShot(_envClips[0], 1); //Environment explanation
         //yield return new WaitForSeconds(_immersionDelay);
         //PlayPicture(); //se verrà messo un video (per ora solo quadro)
 
@@ -126,9 +126,12 @@ public class Jewel2Manager : MonoBehaviour
 
     private IEnumerator LateActivationButtons(GameObject[] toActivate, float _activationDelay)
     {
-        yield return new WaitForSeconds(_activationDelay); //in realtà quando finisce l'audio di spiegazione gioiello
+        yield return new WaitForSeconds(_activationDelay);
+        yield return new WaitUntil(() => !envAudioSrc.isPlaying);
+
         toActivate[1].SetActive(true);
-        envAudioSrc.PlayOneShot(_envClips[2], 1); //Buttons explaination
+        if (!envAudioSrc.isPlaying)
+            envAudioSrc.PlayOneShot(_envClips[2], 1); //Buttons explanation
     }
 
 

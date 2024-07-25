@@ -39,20 +39,20 @@ public class Jewel3Manager : MonoBehaviour
     {
         instance = this;
         _jewel3.OnJewelTouched += OnJewel3Touched;
-    }
-
-    void Start()
-    {
         ResetUserPosition();
-        StartCoroutine(PlayEnvMedia());
         jewel3Informations.SetActive(false);
-        if(_lateActivatedObj.Length > 0)
+        if (_lateActivatedObj.Length > 0)
         {
             foreach (GameObject lateObj in _lateActivatedObj)
             {
                 lateObj.SetActive(false);
             }
         }
+    }
+
+    void Start()
+    {
+        StartCoroutine(PlayEnvMedia());
         StartCoroutine(LateActivation(_lateActivatedObj, _activationDelay));
 
     }

@@ -17,17 +17,17 @@ public class Jewel1Manager : MonoBehaviour
     public AudioSource envAudioSrc;
     public AudioClip[] _envClips;
     [Range(0, 60)]
+    [SerializeField] private float _envExplainDelay = 1f;
+    [Range(0, 60)]
     [SerializeField] private float _immersionDelay = 1f;
     [Range(0, 60)]
     [SerializeField] private float _activationDelay = 1f;
     [SerializeField] private GameObject[] _lateActivatedObj;
 
     //VIDEO/QUADRO SOROLLA
-    public VideoPlayer videoPlayer;
     [SerializeField] private GameObject goVideoPlayer;
     [SerializeField] private GameObject sorollaPicture;
     [SerializeField] private GameObject jewel1Informations;
-    int loopVideo = 0;
     private bool bShowVideo = false;
     [Range(0.1f, 10)]
     [SerializeField] private float rotationVideoSpeed = 1;
@@ -41,20 +41,23 @@ public class Jewel1Manager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        _jewel1.OnJewelTouched += OnJewel1Touched;
-    }
 
-    void Start()
-    {
+        _jewel1.OnJewelTouched += OnJewel1Touched;
         ResetUserPosition();
-        StartCoroutine(PlayEnvMedia());
+        sorollaPicture.SetActive(false);
         jewel1Informations.SetActive(false);
         foreach (GameObject lateObj in _lateActivatedObj)
         {
             lateObj.SetActive(false);
         }
-        StartCoroutine(LateActivation(_lateActivatedObj, _activationDelay));
+    }
 
+    void Start()
+    {
+        //StartCoroutine(PlayEnvMedia());
+        //StartCoroutine(LateActivation(_lateActivatedObj, _activationDelay));
+        StartCoroutine(LateActivationJewel(_lateActivatedObj, _immersionDelay)); //dopo 15 secondi compare gioiello + audio1 
+        StartCoroutine(LateActivationButtons(_lateActivatedObj, _activationDelay));
     }
 
     // Update is called once per frame
@@ -111,19 +114,38 @@ public class Jewel1Manager : MonoBehaviour
 
         //envAudioSrc.PlayOneShot(_envClips[0], 1f); //Environment sounds (già nel video)
         yield return new WaitForSeconds(_immersionDelay);
-        envAudioSrc.PlayOneShot(_envClips[1], 0.7f); //Environment explanation
+        envAudioSrc.PlayOneShot(_envClips[0], 1f); //Environment explanation
         //yield return new WaitForSeconds(_immersionDelay);
         //PlayPicture(); //se verrà messo un video (per ora solo quadro)
 
     }
+    private IEnumerator LateActivationJewel(GameObject[] toActivate, float _immersionDelay)
+    {
+        yield return new WaitForSeconds(_immersionDelay); //se c'è sostituisci _envExplainDelay
+        toActivate[0].SetActive(true);
+        //SETTA POSIZIONI
+        _jewel1.transform.position = _jewelInitPos.position;
+        envAudioSrc.PlayOneShot(_envClips[1], 1); //Jewel explaination
+    }
+
+    private IEnumerator LateActivationButtons(GameObject[] toActivate, float _activationDelay)
+    {
+        yield return new WaitForSeconds(_activationDelay);
+        yield return new WaitUntil(() => !envAudioSrc.isPlaying);
+        
+        toActivate[1].SetActive(true);
+        if(!envAudioSrc.isPlaying)
+            envAudioSrc.PlayOneShot(_envClips[2], 1); //Buttons explanation
+    }
+
 
     private void OnJewel1Touched(Jewel jewel, bool isJewelTouched)
     {
         //riduci regolarmente l'audio dell'ambiente nel giro di 5 secondi
         sorollaPicture.SetActive(!isJewelTouched);
-        bShowVideo = isJewelTouched;
         jewel1Informations.SetActive(isJewelTouched);
-        if(isJewelTouched) {
+        bShowVideo = isJewelTouched;
+        if (isJewelTouched) {
             StartCoroutine(FadeOutAudio(envAudioSrc, 2f));
         }
         else
@@ -168,7 +190,7 @@ public class Jewel1Manager : MonoBehaviour
 
 
 
-    private void PlayPicture()
+    /*private void PlayPicture()
     {
         if (bShowVideo)
         {
@@ -180,7 +202,7 @@ public class Jewel1Manager : MonoBehaviour
             videoPlayer.Play();
             bShowVideo = true;
         }
-    }
+    }*/
 
     public AudioSource GetAudioSource()
     {
@@ -196,6 +218,7 @@ public class Jewel1Manager : MonoBehaviour
         //videoPlayer.Stop();
         //envAudioSrc.Stop(); //non puoi farlo!
         _jewel1.OnJewelTouched -= OnJewel1Touched;
+        StopAllCoroutines();
     }
 
 }
