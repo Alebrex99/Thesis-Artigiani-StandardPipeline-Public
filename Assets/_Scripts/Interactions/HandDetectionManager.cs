@@ -5,7 +5,7 @@ using UnityEngine;
 public class HandDetectionManager : MonoBehaviour
 {
     public static HandDetectionManager instance;
-    public GameObject buttons;
+    public HandDetectionActivator buttons;
     public float hideDelay = 3f;
     private float timer;
     private bool handsDetected = true;
@@ -22,6 +22,7 @@ public class HandDetectionManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
     }
 
     void Start()
@@ -67,7 +68,8 @@ public class HandDetectionManager : MonoBehaviour
 
     private void SetButtonsActive(bool isActive)
     {
-        buttons.SetActive(isActive);
+        if(buttons != null)
+            buttons.gameObject.SetActive(isActive);
     }
 
     public void Activate()
@@ -75,6 +77,10 @@ public class HandDetectionManager : MonoBehaviour
         isActive = true;
         timer = 0f;
         Debug.Log("HandDetectionManager activated");
+        if (buttons == null)
+        {
+            buttons = FindObjectOfType<HandDetectionActivator>(true);
+        }
     }
 
     public void Deactivate()

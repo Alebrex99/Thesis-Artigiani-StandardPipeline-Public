@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class Jewel : MonoBehaviour
 {
-    [SerializeField] private AudioSource audioSourceJewel;
-    [SerializeField] private AudioClip jewelClip;
+    [SerializeField] private AudioSource pictureAudioSrc;
+    [SerializeField] private AudioClip pictureClip;
     public Action<Jewel, bool> OnJewelTouched;
     private bool isJewelTouched = false;
 
@@ -15,7 +15,7 @@ public class Jewel : MonoBehaviour
     void Start()
     {  
         isJewelTouched = false;
-        audioSourceJewel.clip = jewelClip;
+        pictureAudioSrc.clip = pictureClip;
     }
 
     // Update is called once per frame
@@ -34,12 +34,13 @@ public class Jewel : MonoBehaviour
         //se la clip non è già avviata
         if (isJewelTouched)
         {
-            //audioSourceJewel.PlayOneShot(jewelClip, 1f);
-            StartCoroutine(FadeInAudio(audioSourceJewel, 3f));
+            //pictureAudioSrc.PlayOneShot(pictureClip, 1f);
+            StartCoroutine(FadeInAudio(pictureAudioSrc, 2f));
+
         }
         else
         {
-            StartCoroutine(FadeOutAudio(audioSourceJewel, 3f));
+            StartCoroutine(FadeOutAudio(pictureAudioSrc, 2f));
         }
     }
 
@@ -59,9 +60,9 @@ public class Jewel : MonoBehaviour
 
     private IEnumerator FadeInAudio(AudioSource audioSrc, float fadeTime)
     {
-        float startVolume = audioSrc.volume;
+        float startVolume = 1;
         audioSrc.volume = 0f;
-        if (isJewelTouched)
+        if (!audioSrc.isPlaying)
         {
             audioSrc.Play();
         }
