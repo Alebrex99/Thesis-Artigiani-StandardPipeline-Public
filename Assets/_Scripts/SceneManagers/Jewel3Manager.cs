@@ -1,4 +1,5 @@
 using Evereal.VRVideoPlayer;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,6 +40,7 @@ public class Jewel3Manager : MonoBehaviour
 
     //GAME JEWEL 3
     [SerializeField] private GameObject jewel3Game;
+    [SerializeField] private MeshRenderer[] jewel3GameRenderers;
 
 
     // Start is called before the first frame update
@@ -51,13 +53,13 @@ public class Jewel3Manager : MonoBehaviour
         treePicture.SetActive(false);
         jewel3Informations.SetActive(false);
         jewel3Game.SetActive(false);
-        if (_lateActivatedObj.Length > 0)
+        /*if (_lateActivatedObj.Length > 0)
         {
             foreach (GameObject lateObj in _lateActivatedObj)
             {
                 lateObj.SetActive(false);
             }
-        }
+        }*/
     }
 
     void Start()
@@ -66,6 +68,12 @@ public class Jewel3Manager : MonoBehaviour
         //StartCoroutine(LateActivation(_lateActivatedObj, _activationDelay));
         StartCoroutine(LateActivationJewel(_lateActivatedObj, _immersionDelay)); //dopo 15 secondi compare gioiello + audio1 
         StartCoroutine(LateActivationButtons(_lateActivatedObj, _activationDelay));
+        foreach (Renderer renderer in jewel3GameRenderers)
+        {
+            Color color = renderer.material.color;
+            color.a = 0f;
+            renderer.material.color = color;
+        }
     }
 
     // Update is called once per frame
@@ -128,8 +136,11 @@ public class Jewel3Manager : MonoBehaviour
     {
         yield return new WaitForSeconds(_immersionDelay); //se c'è sostituisci _envExplainDelay
         toActivate[0].SetActive(true);
-        StartCoroutine(FadeInMaterial(jewel3Game.GetComponent<Renderer>().material, 3f)); //Fade in jewel3Game material
-        
+        jewel3Game.SetActive(true);
+        /*foreach (Renderer renderer in jewel3GameRenderers)
+        {
+            StartCoroutine(FadeInMaterial(renderer.material, 3f));
+        }*/
         //SETTA POSIZIONI
         _jewel3.transform.position = _jewelInitPos.position;
         StartCoroutine(FadeInAudio(interactAudioSrc, 3f, _envClips[1])); //Jewel explanation
@@ -137,19 +148,18 @@ public class Jewel3Manager : MonoBehaviour
 
     private IEnumerator FadeInMaterial(Material material, float fadeTime)
     {
-        float startAlpha = 0f;
-        float targetAlpha = 1f;
-        float currentTime = 0f;
-
-        while (currentTime < fadeTime)
+        float elapsedTime = 0f;
+        Color color = material.color;
+        while (elapsedTime < fadeTime)
         {
-            currentTime += Time.deltaTime;
-            float newAlpha = Mathf.Lerp(startAlpha, targetAlpha, currentTime / fadeTime);
-            material.SetFloat("_Alpha", newAlpha);
+            elapsedTime += Time.deltaTime;
+            color.a = Mathf.Clamp01(elapsedTime / fadeTime);
+            material.color = color;
             yield return null;
         }
-
-        material.SetFloat("_Alpha", targetAlpha);
+        // Assicurati che l'alfa sia impostata su 1 al termine del fade in
+        color.a = 1f;
+        material.color = color;
     }
 
     private IEnumerator LateActivationButtons(GameObject[] toActivate, float _activationDelay)
