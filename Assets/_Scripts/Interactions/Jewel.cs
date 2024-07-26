@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Jewel : MonoBehaviour
 {
@@ -10,12 +11,22 @@ public class Jewel : MonoBehaviour
     [SerializeField] private AudioClip pictureClip;
     public Action<Jewel, bool> OnJewelTouched;
     private bool isJewelTouched = false;
+    [SerializeField] Image playImg;
+    [SerializeField] Image pauseImg;
 
     // Start is called before the first frame update
-    void Start()
-    {  
+    private void Awake()
+    {
         isJewelTouched = false;
         pictureAudioSrc.clip = pictureClip;
+    }
+    void Start()
+    {
+        if(pauseImg != null && playImg != null)
+        {
+            pauseImg.gameObject.SetActive(false);
+            playImg.gameObject.SetActive(true);
+        }
     }
 
     // Update is called once per frame
@@ -31,6 +42,20 @@ public class Jewel : MonoBehaviour
         //Scatena l'azione in modo da fare cose nel rispettivo manager di scena
         if (OnJewelTouched != null)
             OnJewelTouched(this, isJewelTouched);
+
+        if(playImg != null && pauseImg != null)
+        {
+            if (isJewelTouched)
+            {
+                playImg.gameObject.SetActive(false);
+                pauseImg.gameObject.SetActive(true);
+            }
+            else
+            {
+                pauseImg.gameObject.SetActive(false);
+                playImg.gameObject.SetActive(true);
+            }
+        }
         //se la clip non è già avviata
         if (isJewelTouched)
         {
@@ -78,7 +103,6 @@ public class Jewel : MonoBehaviour
 
         audioSrc.volume = startVolume;
     }
-
 
 
 }

@@ -14,7 +14,11 @@ public class Jewel3Manager : MonoBehaviour
 
     //GESTIONE SCENA + IMMERSIONE
     public AudioSource envAudioSrc;
+    public AudioSource interactAudioSrc;
     public AudioClip[] _envClips;
+    private float clipPoint = 0;
+    [Range(0, 60)]
+    [SerializeField] private float _envExplainDelay = 1f;
     [Range(0, 60)]
     [SerializeField] private float _immersionDelay = 1f;
     [Range(0, 60)]
@@ -40,6 +44,7 @@ public class Jewel3Manager : MonoBehaviour
         instance = this;
         _jewel3.OnJewelTouched += OnJewel3Touched;
         ResetUserPosition();
+        treePicture.SetActive(false);
         jewel3Informations.SetActive(false);
         if (_lateActivatedObj.Length > 0)
         {
@@ -52,9 +57,10 @@ public class Jewel3Manager : MonoBehaviour
 
     void Start()
     {
+        //StartCoroutine(PlayEnvMedia());
+        //StartCoroutine(LateActivation(_lateActivatedObj, _activationDelay));
         StartCoroutine(PlayEnvMedia());
         StartCoroutine(LateActivation(_lateActivatedObj, _activationDelay));
-
     }
 
     // Update is called once per frame

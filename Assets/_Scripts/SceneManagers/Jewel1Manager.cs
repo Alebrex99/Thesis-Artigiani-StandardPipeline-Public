@@ -16,9 +16,8 @@ public class Jewel1Manager : MonoBehaviour
     //GESTIONE SCENA + IMMERSIONE
     public AudioSource envAudioSrc;
     public AudioSource interactAudioSrc;
-    private float clipPoint = 0;
-    private bool initialPlayDone = false;
     public AudioClip[] _envClips;
+    private float clipPoint = 0;
     [Range(0, 60)]
     [SerializeField] private float _envExplainDelay = 1f;
     [Range(0, 60)]
