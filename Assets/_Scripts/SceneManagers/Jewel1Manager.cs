@@ -200,6 +200,28 @@ public class Jewel1Manager : MonoBehaviour
         audioSrc.volume = startVolume;
     }
 
+    public AudioSource GetAudioSource()
+    {
+        return interactAudioSrc;
+    }
+    public AudioSource GetEnvAudioSource()
+    {
+        return envAudioSrc;
+    }
+
+    public AudioClip[] GetEnvAudioCLips()
+    {
+       return _envClips;
+    }
+
+    private void OnDestroy()
+    {
+        //videoPlayer.Stop();
+        //envAudioSrc.Stop(); //non puoi farlo!
+        _jewel1.OnJewelTouched -= OnJewel1Touched;
+        StopAllCoroutines();
+    }
+
 
 
 
@@ -216,22 +238,5 @@ public class Jewel1Manager : MonoBehaviour
             bShowVideo = true;
         }
     }*/
-
-    public AudioSource GetAudioSource()
-    {
-        return interactAudioSrc;
-    }
-    public AudioClip[] GetEnvAudioCLips()
-    {
-       return _envClips;
-    }
-
-    private void OnDestroy()
-    {
-        //videoPlayer.Stop();
-        //envAudioSrc.Stop(); //non puoi farlo!
-        _jewel1.OnJewelTouched -= OnJewel1Touched;
-        StopAllCoroutines();
-    }
 
 }

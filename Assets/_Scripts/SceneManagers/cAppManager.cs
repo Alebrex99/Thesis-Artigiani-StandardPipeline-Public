@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
+
 //using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -37,6 +39,7 @@ public class cAppManager : MonoBehaviour {
 
     //FROM CONFIG.CSV
     private float fadeTime = 5;
+
     public static bool isBackHome = false;
 
 
@@ -107,6 +110,25 @@ public class cAppManager : MonoBehaviour {
             return actualBuildScene;
         return prevBuildScene;
     }
+    public static MonoBehaviour GetSceneManager()
+    {
+        switch (actualScene)
+        {
+            case Scenes.INTRO:
+                return IntroManager.instance != null ? IntroManager.instance : null;
+            case Scenes.HOME:
+                return HomeManager.instance != null ? HomeManager.instance : null;
+            case Scenes.JEWEL1:
+                return Jewel1Manager.instance!=null ? Jewel1Manager.instance : null; 
+            case Scenes.JEWEL2:
+                return Jewel2Manager.instance!=null ? Jewel2Manager.instance : null;
+            case Scenes.JEWEL3:
+                return Jewel3Manager.instance!=null ? Jewel3Manager.instance : null;
+            default:
+                return default;
+        }
+
+    }
 
     //ALE: Funzione cambio Scena
     public static void LoadScene(Scenes scene)
@@ -153,7 +175,55 @@ public class cAppManager : MonoBehaviour {
         cMainUIManager.HideLoading();
         cOVRScreenFade.instance.FadeIn();
     }
-    //VERSIONE LOADING (ALE)
+
+    public static void BackHome()
+    {
+        //swtich in base alla scena attuale in cui sono 
+        switch (actualScene)
+        {
+            case Scenes.INTRO:
+                if (IntroManager.instance != null)
+                    IntroManager.instance.videoPlayer.Stop();
+                break;
+            case Scenes.HOME:
+
+                break;
+            case Scenes.JEWEL1:
+                if (Jewel1Manager.instance != null)
+                {
+                    Jewel1Manager.instance.GetAudioSource().Stop();
+                    Jewel1Manager.instance.GetEnvAudioSource().Stop();
+                }
+                break;
+            case Scenes.JEWEL2:
+                if (Jewel2Manager.instance != null)
+                {
+                    Jewel2Manager.instance.GetAudioSource().Stop();
+                    Jewel2Manager.instance.GetEnvAudioSource().Stop();
+                }
+                break;
+            case Scenes.JEWEL3:
+                if (Jewel3Manager.instance != null)
+                {
+                    Jewel3Manager.instance.GetAudioSource().Stop();
+                    Jewel3Manager.instance.GetEnvAudioSource().Stop();
+                }
+                break;
+            case Scenes.JEWEL4:
+
+                break;
+            default:
+                break;
+        }
+        isBackHome = true;
+        LoadScene(Scenes.HOME);
+    }
+
+
+
+
+
+    //VERSIONE LOADING (ALE) : NON USARE = BUG DELL'HAND TRACKING
     IEnumerator ChangeSceneCor(int sceneIndex)
     {
         Debug.Log("Stai caricando la scena : " + sceneIndex);
@@ -219,41 +289,6 @@ public class cAppManager : MonoBehaviour {
         actualBuildScene = SceneManager.GetActiveScene().buildIndex;
         cMainUIManager.HideLoading();
     }*/
-
-    public static void BackHome()
-    {
-        //swtich in base alla scena attuale in cui sono 
-        switch (actualScene)
-        {
-            case Scenes.INTRO:
-                if (IntroManager.instance != null)
-                    IntroManager.instance.videoPlayer.Stop();
-                break;
-            case Scenes.HOME:
-                
-                break;
-            case Scenes.JEWEL1:
-                if(Jewel1Manager.instance != null)
-                    Jewel1Manager.instance.GetAudioSource().Stop();
-                break;
-            case Scenes.JEWEL2:
-                if(Jewel2Manager.instance != null)
-                    Jewel2Manager.instance.GetAudioSource().Stop();
-                break;
-            case Scenes.JEWEL3:
-                if (Jewel3Manager.instance != null)
-                    Jewel3Manager.instance.GetAudioSource().Stop();
-                break;
-            case Scenes.JEWEL4:
-                
-                break;
-            default:
-                break;
-        }
-        isBackHome = true;
-        LoadScene(Scenes.HOME);
-    }
-
 
 
     //OLD FUNCTIONS 

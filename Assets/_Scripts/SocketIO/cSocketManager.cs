@@ -56,6 +56,10 @@ public class cSocketManager : MonoBehaviour
     private int bufferOffset = 0;
     private bool bufferReadyRT = false;
 
+    //EFFETTI SULLA SCENA
+    public Action OnAgentReady;
+    public Action OnAgentPlay;
+    public Action OnAgentResponseFinished;
     [SerializeField] private GameObject objectToSpin;
 
 
@@ -227,8 +231,10 @@ public class cSocketManager : MonoBehaviour
     {
         //POLLING AUDIO BUFFER (o usa un unity thread dispatcher): non permette di creare audio source in runtime altrimenti
         if (bufferReady && !receiverAudioSrc.isPlaying)
-        {         
-            PlayAudioBuffer(audioBufferFloat);
+        {
+            OnAgentReady?.Invoke();
+            //PlayAudioBuffer(audioBufferFloat);
+            StartCoroutine(PlayAudioBufferCor(audioBufferFloat));
         }
 
         //REAL TIME AUDIO BUFFER
@@ -266,7 +272,7 @@ public class cSocketManager : MonoBehaviour
             var clip = AudioClip.Create("AudioResponse", audioBufferFloat.Length, channels, sampleRate, false);
             bool setDataSuccess = clip.SetData(audioBufferFloat, 0); //DEVE ESSERE FATTO NEL MAIN THREAD
             receiverAudioSrc.clip = clip;
-            receiverAudioSrc.PlayOneShot(clip, 1);
+            receiverAudioSrc.PlayOneShot(clip, 1f);
             Debug.Log("[MPEG AUDIO CONVERSION] samples: " + audioBufferFloat.Length + " channels: " + channels + " Sample Rate frequency: " + sampleRate);
             //INFO : [MPEG AUDIO CONVERSION] samples: 3497472 channels: 1 Sample Rate frequency: 44100
         }
@@ -277,6 +283,29 @@ public class cSocketManager : MonoBehaviour
         //PULIZIA DEI BUFFERS:
         conversation.Clear();
         bufferReady = false;
+    }
+    private IEnumerator PlayAudioBufferCor(float[] audioBufferFloat)
+    {
+        Debug.Log($"[PLAY] AudioResponse: {responseCounter}");
+        var clip = AudioClip.Create("AudioResponse", audioBufferFloat.Length, channels, sampleRate, false);
+        try
+        {
+            bool setDataSuccess = clip.SetData(audioBufferFloat, 0); //DEVE ESSERE FATTO NEL MAIN THREAD
+            receiverAudioSrc.clip = clip;
+            receiverAudioSrc.PlayOneShot(clip, 1f);
+            Debug.Log("[MPEG AUDIO CONVERSION] samples: " + audioBufferFloat.Length + " channels: " + channels + " Sample Rate frequency: " + sampleRate);
+            //INFO : [MPEG AUDIO CONVERSION] samples: 3497472 channels: 1 Sample Rate frequency: 44100
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Custom Error: Failed to create AudioClip: " + e.Message);
+        }
+        //PULIZIA DEI BUFFERS:
+        conversation.Clear();
+        bufferReady = false;
+        yield return new WaitForSeconds(clip.length);
+        OnAgentResponseFinished?.Invoke();
+        
     }
 
 
@@ -382,6 +411,7 @@ public class cSocketManager : MonoBehaviour
 
     public void ToggleSocket()
     {
+        OnAgentPlay?.Invoke();
         if(isReceiving)
         {
             stopReceiving = true;

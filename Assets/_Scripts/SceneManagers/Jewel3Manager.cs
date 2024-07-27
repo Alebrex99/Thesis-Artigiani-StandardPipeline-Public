@@ -232,11 +232,13 @@ public class Jewel3Manager : MonoBehaviour
         audioSrc.volume = startVolume;
     }
 
-
-
     public AudioSource GetAudioSource()
     {
         return interactAudioSrc;
+    }
+    public AudioSource GetEnvAudioSource()
+    {
+        return envAudioSrc;
     }
     public AudioClip[] GetEnvAudioCLips()
     {

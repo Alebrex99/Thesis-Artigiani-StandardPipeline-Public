@@ -10,6 +10,7 @@ public class Button3D : MonoBehaviour
 {
     //Notifiche cambio stato a FSM: scegliere Azione/Variabile
     public Action<Button3D, bool> OnButtonPressed;
+    public Action OnAgentCall;
     //public Action OnEnvironmentChanged;
     private bool isButtonPressed = false;
     public string ButtonName;
@@ -63,6 +64,8 @@ public class Button3D : MonoBehaviour
         Debug.Log("Toggle Conversational Agent");
         //TOGGLE per zittire il conversational agent
         cSocketManager.instance.ToggleSocket();
+        if (OnAgentCall != null)
+            OnAgentCall();
     }
 
 

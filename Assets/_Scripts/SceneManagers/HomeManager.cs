@@ -41,6 +41,8 @@ public class HomeManager: MonoBehaviour
     [SerializeField] Transform chairInitPos;
     [Range(0.1f, 1)]
     [SerializeField] private float rotationChairSpeed = 0.6f;
+    [Range(30, 200)]
+    [SerializeField] public int angleSwitch = 80;
 
     //DEPRECATED
     //[SerializeField] GameObject _video2DScene;
@@ -91,6 +93,9 @@ public class HomeManager: MonoBehaviour
 
         //SEDIA
         chairInitPos.GetChild(0).gameObject.SetActive(true); //attivo sedia
+
+        //CONVERSATIONAL AGENT
+        cSocketManager.instance.OnAgentResponseFinished += PauseAudioScene;
     }
 
     private void Start()
@@ -126,7 +131,7 @@ public class HomeManager: MonoBehaviour
         var forwardCamx = new Vector3(cXRManager.GetTrCenterEye().forward.x, 0, cXRManager.GetTrCenterEye().forward.z);
         var forwardButtx = new Vector3(mainInteractablesInitPos.forward.x, 0, mainInteractablesInitPos.forward.z);
         var angleRotation = Vector3.Angle(forwardCamx, forwardButtx);
-        if (angleRotation > 80 && angleRotation < 270)
+        if (angleRotation > angleSwitch && angleRotation < 270)
         {
             if (!isRotated) //!envAudioSrc[1].isPlaying
             {
@@ -183,7 +188,6 @@ public class HomeManager: MonoBehaviour
 
         audioSrc.volume = startVolume;
     }
-
     private IEnumerator LateActivation(GameObject[] toActivate, float _activationDelay)
     {
         yield return new WaitForSeconds(_activationDelay);
@@ -244,6 +248,10 @@ public class HomeManager: MonoBehaviour
 
         //CAMBIO SCENA:
         Scenes scene = GetNextScene(buttonPressed);
+        foreach(AudioSource audiosrc in envAudioSrc)
+        {
+            audiosrc.Stop();
+        }
         isEnvironmentChanged = true;
         cAppManager.LoadScene(scene);
 
@@ -260,6 +268,11 @@ public class HomeManager: MonoBehaviour
             informations.SetActive(true);
             isMyHistoryOpened = true;
         }
+    }
+    private void PauseAudioScene()
+    {
+        //metti in pausa 
+
     }
 
 

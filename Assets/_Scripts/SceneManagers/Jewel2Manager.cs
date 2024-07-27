@@ -202,6 +202,11 @@ public class Jewel2Manager : MonoBehaviour
     {
         return interactAudioSrc;
     }
+
+    public AudioSource GetEnvAudioSource()
+    {
+        return envAudioSrc;
+    }
     public AudioClip[] GetEnvAudioCLips()
     {
         return _envClips;

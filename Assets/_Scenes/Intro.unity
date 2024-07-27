@@ -965,7 +965,7 @@ Transform:
   m_GameObject: {fileID: 245571539}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.71, z: 1.57}
+  m_LocalPosition: {x: 0, y: 1.71, z: 0.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -980,14 +980,14 @@ AudioSource:
   m_GameObject: {fileID: 245571539}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300001, guid: 03d4f07283ae4307b8c7a2ea7ad08068, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 1
+  Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
@@ -1027,7 +1027,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1079,8 +1079,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a07f270ac36c49789466c75ceb88424c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableSpatialization: 1
-  gainBoostDb: 10
+  enableSpatialization: 0
+  gainBoostDb: 0
   enableAcoustics: 0
   reverbSendDb: 0
 --- !u!1 &313009159
@@ -3041,7 +3041,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2740586813578101109, guid: dda2aeea1faae654d8986620127b767e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2854077549055175818, guid: dda2aeea1faae654d8986620127b767e, type: 3}
       propertyPath: m_LocalScale.x
@@ -3305,7 +3305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttons: {fileID: 0}
   hideDelay: 3
-  handHeightThreshold: 0.5
+  handHeightThreshold: 0.45
 --- !u!1 &1872086171
 GameObject:
   m_ObjectHideFlags: 0
@@ -3447,7 +3447,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895844039}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 609e0d86bb37460479a7336ec4b66b2e, type: 3}
   m_Name: 
@@ -3767,8 +3767,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8743962082066468039}
     - target: {fileID: 3709312544149691188, guid: e1cc94dc54f039f4ab4185cea2162610, type: 3}
+      propertyPath: Priority
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3709312544149691188, guid: e1cc94dc54f039f4ab4185cea2162610, type: 3}
       propertyPath: Spatialize
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3709312544149691188, guid: e1cc94dc54f039f4ab4185cea2162610, type: 3}
       propertyPath: m_PlayOnAwake
@@ -3777,10 +3781,10 @@ PrefabInstance:
     - target: {fileID: 3709312544149691188, guid: e1cc94dc54f039f4ab4185cea2162610, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: 24300001, guid: 03d4f07283ae4307b8c7a2ea7ad08068, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3709312544149691188, guid: e1cc94dc54f039f4ab4185cea2162610, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4321399907073314224, guid: e1cc94dc54f039f4ab4185cea2162610, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3933,7 +3937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a07f270ac36c49789466c75ceb88424c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableSpatialization: 1
+  enableSpatialization: 0
   gainBoostDb: 0
   enableAcoustics: 0
   reverbSendDb: 0
