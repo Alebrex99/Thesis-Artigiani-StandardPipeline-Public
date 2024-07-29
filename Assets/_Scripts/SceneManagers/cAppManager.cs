@@ -174,6 +174,7 @@ public class cAppManager : MonoBehaviour {
                 {
                     Jewel1Manager.instance.GetAudioSource().Stop();
                     Jewel1Manager.instance.GetEnvAudioSource().Stop();
+                    Jewel1Manager.instance.GetJewelAudioSource().Stop();
                 }
                 break;
             case Scenes.JEWEL2:
@@ -181,6 +182,7 @@ public class cAppManager : MonoBehaviour {
                 {
                     Jewel2Manager.instance.GetAudioSource().Stop();
                     Jewel2Manager.instance.GetEnvAudioSource().Stop();
+                    Jewel2Manager.instance.GetJewelAudioSource().Stop();
                 }
                 break;
             case Scenes.JEWEL3:
@@ -188,6 +190,7 @@ public class cAppManager : MonoBehaviour {
                 {
                     Jewel3Manager.instance.GetAudioSource().Stop();
                     Jewel3Manager.instance.GetEnvAudioSource().Stop();
+                    Jewel3Manager.instance.GetJewelAudioSource().Stop();
                 }
                 break;
             case Scenes.JEWEL4:

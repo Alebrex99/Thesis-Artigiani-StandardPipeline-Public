@@ -94,12 +94,6 @@ public class HomeManager: MonoBehaviour
 
         //SEDIA
         chairInitPos.GetChild(0).gameObject.SetActive(true); //attivo sedia
-
-        //CONVERSATIONAL AGENT
-        if (cSocketManager.instance != null)
-        {
-            cSocketManager.instance.OnAgentResponseFinished += UnPauseAudioScene;
-        }
     }
 
     private void Start()
@@ -202,15 +196,18 @@ public class HomeManager: MonoBehaviour
             //toActivate[i].transform.position = mainInteractablesInitPos.position; //togliere se si usa cPanelHMDFollower
         }
         //SETTO E ATTIVO CLIP SPIEGAZIONE BOTTONI
-        if(!isRotated)
+        if (!isEnvironmentChanged)
         {
-            envAudioSrc[0].PlayOneShot(_buttonExplainClips[0]); //start when the buttons appear
+            if (!isRotated)
+            {
+                envAudioSrc[0].PlayOneShot(_buttonExplainClips[0]); //start when the buttons appear
+            }
+            if (isRotated)
+            {
+                envAudioSrc[1].PlayOneShot(_buttonExplainClips[1]);
+            }
+            isLateActive = true;
         }
-        if (isRotated)
-        {
-            envAudioSrc[1].PlayOneShot(_buttonExplainClips[1]);
-        }
-        isLateActive = true;
     }
     public Transform GetUserInitTr()
     {
@@ -304,7 +301,6 @@ public class HomeManager: MonoBehaviour
         {
             button3D.OnButtonPressed -= OnButtonPressedEffect;
         }
-        cSocketManager.instance.OnAgentResponseFinished -= UnPauseAudioScene;
         StopAllCoroutines();
 
     }

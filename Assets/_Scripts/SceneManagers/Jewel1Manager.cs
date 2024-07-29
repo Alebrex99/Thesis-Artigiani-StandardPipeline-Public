@@ -48,7 +48,7 @@ public class Jewel1Manager : MonoBehaviour
         _jewel1.OnJewelTouched += OnJewel1Touched;
         ResetUserPosition();
         sorollaPicture.SetActive(false);
-        jewel1Informations.SetActive(false);
+        //jewel1Informations.SetActive(false);
         foreach (GameObject lateObj in _lateActivatedObj)
         {
             lateObj.SetActive(false);
@@ -147,8 +147,8 @@ public class Jewel1Manager : MonoBehaviour
     {
         this.isJewelTouched = isJewelTouched;
         //riduci regolarmente l'audio dell'ambiente nel giro di 5 secondi
+        jewel1Informations.SetActive(false);
         sorollaPicture.SetActive(isJewelTouched);
-        jewel1Informations.SetActive(!isJewelTouched);
         bShowVideo = true;
         if (isJewelTouched) {
             StartCoroutine(FadeOutAudio(interactAudioSrc, 2f));
