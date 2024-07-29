@@ -23,6 +23,15 @@ using NLayer.Decoder;
 
 public class cSocketManager : MonoBehaviour
 {
+    /*public enum SocketState
+    {
+        IDLE,
+        LISTENING,
+        SPEAKING,
+        RECEIVING,
+    }
+    private SocketState _currentSocketState;*/
+
     //SOCKET IO UNITY
     public static cSocketManager instance;
     public SocketIOUnity socket;
@@ -57,8 +66,13 @@ public class cSocketManager : MonoBehaviour
     private bool bufferReadyRT = false;
 
     //EFFETTI SULLA SCENA
+    [Header("Audio Source")]
+    [SerializeField] private AudioSource agentActivateBipSrc;
+    [Header("Bip Clips")]
+    [SerializeField] private AudioClip[] agentActivateBipClip; //0 ON , 1 OFF
     public Action OnAgentResponseFinished;
-    private bool isSocketToggled = false;
+    public Action OnAgentCall;
+    public static bool agentActivate = false;
     [SerializeField] private GameObject objectToSpin;
 
 
@@ -105,9 +119,9 @@ public class cSocketManager : MonoBehaviour
          * sulla latenza, come ad esempio il tempo impiegato per ricevere il messaggio di ping.*/
         socket.OnConnected += (sender, e) =>
         {
-            //Debug.Log("socket.OnConnected");
+            Debug.Log("socket.OnConnected");
             //socket.Emit("chat_message", "hola"); //message to INIT, chiama internamente EmitAsync
-            Debug.Log("Initial message sent from connect");
+            //Debug.Log("Initial message sent from connect");
             isConnected = true; // Set isConnected to true when connected
         };
         socket.OnPing += (sender, e) =>
@@ -281,13 +295,15 @@ public class cSocketManager : MonoBehaviour
         //PULIZIA DEI BUFFERS:
         conversation.Clear();
         bufferReady = false;
+        agentActivate = false; //RESET permette nuovamente di parlare
+        //OnCallToggleManagerAudios(false); // quando comincia a parlare silenzia tutto
     }
     private IEnumerator PlayAudioBufferCor(float[] audioBufferFloat)
     {
         Debug.Log($"[PLAY] AudioResponse: {responseCounter}");
-        var clip = AudioClip.Create("AudioResponse", audioBufferFloat.Length, channels, sampleRate, false);
         try
         {
+            var clip = AudioClip.Create("AudioResponse", audioBufferFloat.Length, channels, sampleRate, false);
             bool setDataSuccess = clip.SetData(audioBufferFloat, 0); //DEVE ESSERE FATTO NEL MAIN THREAD
             receiverAudioSrc.clip = clip;
             receiverAudioSrc.PlayOneShot(clip, 1f);
@@ -301,11 +317,13 @@ public class cSocketManager : MonoBehaviour
         //PULIZIA DEI BUFFERS:
         conversation.Clear();
         bufferReady = false;
-        // Verifica se la clip è terminata
-        yield return new WaitForSeconds(clip.length);
-        Debug.Log("Audio clip ended");
-        //_dictationActivation.ToggleActivation(false);
-        
+        agentActivate = false; //RESET permette nuovamente di parlare
+
+        //OnCallToggleManagerAudios(false); // quando comincia a parlare silenzia tutto
+        // Attendi finché l'audio è in riproduzione
+        yield return new WaitWhile(() => receiverAudioSrc.isPlaying);
+        Debug.Log("Audio source stopped playing");
+        //OnCallToggleManagerAudios(true);
     }
 
 
@@ -411,7 +429,10 @@ public class cSocketManager : MonoBehaviour
     //CONTROLLO DELLA RICEZIONE E ABILITAZIONE A PARLARE
     public void ToggleSocket()
     {
-        if(isReceiving)
+        //CheckTransition();
+
+        //OPERAZIONI GENERALI DEL SOCKET
+        if (isReceiving)
         {
             stopReceiving = true;
             Debug.Log("CHANGE stop receiving -> " + stopReceiving);
@@ -425,18 +446,40 @@ public class cSocketManager : MonoBehaviour
         {
             receiverAudioSrc.Stop();
             stopReceiving = false;
+            //scegli se disattivare
         }
-        OnCallToggleManagerAudios(false);
+     
+        //CONTROLLO AGENTE : agentActivate è rimesso a true quando inizia a parlare agente
+        if (!agentActivate) //se agente è disattivato -> lo attivi
+        {
+            OnCallToggleManagerAudios(false); //spegni audio scena
+            agentActivate = true; // attivi agente
+            _dictationActivation.ToggleActivation(agentActivate); //attivi microfono
+            Debug.Log("[CONV AGENT] ATTIVO CONVERSATIONAL AGENT " + agentActivate);
 
-        //CLICCHI -> PARLI E ASCOLTI E RIPARLI 
-        //RICLICCHI -> CHIUDI TUTTO
-        _dictationActivation.ToggleActivation(); //isSocketToggled se vuoi cambiare la logica
-        isSocketToggled = !isSocketToggled;
+            //BIP ATTIVAZIONE -> parli -> invii -> ricevi -> agente parla
+            if(agentActivateBipSrc!=null)
+                agentActivateBipSrc.PlayOneShot(agentActivateBipClip[0], 1f);
+        }
+        else // se agente è attivato -> lo spegni
+        {
+            OnCallToggleManagerAudios(true); //accendo audio scena
+            agentActivate = false; //disattivi agente
+            _dictationActivation.ToggleActivation(agentActivate); //disattivi microfono
+            Debug.Log("[CONV AGENT] DISATTIVO CONVERSATIONAL AGENT " + agentActivate);
+            stopReceiving = true;
+            Debug.Log("CHANGE stop Receiving -> " + stopReceiving);
+
+            //BIP DISATTIVAZIONE -> quando lo disattivi: mentre parli / mentre ricevi / mentre agente parla
+            if (agentActivateBipSrc != null)
+                agentActivateBipSrc.PlayOneShot(agentActivateBipClip[1], 1f);
+        }
         conversation.Clear();
     }
 
     public void OnCallToggleManagerAudios(bool isToggled = false)
     {
+        Debug.Log("Scena : " + cAppManager.GetActualScene());
         switch (cAppManager.GetActualScene())
         {
             case Scenes.HOME:
@@ -450,32 +493,25 @@ public class cSocketManager : MonoBehaviour
             case Scenes.JEWEL1:
                 if (Jewel1Manager.instance != null)
                 {
-                    var audioSrc1 = Jewel1Manager.instance.GetAudioSource();
-                    var audioSrc2 = Jewel1Manager.instance.GetJewelAudioSource();
                     if (isToggled == false)
-                    {
-                        StartCoroutine(Jewel1Manager.instance.FadeOutAudio(audioSrc1, 2f));
-                        StartCoroutine(Jewel1Manager.instance.FadeOutAudio(audioSrc2, 2f));
-                    }
-                    else StartCoroutine(Jewel1Manager.instance.FadeInAudio(audioSrc1, 2f));
+                        Jewel1Manager.instance.PauseAudioScene();
+                    else Jewel1Manager.instance.UnPauseAudioScene();
                 }
                 break;
             case Scenes.JEWEL2:
                 if (Jewel2Manager.instance != null)
                 {
-                    var audioSrc = Jewel2Manager.instance.GetAudioSource();
                     if (isToggled == false)
-                        StartCoroutine(Jewel2Manager.instance.FadeOutAudio(audioSrc, 2f));
-                    else StartCoroutine(Jewel2Manager.instance.FadeInAudio(audioSrc, 2f));
+                        Jewel2Manager.instance.PauseAudioScene();
+                    else Jewel2Manager.instance.UnPauseAudioScene();
                 }
                 break;
             case Scenes.JEWEL3:
                 if (Jewel3Manager.instance != null)
                 {
-                    var audioSrc = Jewel3Manager.instance.GetAudioSource();
                     if (isToggled == false)
-                        StartCoroutine(Jewel3Manager.instance.FadeOutAudio(audioSrc, 2f));
-                    else StartCoroutine(Jewel3Manager.instance.FadeInAudio(audioSrc, 2f));
+                        Jewel3Manager.instance.PauseAudioScene();
+                    else Jewel3Manager.instance.UnPauseAudioScene();
                 }
                 break;
             case Scenes.JEWEL4:
@@ -486,6 +522,51 @@ public class cSocketManager : MonoBehaviour
         }
     }
 
+
+    /*public void CheckTransition()
+    {
+        SocketState newSocketState = _currentSocketState;
+        switch (_currentSocketState)
+        {
+            case SocketState.IDLE:
+                stopReceiving = false;
+                Debug.Log("CHANGE stop Receiving -> " + stopReceiving);
+                _dictationActivation.ToggleActivation(); //attivo
+                newSocketState = SocketState.LISTENING;
+                break;
+            case SocketState.LISTENING:
+                _dictationActivation.ToggleActivation(); //disattivo
+                newSocketState = SocketState.IDLE;
+                break;
+            case SocketState.SPEAKING:
+                if (receiverAudioSrc.isPlaying)
+                {
+                    receiverAudioSrc.Stop();
+                    stopReceiving = false;
+                    _dictationActivation.ToggleActivation(); //attivo
+                    newSocketState = SocketState.LISTENING;
+                    break;
+                }
+                break;
+            case SocketState.RECEIVING:
+                //CASO 1 : STO RICEVENDO ANCORA
+                if (isReceiving)
+                {
+                    stopReceiving = true;
+                    Debug.Log("CHANGE stop receiving -> " + stopReceiving);
+                    newSocketState = SocketState.IDLE;
+                    break;
+                }
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        if (newSocketState != _currentSocketState)
+        {
+            Debug.Log($"Changing State FROM:{_currentSocketState} --> TO:{newSocketState}");
+            _currentSocketState = newSocketState;
+        }
+    }*/
 
 
     void OnApplicationQuit()
@@ -510,7 +591,6 @@ public class cSocketManager : MonoBehaviour
         if (isConnected)
         {
             //TRASCRITION THE AUDIO
-            Debug.Log("Enter message to send: ");
             if (message.ToLower() == "exit")
             {
                 socket.Disconnect(); //gstione interna di SocketIOUnity

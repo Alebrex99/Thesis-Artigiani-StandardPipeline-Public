@@ -30,9 +30,25 @@ namespace Meta.Voice.Samples.Dictation
         [FormerlySerializedAs("dictation")]
         [SerializeField] private DictationService _dictation;
 
-        public void ToggleActivation(bool switchOff = false) 
+        public void ToggleActivation(bool agentActivate = false) 
         {
-            if (_dictation.MicActive)
+            //accendo il microfono
+            if (agentActivate)
+            {
+                //AVVIO DEL BIP
+                //se mi stava ascoltando
+                if (_dictation.MicActive)
+                {
+                    _dictation.Deactivate();
+                }
+                else _dictation.Activate(); //ascolto e invio
+            }
+            else //spengo il microfono
+            {
+                _dictation.Deactivate(); //disattivo e non invio sempre
+            }
+
+            /*if (_dictation.MicActive)
             {
                 cSocketManager.instance.OnCallToggleManagerAudios(true); 
                 _dictation.Deactivate();
@@ -40,19 +56,17 @@ namespace Meta.Voice.Samples.Dictation
             else
             {
                 _dictation.Activate();
-            }
+            }*/
         }
 
         /*public void ToggleActivation()
         {
             if (_dictation.MicActive)
             {
-                cSocketManager.instance.OnCallToggleManagerAudios(_dictation.MicActive); //TRUE è attivo, ma riclicco -> riaccendo audio scena
                 _dictation.Deactivate();
             }
             else
             {
-                cSocketManager.instance.OnCallToggleManagerAudios(_dictation.MicActive); //FALSE non è attivo perchè dati appena inviati/smesso ascolto, clicco -> spengo audio scena
                 _dictation.Activate();
             }
         }*/

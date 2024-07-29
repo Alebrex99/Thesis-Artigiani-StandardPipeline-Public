@@ -2301,6 +2301,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: BottonAI
       objectReference: {fileID: 0}
+    - target: {fileID: 7516989854852174097, guid: 3969feba1b8435f4d9900204b415e845, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1b9a639510d64834db15d9c679576bf7, type: 2}
+    - target: {fileID: 7516989854951799700, guid: 3969feba1b8435f4d9900204b415e845, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1b9a639510d64834db15d9c679576bf7, type: 2}
     - target: {fileID: 8457344631187891265, guid: 3969feba1b8435f4d9900204b415e845, type: 3}
       propertyPath: m_IsActive
       value: 1

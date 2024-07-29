@@ -37,6 +37,7 @@ public class Jewel3Manager : MonoBehaviour
     //JEWEL 3
     [SerializeField] private Jewel _jewel3;
     [SerializeField] private Transform _jewelInitPos;
+    private bool isJewelTouched = false;
 
     //GAME JEWEL 3
     [SerializeField] private GameObject jewel3Game;
@@ -68,12 +69,12 @@ public class Jewel3Manager : MonoBehaviour
         //StartCoroutine(LateActivation(_lateActivatedObj, _activationDelay));
         StartCoroutine(LateActivationJewel(_lateActivatedObj, _immersionDelay)); //dopo 15 secondi compare gioiello + audio1 
         StartCoroutine(LateActivationButtons(_lateActivatedObj, _activationDelay));
-        foreach (Renderer renderer in jewel3GameRenderers)
+        /*foreach (Renderer renderer in jewel3GameRenderers)
         {
             Color color = renderer.material.color;
             color.a = 0f;
             renderer.material.color = color;
-        }
+        }*/
     }
 
     // Update is called once per frame
@@ -176,6 +177,7 @@ public class Jewel3Manager : MonoBehaviour
 
     private void OnJewel3Touched(Jewel jewel, bool isJewelTouched)
     {
+        this.isJewelTouched = isJewelTouched;
         //riduci regolarmente l'audio dell'ambiente nel giro di 5 secondi
         treePicture.SetActive(isJewelTouched);
         jewel3Informations.SetActive(!isJewelTouched);
@@ -232,6 +234,10 @@ public class Jewel3Manager : MonoBehaviour
         audioSrc.volume = startVolume;
     }
 
+    public AudioSource GetJewelAudioSource()
+    {
+        return _jewel3.GetAudioSource();
+    }
     public AudioSource GetAudioSource()
     {
         return interactAudioSrc;
@@ -240,6 +246,36 @@ public class Jewel3Manager : MonoBehaviour
     {
         return envAudioSrc;
     }
+
+    public void PauseAudioScene()
+    {
+        if (interactAudioSrc.isPlaying)
+        {
+            //audioSrc.Pause();
+            StartCoroutine(FadeOutAudio(interactAudioSrc, 2f));
+        }
+        else if (GetJewelAudioSource().isPlaying)
+        {
+            StartCoroutine(FadeOutAudio(GetJewelAudioSource(), 2f));
+        }
+    }
+    public void UnPauseAudioScene()
+    {
+        /*if (lastAudioSrc != null && !lastAudioSrc.isPlaying) {
+            StartCoroutine(FadeInAudio(lastAudioSrc, 2f));
+        }*/
+        if (isJewelTouched)
+        {
+            Debug.Log("UnPause Audio Source Sorolla");
+            StartCoroutine(FadeInAudio(GetJewelAudioSource(), 2f));
+        }
+        else
+        {
+            Debug.Log("UnPause Audio Source Jewel");
+            StartCoroutine(FadeInAudio(interactAudioSrc, 2f));
+        }
+    }
+
     public AudioClip[] GetEnvAudioCLips()
     {
         return _envClips;

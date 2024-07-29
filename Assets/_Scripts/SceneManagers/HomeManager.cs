@@ -56,6 +56,7 @@ public class HomeManager: MonoBehaviour
     //MY HISTORY + MI TALLER
     [SerializeField] GameObject informations;
     private bool isMyHistoryOpened=false;
+    private bool isAgentCalled = false;
 
 
     private void Awake()
@@ -122,7 +123,7 @@ public class HomeManager: MonoBehaviour
 
         //Debug.Log(" ENV CHANGED: " + isEnvironmentChanged + " isBack home: " + cAppManager.isBackHome + "isRotated: " + isRotated);
         //QUANDO TI GIRI VERSO I BOTTINI SECONDARI -> AVVIA SECONDA CLIP
-        if (!isEnvironmentChanged && !cAppManager.isBackHome && isLateActive)
+        if (!isEnvironmentChanged && !cAppManager.isBackHome && isLateActive && !isAgentCalled)
         {
             SwitchAudioRotation();
         }
@@ -288,14 +289,11 @@ public class HomeManager: MonoBehaviour
                 StartCoroutine(FadeOutAudio(audioSrc, 2f));
             }
         }
+        isAgentCalled = true;
     }
     public void UnPauseAudioScene()
     {
-        if (!envAudioSrc[1].isPlaying)
-        {
-            //audioSrc.UnPause();
-            StartCoroutine(FadeInAudio(envAudioSrc[1], 2f));
-        }
+        isAgentCalled = false;
     }
 
 

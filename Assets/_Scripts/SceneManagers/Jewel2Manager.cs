@@ -36,6 +36,7 @@ public class Jewel2Manager : MonoBehaviour
     //JEWEL 2
     [SerializeField] private Jewel _jewel2;
     [SerializeField] private Transform _jewelInitPos;
+    private bool isJewelTouched = false;
 
 
     // Start is called before the first frame update
@@ -141,6 +142,7 @@ public class Jewel2Manager : MonoBehaviour
 
     private void OnJewel2Touched(Jewel jewel, bool isJewelTouched)
     {
+        this.isJewelTouched = isJewelTouched;
         //riduci regolarmente l'audio dell'ambiente nel giro di 5 secondi
         fireworksPicture.SetActive(isJewelTouched);
         jewel2Informations.SetActive(!isJewelTouched);
@@ -197,16 +199,47 @@ public class Jewel2Manager : MonoBehaviour
         audioSrc.volume = startVolume;
     }
 
-
+    public AudioSource GetJewelAudioSource()
+    {
+        return _jewel2.GetAudioSource();
+    }
     public AudioSource GetAudioSource()
     {
         return interactAudioSrc;
     }
-
     public AudioSource GetEnvAudioSource()
     {
         return envAudioSrc;
     }
+    public void PauseAudioScene()
+    {
+        if (interactAudioSrc.isPlaying)
+        {
+            //audioSrc.Pause();
+            StartCoroutine(FadeOutAudio(interactAudioSrc, 2f));
+        }
+        else if (GetJewelAudioSource().isPlaying)
+        {
+            StartCoroutine(FadeOutAudio(GetJewelAudioSource(), 2f));
+        }
+    }
+    public void UnPauseAudioScene()
+    {
+        /*if (lastAudioSrc != null && !lastAudioSrc.isPlaying) {
+            StartCoroutine(FadeInAudio(lastAudioSrc, 2f));
+        }*/
+        if (isJewelTouched)
+        {
+            Debug.Log("UnPause Audio Source Sorolla");
+            StartCoroutine(FadeInAudio(GetJewelAudioSource(), 2f));
+        }
+        else
+        {
+            Debug.Log("UnPause Audio Source Jewel");
+            StartCoroutine(FadeInAudio(interactAudioSrc, 2f));
+        }
+    }
+
     public AudioClip[] GetEnvAudioCLips()
     {
         return _envClips;
