@@ -70,8 +70,6 @@ public class cSocketManager : MonoBehaviour
     [SerializeField] private AudioSource agentActivateBipSrc;
     [Header("Bip Clips")]
     [SerializeField] private AudioClip[] agentActivateBipClip; //0 ON , 1 OFF
-    public Action OnAgentResponseFinished;
-    public Action OnAgentCall;
     public static bool agentActivate = false;
     [SerializeField] private GameObject objectToSpin;
 

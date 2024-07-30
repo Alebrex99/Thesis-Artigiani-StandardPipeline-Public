@@ -6478,6 +6478,7 @@ MonoBehaviour:
   closeimage: {fileID: 0}
   _environmentOn: {fileID: 0}
   _environmentMain: {fileID: 0}
+  buttonAIMaterial: {fileID: 2100000, guid: 1b9a639510d64834db15d9c679576bf7, type: 2}
 --- !u!1 &447173452
 GameObject:
   m_ObjectHideFlags: 0
@@ -8055,6 +8056,7 @@ MonoBehaviour:
   closeimage: {fileID: 0}
   _environmentOn: {fileID: 3986565429088896251}
   _environmentMain: {fileID: 7544956941781424618}
+  buttonAIMaterial: {fileID: 0}
 --- !u!1 &517454957
 GameObject:
   m_ObjectHideFlags: 0
@@ -17203,6 +17205,7 @@ MonoBehaviour:
   closeimage: {fileID: 1712841784}
   _environmentOn: {fileID: 9195698577739851204}
   _environmentMain: {fileID: 7544956941781424618}
+  buttonAIMaterial: {fileID: 0}
 --- !u!1 &1015204268
 GameObject:
   m_ObjectHideFlags: 0
@@ -20294,6 +20297,7 @@ MonoBehaviour:
   closeimage: {fileID: 985804932}
   _environmentOn: {fileID: 872050315}
   _environmentMain: {fileID: 7544956941781424618}
+  buttonAIMaterial: {fileID: 0}
 --- !u!1001 &1260983570
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30931,6 +30935,7 @@ MonoBehaviour:
   closeimage: {fileID: 0}
   _environmentOn: {fileID: 1493077502}
   _environmentMain: {fileID: 7544956941781424618}
+  buttonAIMaterial: {fileID: 0}
 --- !u!1 &1986994307831501599
 GameObject:
   m_ObjectHideFlags: 0
@@ -31688,7 +31693,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7516989854395125640, guid: 3969feba1b8435f4d9900204b415e845, type: 3}
       propertyPath: m_Name
-      value: Button3_vid2DMono
+      value: Button3
       objectReference: {fileID: 0}
     - target: {fileID: 7516989854707263119, guid: 3969feba1b8435f4d9900204b415e845, type: 3}
       propertyPath: m_IsActive
@@ -32036,6 +32041,7 @@ MonoBehaviour:
   closeimage: {fileID: 0}
   _environmentOn: {fileID: 600851882}
   _environmentMain: {fileID: 7544956941781424618}
+  buttonAIMaterial: {fileID: 0}
 --- !u!4 &4430889951645568786
 Transform:
   m_ObjectHideFlags: 0
@@ -32645,7 +32651,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7516989854395125640, guid: 3969feba1b8435f4d9900204b415e845, type: 3}
       propertyPath: m_Name
-      value: Button1_img360Mono
+      value: Button1
       objectReference: {fileID: 0}
     - target: {fileID: 7516989854707263118, guid: 3969feba1b8435f4d9900204b415e845, type: 3}
       propertyPath: m_LocalScale.x
@@ -33236,6 +33242,7 @@ MonoBehaviour:
   closeimage: {fileID: 0}
   _environmentOn: {fileID: 3986565429088896251}
   _environmentMain: {fileID: 7544956941781424618}
+  buttonAIMaterial: {fileID: 0}
 --- !u!4 &7114770128831264292
 Transform:
   m_ObjectHideFlags: 0
@@ -34941,7 +34948,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7516989854395125640, guid: 3969feba1b8435f4d9900204b415e845, type: 3}
       propertyPath: m_Name
-      value: Button2_img180Stereo
+      value: Button2
       objectReference: {fileID: 0}
     - target: {fileID: 7516989854707263119, guid: 3969feba1b8435f4d9900204b415e845, type: 3}
       propertyPath: m_IsActive
@@ -35116,6 +35123,7 @@ MonoBehaviour:
   closeimage: {fileID: 0}
   _environmentOn: {fileID: 9195698577739851204}
   _environmentMain: {fileID: 7544956941781424618}
+  buttonAIMaterial: {fileID: 0}
 --- !u!114 &8505511326845387539
 MonoBehaviour:
   m_ObjectHideFlags: 0

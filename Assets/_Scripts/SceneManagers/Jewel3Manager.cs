@@ -180,7 +180,7 @@ public class Jewel3Manager : MonoBehaviour
         this.isJewelTouched = isJewelTouched;
         //riduci regolarmente l'audio dell'ambiente nel giro di 5 secondi
         treePicture.SetActive(isJewelTouched);
-        jewel3Informations.SetActive(!isJewelTouched);
+        jewel3Informations.SetActive(false);
         bShowVideo = true;
         if (isJewelTouched)
         {

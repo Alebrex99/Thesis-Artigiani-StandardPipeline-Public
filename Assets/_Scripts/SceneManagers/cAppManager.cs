@@ -22,8 +22,6 @@ public enum Scenes
 
 public class cAppManager : MonoBehaviour {
     public GameObject goPersistent;
-    [Range(0, 10)]
-    public float fadeSpeed = 1;
 
     public static bool loadLocalModels = false;
     public static cAppManager instance;
@@ -135,7 +133,7 @@ public class cAppManager : MonoBehaviour {
             Debug.Log("La scena " + sceneToLoad.name + " è già caricata.");
             yield break;
         }
-        cOVRScreenFade.instance.FadeOut();
+        //cOVRScreenFade.instance.FadeOut();
         
         asyncLoadOperation = SceneManager.LoadSceneAsync(sceneIndex);
         yield return new WaitForEndOfFrame();
@@ -154,7 +152,7 @@ public class cAppManager : MonoBehaviour {
 
         asyncLoadOperation = null;
         cMainUIManager.HideLoading();
-        cOVRScreenFade.instance.FadeIn();
+        //cOVRScreenFade.instance.FadeIn();
     }
 
     public static void BackHome()

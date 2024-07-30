@@ -22,17 +22,12 @@ public class Button3D : MonoBehaviour
     private static Button3D activeButton = null;
     //public static GameObject _currentEnvironment; //accessibile da qualunque altro script senza un rifeirmento necessario
     private Color originalColor;
-    private Material buttonMaterial;
+    [SerializeField] private Material buttonAIMaterial;
 
     void Start ()
     {
-        MeshRenderer renderer = GetComponentInChildren<MeshRenderer>();
-        if (renderer != null)
-        {
-            buttonMaterial = renderer.material;
-            originalColor = buttonMaterial.color; // Salva il colore originale
-        }
-
+        if(buttonAIMaterial!=null)
+            originalColor = buttonAIMaterial.color;
     }
 
     public void Press()
@@ -71,19 +66,18 @@ public class Button3D : MonoBehaviour
     public void CallConversationalAgent()
     {
         Debug.Log("Toggle Conversational Agent");
-        if (!cSocketManager.agentActivate)
-        {
-            buttonMaterial.color = Color.green;
-        }
-        else
-        {
-            buttonMaterial.color = originalColor;
-        }
-        
         //TOGGLE per zittire il conversational agent
         if (cSocketManager.instance == null) return;
         cSocketManager.instance.ToggleSocket();
-       
+        if (cSocketManager.agentActivate)
+        {
+            buttonAIMaterial.color = Color.green;
+        }
+        else
+        {
+            buttonAIMaterial.color = originalColor;
+        }
+
         /*if (playImg != null && pauseImg != null)
         {
             if (!cSocketManager.agentActivate)
