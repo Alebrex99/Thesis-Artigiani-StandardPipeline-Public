@@ -10,7 +10,7 @@ public class HandDetectionManager : MonoBehaviour
     private float timer;
     private bool handsDetected = true;
     private bool isActive = false;
-    public float handHeightThreshold = 0.4f; // Altezza rispetto alla testa sotto la quale nascondere i bottoni
+    public float handHeightThreshold = 0.35f; // Altezza rispetto alla testa sotto la quale nascondere i bottoni
 
     void Awake()
     {

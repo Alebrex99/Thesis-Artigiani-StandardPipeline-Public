@@ -11816,7 +11816,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttons: {fileID: 1015565703}
   hideDelay: 3
-  handHeightThreshold: 0.4
+  handHeightThreshold: 0.35
 --- !u!1 &744692776
 GameObject:
   m_ObjectHideFlags: 0
