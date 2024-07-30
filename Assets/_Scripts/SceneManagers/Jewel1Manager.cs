@@ -46,7 +46,6 @@ public class Jewel1Manager : MonoBehaviour
         instance = this;
 
         _jewel1.OnJewelTouched += OnJewel1Touched;
-        ResetUserPosition();
         sorollaPicture.SetActive(false);
         //jewel1Informations.SetActive(false);
         foreach (GameObject lateObj in _lateActivatedObj)
@@ -59,6 +58,7 @@ public class Jewel1Manager : MonoBehaviour
     {
         //StartCoroutine(PlayEnvMedia());
         //StartCoroutine(LateActivation(_lateActivatedObj, _activationDelay));
+        ResetUserPosition();
         StartCoroutine(LateActivationJewel(_lateActivatedObj, _immersionDelay)); //dopo 15 secondi compare gioiello + audio1 
         StartCoroutine(LateActivationButtons(_lateActivatedObj, _activationDelay));
     }

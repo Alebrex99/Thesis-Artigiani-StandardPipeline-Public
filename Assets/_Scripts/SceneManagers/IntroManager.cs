@@ -44,16 +44,16 @@ public class IntroManager : MonoBehaviour
 
         _buttonHome.gameObject.SetActive(false);
         goVideoPlayer.gameObject.SetActive(false);
-        ResetUserPosition();
         chairInitPos.gameObject.SetActive(true); //attivo sedia
-        chairInitPos.transform.rotation = cXRManager.GetTrCenterEye().localRotation;
-        //imposta la posizione in base all'utente
-        chairInitPos.position = cXRManager.GetTrCenterEye().position + cXRManager.GetTrCenterEye().up * 0.6f + cXRManager.GetTrCenterEye().forward * -0.125f; //ALE 0.5f
 
     }
 
     void Start()
     {
+        ResetUserPosition();
+        chairInitPos.transform.rotation = cXRManager.GetTrCenterEye().localRotation;
+        //imposta la posizione in base all'utente
+        chairInitPos.position = cXRManager.GetTrCenterEye().position + cXRManager.GetTrCenterEye().up * 0.6f + cXRManager.GetTrCenterEye().forward * -0.125f; //ALE 0.5f
         StartCoroutine(InitMenuCanvas());
         //cMainUIManager.ShowMenuCanvas(); //Problema : qui la posizione dell'occhio è a terra, ecco perché il Menu compare a terra
         //SE FUNZIONA IL MENU : TUTTO LO START VIENE SPOSTATO DENTRO LA INIT APPLICATION

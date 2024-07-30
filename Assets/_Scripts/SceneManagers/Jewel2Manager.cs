@@ -44,7 +44,6 @@ public class Jewel2Manager : MonoBehaviour
     {
         instance = this;
         _jewel2.OnJewelTouched += OnJewel2Touched;
-        ResetUserPosition();
         fireworksPicture.SetActive(false);
         jewel2Informations.SetActive(false);
         foreach (GameObject lateObj in _lateActivatedObj)
@@ -57,6 +56,7 @@ public class Jewel2Manager : MonoBehaviour
     {
         //StartCoroutine(PlayEnvMedia());
         //StartCoroutine(LateActivation(_lateActivatedObj, _activationDelay));
+        ResetUserPosition();
         StartCoroutine(LateActivationJewel(_lateActivatedObj, _immersionDelay)); //dopo 15 secondi compare gioiello + audio1 
         StartCoroutine(LateActivationButtons(_lateActivatedObj, _activationDelay));
     }

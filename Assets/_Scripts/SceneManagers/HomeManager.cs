@@ -67,7 +67,6 @@ public class HomeManager: MonoBehaviour
         {
             button3D.OnButtonPressed += OnButtonPressedEffect;
         }
-        ResetUserPosition();
         envAudioSrc[0].clip = _buttonExplainClips[0];
         envAudioSrc[1].clip = _buttonExplainClips[1];
 
@@ -98,7 +97,8 @@ public class HomeManager: MonoBehaviour
 
     private void Start()
     {
-        
+        ResetUserPosition();
+
         //ATTIVAZIONI RITARDATE
         StartCoroutine(LateActivation(_lateActivatedObj, _activationDelay));
     }
@@ -196,7 +196,7 @@ public class HomeManager: MonoBehaviour
             //toActivate[i].transform.position = mainInteractablesInitPos.position; //togliere se si usa cPanelHMDFollower
         }
         //SETTO E ATTIVO CLIP SPIEGAZIONE BOTTONI
-        if (!isEnvironmentChanged)
+        if (!cAppManager.isBackHome)
         {
             if (!isRotated)
             {

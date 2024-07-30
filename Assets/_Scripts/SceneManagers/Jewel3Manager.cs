@@ -50,7 +50,6 @@ public class Jewel3Manager : MonoBehaviour
         instance = this;
 
         _jewel3.OnJewelTouched += OnJewel3Touched;
-        ResetUserPosition();
         treePicture.SetActive(false);
         jewel3Informations.SetActive(false);
         jewel3Game.SetActive(false);
@@ -67,6 +66,7 @@ public class Jewel3Manager : MonoBehaviour
     {
         //StartCoroutine(PlayEnvMedia());
         //StartCoroutine(LateActivation(_lateActivatedObj, _activationDelay));
+        ResetUserPosition();
         StartCoroutine(LateActivationJewel(_lateActivatedObj, _immersionDelay)); //dopo 15 secondi compare gioiello + audio1 
         StartCoroutine(LateActivationButtons(_lateActivatedObj, _activationDelay));
         /*foreach (Renderer renderer in jewel3GameRenderers)
