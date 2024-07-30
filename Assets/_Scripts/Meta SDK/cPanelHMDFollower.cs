@@ -47,7 +47,7 @@ namespace OculusSampleFramework
         private void Awake()
         {
             _cameraRig = FindObjectOfType<OVRCameraRig>();
-
+            //if (!null) -> poi di nuovo find
             //ALE ADD
             offset = new Vector3(0, y_offset, 0);
             _panelInitialPosition = transform.position - offset;

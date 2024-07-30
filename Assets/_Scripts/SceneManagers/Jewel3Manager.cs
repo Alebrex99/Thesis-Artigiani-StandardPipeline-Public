@@ -53,13 +53,13 @@ public class Jewel3Manager : MonoBehaviour
         treePicture.SetActive(false);
         jewel3Informations.SetActive(false);
         jewel3Game.SetActive(false);
-        /*if (_lateActivatedObj.Length > 0)
+        if (_lateActivatedObj.Length > 0)
         {
             foreach (GameObject lateObj in _lateActivatedObj)
             {
                 lateObj.SetActive(false);
             }
-        }*/
+        }
     }
 
     void Start()

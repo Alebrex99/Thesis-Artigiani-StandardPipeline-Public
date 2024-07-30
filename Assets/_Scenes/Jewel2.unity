@@ -1164,7 +1164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2985875327630501294, guid: d6733f35cecdc984c9d50925eb25939e, type: 3}
       propertyPath: _renderingMode
-      value: 100
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5493972335466592047, guid: d6733f35cecdc984c9d50925eb25939e, type: 3}
       propertyPath: _orientation
@@ -3915,7 +3915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pictureAudioSrc: {fileID: 1453770905}
-  pictureClip: {fileID: 8300000, guid: 617f2c717c1dedc4785b6201c6fe878f, type: 3}
+  pictureClip: {fileID: 8300000, guid: a62223da1b1b8c841884c5ee7da2319d, type: 3}
   playImg: {fileID: 1718419709}
   pauseImg: {fileID: 961674380}
 --- !u!4 &1846694509
@@ -4201,7 +4201,7 @@ Transform:
   m_GameObject: {fileID: 2059558544}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.36, z: -3.2}
+  m_LocalPosition: {x: 0, y: 1.36, z: -3.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

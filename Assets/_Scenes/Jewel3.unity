@@ -153,7 +153,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1585551896868121886, guid: dda2aeea1faae654d8986620127b767e, type: 3}
       propertyPath: currentOverlayShape
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1585551896868121886, guid: dda2aeea1faae654d8986620127b767e, type: 3}
       propertyPath: destRectRight.width
@@ -174,11 +174,11 @@ PrefabInstance:
     - target: {fileID: 1585551896868121886, guid: dda2aeea1faae654d8986620127b767e, type: 3}
       propertyPath: textures.Array.data[0]
       value: 
-      objectReference: {fileID: 2800000, guid: d91973027b7cdf84990491ec0c3b1931, type: 3}
+      objectReference: {fileID: 8900000, guid: 8f101a09d32984a4eacec4af304857ac, type: 3}
     - target: {fileID: 1585551896868121886, guid: dda2aeea1faae654d8986620127b767e, type: 3}
       propertyPath: textures.Array.data[1]
       value: 
-      objectReference: {fileID: 2800000, guid: 726b01e616c4add4a9d4444c15a7e3c5, type: 3}
+      objectReference: {fileID: 8900000, guid: 4487428370947c74fb95debb4e011a8e, type: 3}
     - target: {fileID: 1585551896868121886, guid: dda2aeea1faae654d8986620127b767e, type: 3}
       propertyPath: useEfficientSupersample
       value: 1
@@ -869,7 +869,7 @@ Transform:
   m_GameObject: {fileID: 665346951}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.601, y: 0, z: -0.229}
+  m_LocalPosition: {x: -0.4, y: 0, z: -0.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2112,7 +2112,7 @@ Transform:
   m_GameObject: {fileID: 1581376899}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.36, z: -3.2}
+  m_LocalPosition: {x: 0, y: 1.36, z: -3.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2565,7 +2565,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2985875327630501294, guid: d6733f35cecdc984c9d50925eb25939e, type: 3}
       propertyPath: _renderingMode
-      value: 100
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5493972335466592047, guid: d6733f35cecdc984c9d50925eb25939e, type: 3}
       propertyPath: _orientation
@@ -4591,6 +4591,7 @@ GameObject:
   - component: {fileID: 8840212658351717204}
   - component: {fileID: 5335313858431713265}
   - component: {fileID: 2129398664581890621}
+  - component: {fileID: 8840212658351717205}
   m_Layer: 0
   m_Name: Chest_Base
   m_TagString: Untagged
@@ -4632,6 +4633,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 543450652216636686}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8840212658351717205
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5481095546497124520}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3, y: 1.6, z: 2.2}
+  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
