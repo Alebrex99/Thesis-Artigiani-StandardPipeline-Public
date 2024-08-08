@@ -42,6 +42,7 @@ public class cSocketManager : MonoBehaviour
 
     //VERSIONE CON LATENZA : RICEZIONE SERVER -> CLIENT
     public static List<byte> conversation = new List<byte>();
+    public MemoryStream memConversation = new MemoryStream();
     private bool stopReceiving = false;
     private bool isReceiving = false;
     private float[] audioBufferFloat; //N bytes / 4byte (1 float = 4 byte)questi sono i SAMPLES dell' AudioClip

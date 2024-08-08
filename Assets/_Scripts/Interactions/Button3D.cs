@@ -26,8 +26,11 @@ public class Button3D : MonoBehaviour
 
     void Start ()
     {
-        if(buttonAIMaterial!=null)
+        if (buttonAIMaterial != null)
+        {
+            buttonAIMaterial.color = Color.white;
             originalColor = buttonAIMaterial.color;
+        }
     }
 
     public void Press()
