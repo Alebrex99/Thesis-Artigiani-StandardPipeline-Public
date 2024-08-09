@@ -57,7 +57,7 @@ public class Jewel : MonoBehaviour
             }
         }
         //se la clip non è già avviata
-        if (isJewelTouched)
+        /*if (isJewelTouched)
         {
             //pictureAudioSrc.PlayOneShot(pictureClip, 1f);
             StartCoroutine(FadeInAudio(pictureAudioSrc, 2f));
@@ -66,7 +66,7 @@ public class Jewel : MonoBehaviour
         else
         {
             StartCoroutine(FadeOutAudio(pictureAudioSrc, 2f));
-        }
+        }*/
     }
 
     private IEnumerator FadeOutAudio(AudioSource audioSrc, float fadeTime)

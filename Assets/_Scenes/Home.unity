@@ -32877,6 +32877,7 @@ MonoBehaviour:
   _environmentMain: {fileID: 7544956941781424618}
   _envOffice: {fileID: 9195698577739851204}
   _envMyExperience: {fileID: 872050315}
+  myExpVideoPlayer: {fileID: 737297686}
   isEnvironmentChanged: 0
   chairInitPos: {fileID: 59071151}
   rotationChairSpeed: 0.6

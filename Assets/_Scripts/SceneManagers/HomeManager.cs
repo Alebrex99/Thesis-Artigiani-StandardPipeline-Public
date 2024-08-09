@@ -37,6 +37,7 @@ public class HomeManager: MonoBehaviour
     //[SerializeField] GameObject _envMyMotivation;
     [SerializeField] GameObject _envOffice;
     [SerializeField] GameObject _envMyExperience;
+    [SerializeField] private VideoPlayer myExpVideoPlayer;
     public bool isEnvironmentChanged = false;
     [SerializeField] Transform chairInitPos;
     [Range(0.1f, 1)]
@@ -295,10 +296,18 @@ public class HomeManager: MonoBehaviour
                 StartCoroutine(FadeOutAudio(audioSrc, 2f));
             }
         }
+        if (myExpVideoPlayer.isPlaying && _envMyExperience.activeSelf)
+        {
+            myExpVideoPlayer.Pause();
+        }
         isAgentCalled = true;
     }
     public void UnPauseAudioScene()
     {
+        if (!myExpVideoPlayer.isPlaying && _envMyExperience.activeSelf)
+        {
+            myExpVideoPlayer.Play();
+        }
         isAgentCalled = false;
     }
 

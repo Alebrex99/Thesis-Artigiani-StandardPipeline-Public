@@ -129,8 +129,8 @@ public class Jewel1Manager : MonoBehaviour
         toActivate[0].SetActive(true);
         //SETTA POSIZIONI
         _jewel1.transform.position = _jewelInitPos.position;
-        envAudioSrc.volume = 0.5f;
-        StartCoroutine(FadeInAudio(interactAudioSrc, 3f, _envClips[0])); //Jewel explaination
+        envAudioSrc.volume = 0.3f;
+        StartCoroutine(FadeInAudio(interactAudioSrc, 2f, _envClips[0])); //Jewel explaination
         //envAudioSrc.PlayOneShot(_envClips[1], 1); //Jewel explaination
     }
 
@@ -142,7 +142,7 @@ public class Jewel1Manager : MonoBehaviour
         toActivate[1].SetActive(true);
         if (!cAppManager.isBackHome)
         {
-            envAudioSrc.volume = 0.5f;
+            envAudioSrc.volume = 0.3f;
             StartCoroutine(FadeInAudio(interactAudioSrc, 2f, _envClips[1]));  //Buttons explanation
             /*if(!envAudioSrc.isPlaying)
                 envAudioSrc.PlayOneShot(_envClips[2], 1); //Buttons explanation*/
@@ -162,16 +162,24 @@ public class Jewel1Manager : MonoBehaviour
         sorollaPicture.SetActive(isJewelTouched);
         bShowVideo = true;
         if (isJewelTouched) {
-            StartCoroutine(FadeOutAudio(interactAudioSrc, 2f));
+            //StartCoroutine(FadeOutAudio(interactAudioSrc, 2f));
+            StartCoroutine(SwitchAudio(interactAudioSrc, GetJewelAudioSource(), 2f));
             clipPoint = interactAudioSrc.time;
             Debug.Log("Clip point: " + clipPoint);
         }
         else if (clipPoint <= interactAudioSrc.clip.length && clipPoint!=0)
         {
             Debug.Log("TIME: " + interactAudioSrc.time + " CLIP : " + interactAudioSrc.clip.length + " condition: " + (interactAudioSrc.time >= interactAudioSrc.clip.length));
-            StartCoroutine(FadeInAudio(interactAudioSrc, 2f));
+            //StartCoroutine(FadeInAudio(interactAudioSrc, 2f));
+            StartCoroutine(SwitchAudio(GetJewelAudioSource(), interactAudioSrc, 2f));
         }
         //StartCoroutine(FadeOutAudio(envAudioSrc, 5f));
+    }
+
+    private IEnumerator SwitchAudio(AudioSource fadeOutSrc, AudioSource fadeInSrc, float fadeTime)
+    {
+        yield return StartCoroutine(FadeOutAudio(fadeOutSrc, fadeTime));
+        yield return StartCoroutine(FadeInAudio(fadeInSrc, fadeTime));
     }
 
     public IEnumerator FadeOutAudio(AudioSource audioSrc, float fadeTime, AudioClip clip = null)
