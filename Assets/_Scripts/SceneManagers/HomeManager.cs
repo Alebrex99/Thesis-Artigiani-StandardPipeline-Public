@@ -44,6 +44,8 @@ public class HomeManager: MonoBehaviour
     [SerializeField] private float rotationChairSpeed = 0.6f;
     [Range(30, 200)]
     [SerializeField] public int angleSwitch = 80;
+    private Coroutine currentCoroutine;
+    private bool isFading = false;
 
     //DEPRECATED
     //[SerializeField] GameObject _video2DScene;
@@ -137,7 +139,8 @@ public class HomeManager: MonoBehaviour
             {
                 //StartCoroutine(FadeOutAudio(envAudioSrc[0], 2f));
                 //StartCoroutine(FadeInAudio(envAudioSrc[1], 2f));
-                StartCoroutine(SwitchAudio(envAudioSrc[0], envAudioSrc[1], 2f));
+                if(currentCoroutine != null) StopCoroutine(currentCoroutine);
+                currentCoroutine = StartCoroutine(SwitchAudio(envAudioSrc[0], envAudioSrc[1], 2f));
             }
             isRotated = true;
 
@@ -148,7 +151,8 @@ public class HomeManager: MonoBehaviour
             {
                 //StartCoroutine(FadeOutAudio(envAudioSrc[1], 2f));
                 //StartCoroutine(FadeInAudio(envAudioSrc[0], 2f));
-                StartCoroutine(SwitchAudio(envAudioSrc[1], envAudioSrc[0], 2f));
+                if(currentCoroutine != null) StopCoroutine(currentCoroutine);
+                currentCoroutine = StartCoroutine(SwitchAudio(envAudioSrc[1], envAudioSrc[0], 2f));
             }
             isRotated = false;
         }
@@ -156,6 +160,10 @@ public class HomeManager: MonoBehaviour
 
     private IEnumerator SwitchAudio(AudioSource fadeOutSrc, AudioSource fadeInSrc, float fadeTime)
     {
+        while (isFading)
+        {
+            yield return null;  // Attendere un frame e riprovare
+        }
         yield return StartCoroutine(FadeOutAudio(fadeOutSrc, fadeTime));
         yield return StartCoroutine(FadeInAudio(fadeInSrc, fadeTime));
     }
@@ -163,6 +171,7 @@ public class HomeManager: MonoBehaviour
 
     public IEnumerator FadeOutAudio(AudioSource audioSrc, float fadeTime)
     {
+        isFading = true;
         //audioSrc.clip = _envClips[1]; //decidi la CLip da settare (da usare con 2 audio source)
         float startVolume = audioSrc.volume;
         while (audioSrc.volume > 0)
@@ -173,9 +182,11 @@ public class HomeManager: MonoBehaviour
 
         audioSrc.Pause();
         audioSrc.volume = startVolume;
+        isFading = false;
     }
     public IEnumerator FadeInAudio(AudioSource audioSrc, float fadeTime)
     {
+        isFading = true;
         //audioSrc.clip = _envClips[1]; //decidi la clip da settare (da usare con 2 audio source)
         float startVolume = 1f;
         audioSrc.volume = 0f;
@@ -195,6 +206,7 @@ public class HomeManager: MonoBehaviour
         }
 
         audioSrc.volume = startVolume;
+        isFading = false;
     }
     private IEnumerator LateActivation(GameObject[] toActivate, float _activationDelay)
     {

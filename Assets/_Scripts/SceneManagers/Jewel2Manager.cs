@@ -37,7 +37,8 @@ public class Jewel2Manager : MonoBehaviour
     [SerializeField] private Jewel _jewel2;
     [SerializeField] private Transform _jewelInitPos;
     private bool isJewelTouched = false;
-
+    private Coroutine currentCoroutine;
+    private bool isFading = false;
 
     // Start is called before the first frame update
     private void Awake()
@@ -45,7 +46,7 @@ public class Jewel2Manager : MonoBehaviour
         instance = this;
         _jewel2.OnJewelTouched += OnJewel2Touched;
         fireworksPicture.SetActive(false);
-        jewel2Informations.SetActive(false);
+        //jewel2Informations.SetActive(false);
         foreach (GameObject lateObj in _lateActivatedObj)
         {
             lateObj.SetActive(false);
@@ -125,8 +126,8 @@ public class Jewel2Manager : MonoBehaviour
         toActivate[0].SetActive(true);
         //SETTA POSIZIONI
         _jewel2.transform.position = _jewelInitPos.position;
-        envAudioSrc.volume = 0.5f;
-        StartCoroutine(FadeInAudio(interactAudioSrc, 3f, _envClips[0])); //Jewel explaination
+        envAudioSrc.volume = 0.3f;
+        StartCoroutine(FadeInAudio(interactAudioSrc, 2f, _envClips[0])); //Jewel explaination
         //envAudioSrc.PlayOneShot(_envClips[1], 1); //Jewel explaination
     }
 
@@ -160,20 +161,43 @@ public class Jewel2Manager : MonoBehaviour
         bShowVideo = true;
         if (isJewelTouched)
         {
-            StartCoroutine(FadeOutAudio(interactAudioSrc, 2f));
-            clipPoint = interactAudioSrc.time;
+            //StartCoroutine(FadeOutAudio(interactAudioSrc, 2f));
+            if (currentCoroutine != null) StopCoroutine(currentCoroutine);
+            currentCoroutine = StartCoroutine(SwitchAudio(interactAudioSrc, GetJewelAudioSource(), 2f)); clipPoint = interactAudioSrc.time;
             Debug.Log("Clip point: " + clipPoint);
         }
-        else if (clipPoint <= interactAudioSrc.clip.length && clipPoint != 0)
+        else
         {
-            Debug.Log("TIME: " + interactAudioSrc.time + " CLIP : " + interactAudioSrc.clip.length + " condition: " + (interactAudioSrc.time >= interactAudioSrc.clip.length));
-            StartCoroutine(FadeInAudio(interactAudioSrc, 2f));
+            //se la clip non è già avviata
+            if (clipPoint <= interactAudioSrc.clip.length && clipPoint != 0)
+            {
+                Debug.Log("TIME: " + interactAudioSrc.time + " CLIP : " + interactAudioSrc.clip.length + " condition: " + (interactAudioSrc.time >= interactAudioSrc.clip.length));
+                //StartCoroutine(FadeInAudio(interactAudioSrc, 2f));
+                if (currentCoroutine != null) StopCoroutine(currentCoroutine);
+                currentCoroutine = StartCoroutine(SwitchAudio(GetJewelAudioSource(), interactAudioSrc, 2f));
+                //StartCoroutine(CheckIfClipFinished(interactAudioSrc));
+            }
+            else
+            {
+                StartCoroutine(FadeOutAudio(GetJewelAudioSource(), 2f));
+            }
         }
         //StartCoroutine(FadeOutAudio(envAudioSrc, 5f));
     }
 
+    private IEnumerator SwitchAudio(AudioSource fadeOutSrc, AudioSource fadeInSrc, float fadeTime)
+    {
+        while (isFading)
+        {
+            yield return null;  // Attendere un frame e riprovare
+        }
+        yield return StartCoroutine(FadeOutAudio(fadeOutSrc, fadeTime));
+        yield return StartCoroutine(FadeInAudio(fadeInSrc, fadeTime));
+    }
+
     public IEnumerator FadeOutAudio(AudioSource audioSrc, float fadeTime, AudioClip clip = null)
     {
+        isFading = true;
         if (clip != null)
             audioSrc.clip = clip;
         //audioSrc.clip = _envClips[1]; //decidi la CLip da settare (da usare con 2 audio source)
@@ -186,9 +210,11 @@ public class Jewel2Manager : MonoBehaviour
         }
         audioSrc.Pause();
         audioSrc.volume = startVolume;
+        isFading = false;
     }
     public IEnumerator FadeInAudio(AudioSource audioSrc, float fadeTime, AudioClip clip = null)
     {
+        isFading = true;
         if (clip != null)
             audioSrc.clip = clip;
         //audioSrc.clip = _envClips[1]; //decidi la clip da settare (da usare con 2 audio source)
@@ -208,6 +234,7 @@ public class Jewel2Manager : MonoBehaviour
         }
 
         audioSrc.volume = startVolume;
+        isFading = false;
     }
 
     public AudioSource GetJewelAudioSource()
