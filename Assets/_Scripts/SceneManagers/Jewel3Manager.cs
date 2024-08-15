@@ -171,6 +171,7 @@ public class Jewel3Manager : MonoBehaviour
         yield return new WaitForSeconds(_immersionDelay);
         yield return new WaitUntil(() => !interactAudioSrc.isPlaying); //attendi che l'audio prec sia finito
         yield return new WaitForSeconds(_activationDelay);
+        _jewel3.intJewelActivate = true;
         toActivate[1].SetActive(true);
         if (!cAppManager.isBackHome)
         {

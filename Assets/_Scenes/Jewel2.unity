@@ -1387,9 +1387,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7114770129336771048, guid: d6733f35cecdc984c9d50925eb25939e, type: 3}
+      propertyPath: _whenSelectedEmpty.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7114770129336771048, guid: d6733f35cecdc984c9d50925eb25939e, type: 3}
       propertyPath: _whenSelectedHovered.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7114770129336771048, guid: d6733f35cecdc984c9d50925eb25939e, type: 3}
+      propertyPath: _whenSelectedEmpty.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7114770129336771048, guid: d6733f35cecdc984c9d50925eb25939e, type: 3}
+      propertyPath: _whenSelectedEmpty.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1453770906}
     - target: {fileID: 7114770129336771048, guid: d6733f35cecdc984c9d50925eb25939e, type: 3}
       propertyPath: _whenSelectedHovered.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
@@ -1399,6 +1411,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1453770906}
     - target: {fileID: 7114770129336771048, guid: d6733f35cecdc984c9d50925eb25939e, type: 3}
+      propertyPath: _whenSelectedEmpty.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7114770129336771048, guid: d6733f35cecdc984c9d50925eb25939e, type: 3}
+      propertyPath: _whenSelectedEmpty.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: TouchPicture
+      objectReference: {fileID: 0}
+    - target: {fileID: 7114770129336771048, guid: d6733f35cecdc984c9d50925eb25939e, type: 3}
       propertyPath: _whenSelectedHovered.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -1407,8 +1427,16 @@ PrefabInstance:
       value: TouchPicture
       objectReference: {fileID: 0}
     - target: {fileID: 7114770129336771048, guid: d6733f35cecdc984c9d50925eb25939e, type: 3}
+      propertyPath: _whenSelectedEmpty.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PictureJewel, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7114770129336771048, guid: d6733f35cecdc984c9d50925eb25939e, type: 3}
       propertyPath: _whenSelectedHovered.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: PictureJewel, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7114770129336771048, guid: d6733f35cecdc984c9d50925eb25939e, type: 3}
+      propertyPath: _whenSelectedEmpty.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7114770129336771048, guid: d6733f35cecdc984c9d50925eb25939e, type: 3}
       propertyPath: _whenSelectedHovered.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -2150,6 +2178,7 @@ MonoBehaviour:
   userInitPos: {fileID: 2076840333}
   trLightJewel: {fileID: 298896055}
   envAudioSrc: {fileID: 97496280}
+  envVideoPlayer: {fileID: 0}
   interactAudioSrc: {fileID: 2059558545}
   _envClips:
   - {fileID: 8300000, guid: 4b6b3a70863e21e42b968b53d8f8d13d, type: 3}
