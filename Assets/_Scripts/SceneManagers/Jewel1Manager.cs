@@ -167,6 +167,13 @@ public class Jewel1Manager : MonoBehaviour
         jewel1Informations.SetActive(false);
         sorollaPicture.SetActive(isJewelTouched);
         bShowVideo = true;
+
+        //AUDIO
+        if(cSocketManager.instance!=null && !cSocketManager.agentActivate)
+        {
+            //return; //se non è attivo l'agente non fa nulla
+        }
+        //lo spegnimento dell'agente è già gestito (sistemare i bip e la logica)
         if (isJewelTouched) {
             envAudioSrc.volume = 0.3f;
             //StartCoroutine(FadeOutAudio(interactAudioSrc, 2f));

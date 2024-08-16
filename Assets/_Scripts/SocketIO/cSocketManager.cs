@@ -72,6 +72,7 @@ public class cSocketManager : MonoBehaviour
     [Header("Bip Clips")]
     [SerializeField] private AudioClip[] agentActivateBipClip; //0 ON , 1 OFF
     public static bool agentActivate = false;
+    //public Action<bool> OnAgentActivation;
     [SerializeField] private GameObject objectToSpin;
 
 
@@ -451,6 +452,7 @@ public class cSocketManager : MonoBehaviour
         //CONTROLLO AGENTE : agentActivate è rimesso a true quando inizia a parlare agente
         if (!agentActivate) //se agente è disattivato -> lo attivi
         {
+            //OnAgentActivation?.Invoke(true);
             OnCallToggleManagerAudios(false); //spegni audio scena
             agentActivate = true; // attivi agente
             _dictationActivation.ToggleActivation(agentActivate); //attivi microfono
@@ -462,6 +464,7 @@ public class cSocketManager : MonoBehaviour
         }
         else // se agente è attivato -> lo spegni
         {
+            //OnAgentActivation?.Invoke(false);
             OnCallToggleManagerAudios(true); //accendo audio scena
             agentActivate = false; //disattivi agente
             _dictationActivation.ToggleActivation(agentActivate); //disattivi microfono
