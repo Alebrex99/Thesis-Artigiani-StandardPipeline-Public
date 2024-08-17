@@ -2602,11 +2602,15 @@ PrefabInstance:
     - target: {fileID: 7516989854852174097, guid: 3969feba1b8435f4d9900204b415e845, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 1b9a639510d64834db15d9c679576bf7, type: 2}
+      objectReference: {fileID: 2100000, guid: 7b5ef83e27f8ba744b9affac86811878, type: 2}
     - target: {fileID: 7516989854951799700, guid: 3969feba1b8435f4d9900204b415e845, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1b9a639510d64834db15d9c679576bf7, type: 2}
+    - target: {fileID: 7516989854951799702, guid: 3969feba1b8435f4d9900204b415e845, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8457344631187891265, guid: 3969feba1b8435f4d9900204b415e845, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -4123,7 +4127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pictureAudioSrc: {fileID: 1453770905}
   pictureClip: {fileID: 8300000, guid: a62223da1b1b8c841884c5ee7da2319d, type: 3}
-  intJewelActivate: 0
+  interactJewelActivate: 0
   playImg: {fileID: 1718419709}
   pauseImg: {fileID: 961674380}
 --- !u!4 &1846694509

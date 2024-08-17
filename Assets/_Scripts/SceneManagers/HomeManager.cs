@@ -304,8 +304,8 @@ public class HomeManager: MonoBehaviour
         {
             if (audioSrc.isPlaying)
             {
-                //audioSrc.Pause();
-                StartCoroutine(FadeOutAudio(audioSrc, 2f));
+                audioSrc.Pause();
+                //StartCoroutine(FadeOutAudio(audioSrc, 2f));
             }
         }
         if (myExpVideoPlayer.isPlaying && _envMyExperience.activeSelf)

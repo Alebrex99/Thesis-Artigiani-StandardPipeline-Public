@@ -28,7 +28,7 @@ public class Button3D : MonoBehaviour
     {
         if (buttonAIMaterial != null)
         {
-            buttonAIMaterial.color = Color.white;
+            buttonAIMaterial.color = Color.red;
             originalColor = buttonAIMaterial.color;
         }
     }

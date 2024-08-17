@@ -68,9 +68,9 @@ public class cSocketManager : MonoBehaviour
 
     //EFFETTI SULLA SCENA
     [Header("Audio Source")]
-    [SerializeField] private AudioSource agentActivateBipSrc;
+    [SerializeField] private AudioSource agentBipSrc;
     [Header("Bip Clips")]
-    [SerializeField] private AudioClip[] agentActivateBipClip; //0 ON , 1 OFF
+    [SerializeField] private AudioClip[] agentBipClips; //0 ON , 1 OFF, 2 SENT, 3 WAIT
     public static bool agentActivate = false;
     //public Action<bool> OnAgentActivation;
     [SerializeField] private GameObject objectToSpin;
@@ -247,6 +247,8 @@ public class cSocketManager : MonoBehaviour
         {
             //OnAgentReady?.Invoke();
             //PlayAudioBuffer(audioBufferFloat);
+            receiverAudioSrc.loop = false;
+            receiverAudioSrc.Stop();
             StartCoroutine(PlayAudioBufferCor(audioBufferFloat));
         }
 
@@ -295,7 +297,7 @@ public class cSocketManager : MonoBehaviour
         //PULIZIA DEI BUFFERS:
         conversation.Clear();
         bufferReady = false;
-        agentActivate = false; //RESET permette nuovamente di parlare
+        //agentActivate = false; //RESET permette nuovamente di parlare
         //OnCallToggleManagerAudios(false); // quando comincia a parlare silenzia tutto
     }
     private IEnumerator PlayAudioBufferCor(float[] audioBufferFloat)
@@ -317,9 +319,8 @@ public class cSocketManager : MonoBehaviour
         //PULIZIA DEI BUFFERS:
         conversation.Clear();
         bufferReady = false;
-        agentActivate = false; //RESET permette nuovamente di parlare
+        //agentActivate = false; //RESET permette nuovamente di parlare
 
-        //OnCallToggleManagerAudios(false); // quando comincia a parlare silenzia tutto
         // Attendi finché l'audio è in riproduzione
         yield return new WaitWhile(() => receiverAudioSrc.isPlaying);
         Debug.Log("Audio source stopped playing");
@@ -449,7 +450,7 @@ public class cSocketManager : MonoBehaviour
             //scegli se disattivare
         }
      
-        //CONTROLLO AGENTE : agentActivate è rimesso a true quando inizia a parlare agente
+        //CONTROLLO AGENTE :
         if (!agentActivate) //se agente è disattivato -> lo attivi
         {
             //OnAgentActivation?.Invoke(true);
@@ -459,8 +460,8 @@ public class cSocketManager : MonoBehaviour
             Debug.Log("[CONV AGENT] ATTIVO CONVERSATIONAL AGENT " + agentActivate);
 
             //BIP ATTIVAZIONE -> parli -> invii -> ricevi -> agente parla
-            if(agentActivateBipSrc!=null)
-                agentActivateBipSrc.PlayOneShot(agentActivateBipClip[0], 1f);
+            if(agentBipSrc!=null)
+                agentBipSrc.PlayOneShot(agentBipClips[0], 1f);
         }
         else // se agente è attivato -> lo spegni
         {
@@ -473,12 +474,13 @@ public class cSocketManager : MonoBehaviour
             Debug.Log("CHANGE stop Receiving -> " + stopReceiving);
 
             //BIP DISATTIVAZIONE -> quando lo disattivi: mentre parli / mentre ricevi / mentre agente parla
-            if (agentActivateBipSrc != null)
-                agentActivateBipSrc.PlayOneShot(agentActivateBipClip[1], 1f);
+            if (agentBipSrc != null)
+                agentBipSrc.PlayOneShot(agentBipClips[1], 1f);
         }
         conversation.Clear();
     }
 
+    //POSSIBLE : Trasform into Action
     public void OnCallToggleManagerAudios(bool isToggled = false)
     {
         Debug.Log("Scena : " + cAppManager.GetActualScene());
@@ -587,8 +589,10 @@ public class cSocketManager : MonoBehaviour
         public string audio_chunk;
     }
 
-    public void SendMessageToServer(string message, string evenName = "")
+    public IEnumerator SendMessageToServer(string message, string evenName = "")
     {
+        //AUDIO OF SENDING MESSAGE
+        agentBipSrc.PlayOneShot(agentBipClips[2], 1f); //clip invio messagio
         //TO SEND MESSAGES FROM CLIENT TO SERVER
         if (isConnected)
         {
@@ -600,6 +604,12 @@ public class cSocketManager : MonoBehaviour
             socket.Emit("chat_message", message); //.Wait() (usato nei thread per attendere che il thread finisca) ma si bloccava prima
             Debug.Log("Message sent");
         }
+        yield return new WaitForSeconds(1f);
+        //waiting background sound
+        receiverAudioSrc.loop = true;
+        receiverAudioSrc.PlayOneShot(agentBipClips[3], 1f); //clip attesa messaggio
+
+        yield return null;
     }
 
 

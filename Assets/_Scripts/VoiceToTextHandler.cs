@@ -51,7 +51,7 @@ public class VoiceToTextHandler : MonoBehaviour
         {
             if (!cSocketManager.agentActivate) return;
             Debug.Log("[SENT TO SERVER] time: " + (DateTime.Now - startListeningTime).TotalSeconds);
-            cSocketManager.instance.SendMessageToServer(this.voiceToTextMessage);
+            StartCoroutine(cSocketManager.instance.SendMessageToServer(this.voiceToTextMessage));
             voiceToTextMessage = "";
             isSent = true;
         }

@@ -3871,6 +3871,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6528541296291869257, guid: e1cc94dc54f039f4ab4185cea2162610, type: 3}
+      propertyPath: agentBipSrc
+      value: 
+      objectReference: {fileID: 2059604411945566805}
+    - target: {fileID: 6528541296291869257, guid: e1cc94dc54f039f4ab4185cea2162610, type: 3}
       propertyPath: receiverAudioSrc
       value: 
       objectReference: {fileID: 2059604411945566802}
@@ -3883,8 +3887,28 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1269794204}
     - target: {fileID: 6528541296291869257, guid: e1cc94dc54f039f4ab4185cea2162610, type: 3}
+      propertyPath: agentBipClips.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528541296291869257, guid: e1cc94dc54f039f4ab4185cea2162610, type: 3}
+      propertyPath: agentBipClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: b1366203e0a778242baa7d480356616f, type: 3}
+    - target: {fileID: 6528541296291869257, guid: e1cc94dc54f039f4ab4185cea2162610, type: 3}
+      propertyPath: agentBipClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 51449438d1af89f4eb22f4896a1ef84c, type: 3}
+    - target: {fileID: 6528541296291869257, guid: e1cc94dc54f039f4ab4185cea2162610, type: 3}
+      propertyPath: agentBipClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: c774f291642a292409d09d2b664c923a, type: 3}
+    - target: {fileID: 6528541296291869257, guid: e1cc94dc54f039f4ab4185cea2162610, type: 3}
+      propertyPath: agentBipClips.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5dbaddcd863bb264887104701476020f, type: 3}
+    - target: {fileID: 6528541296291869257, guid: e1cc94dc54f039f4ab4185cea2162610, type: 3}
       propertyPath: agentActivateBipClip.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6528541296291869257, guid: e1cc94dc54f039f4ab4185cea2162610, type: 3}
       propertyPath: agentActivateBipClip.Array.data[0]
@@ -3894,6 +3918,10 @@ PrefabInstance:
       propertyPath: agentActivateBipClip.Array.data[1]
       value: 
       objectReference: {fileID: 8300000, guid: 0874f1c53ece0804a8d6a3872a6c8096, type: 3}
+    - target: {fileID: 6528541296291869257, guid: e1cc94dc54f039f4ab4185cea2162610, type: 3}
+      propertyPath: agentActivateBipClip.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: c774f291642a292409d09d2b664c923a, type: 3}
     - target: {fileID: 8306261539585845754, guid: e1cc94dc54f039f4ab4185cea2162610, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
