@@ -329,7 +329,7 @@ public class cSocketManager : MonoBehaviour
         yield return new WaitUntil(() => !receiverAudioSrc.isPlaying); //aspetta che finisca di parlare
         Debug.Log("Audio source stopped playing");
         ResetAgent();
-        OnCallToggleManagerAudios(true); //accendi audio scena (puoi convertirlo ad azione nel manager)
+        //OnCallToggleManagerAudios(true); //accendi audio scena (puoi convertirlo ad azione nel manager)
     }
 
 
@@ -454,17 +454,21 @@ public class cSocketManager : MonoBehaviour
             stopReceiving = false;
             //scegli se disattivare
         }
-     
+        if(agentBipSrc.isPlaying)
+        {
+            agentBipSrc.Stop();
+        }
+
         //CONTROLLO AGENTE :
         if (!agentActivate) //se agente è disattivato -> lo attivi
         {
             ActivateAgent();
-            OnCallToggleManagerAudios(false); //spegni audio scena (puoi convertirlo ad azione nel manager)
+            //OnCallToggleManagerAudios(false); //spegni audio scena (puoi convertirlo ad azione nel manager)
         }
         else // se agente è attivato -> lo spegni
         {
             ResetAgent();
-            OnCallToggleManagerAudios(true); //accendo audio scena (puoi convertirlo ad azione nel manager)
+            //OnCallToggleManagerAudios(true); //accendo audio scena (puoi convertirlo ad azione nel manager)
         }
         conversation.Clear();
     }
@@ -534,6 +538,7 @@ public class cSocketManager : MonoBehaviour
         Debug.Log("[CONV AGENT] DISATTIVO CONVERSATIONAL AGENT " + agentActivate);
         stopReceiving = true;
         Debug.Log("CHANGE stop Receiving -> " + stopReceiving);
+        if (agentBipSrc.isPlaying) agentBipSrc.Stop();
         //BIP DISATTIVAZIONE -> quando lo disattivi: mentre parli / mentre ricevi / mentre agente parla
         if (agentBipSrc != null)
             agentBipSrc.PlayOneShot(agentBipClips[1], 1f);

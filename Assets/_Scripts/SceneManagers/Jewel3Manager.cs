@@ -18,6 +18,7 @@ public class Jewel3Manager : MonoBehaviour
     public AudioSource interactAudioSrc;
     public AudioClip[] _envClips;
     private float clipPoint = 0;
+    private bool isAgentCalled = false;
     [Range(0, 60)]
     [SerializeField] private float _envExplainDelay = 1f;
     [Range(0, 60)]
@@ -65,6 +66,7 @@ public class Jewel3Manager : MonoBehaviour
 
     void Start()
     {
+        if (cSocketManager.instance != null) cSocketManager.instance.OnAgentActivation += OnAgentActivationEffect;
         //StartCoroutine(PlayEnvMedia());
         //StartCoroutine(LateActivation(_lateActivatedObj, _activationDelay));
         ResetUserPosition();
@@ -195,6 +197,13 @@ public class Jewel3Manager : MonoBehaviour
         treePicture.SetActive(isJewelTouched);
         jewel3Informations.SetActive(false);
         bShowVideo = true;
+
+        //AUDIO
+        //se clicco sul gioiello, ma l'agente è attivo, non fare nulla
+        if (isAgentCalled)
+        {
+            return;
+        }
         if (isJewelTouched)
         {
             envAudioSrc.volume = 0.3f;
@@ -300,6 +309,18 @@ public class Jewel3Manager : MonoBehaviour
         return envAudioSrc;
     }
 
+    public void OnAgentActivationEffect(bool agentActivate)
+    {
+        isAgentCalled = agentActivate;
+        if (agentActivate)
+        {
+            PauseAudioScene();
+        }
+        else
+        {
+            UnPauseAudioScene();
+        }
+    }
     public void PauseAudioScene()
     {
         if (interactAudioSrc.isPlaying)
@@ -356,6 +377,7 @@ public class Jewel3Manager : MonoBehaviour
         //videoPlayer.Stop();
         //envAudioSrc.Stop(); //non puoi farlo!
         _jewel3.OnJewelTouched -= OnJewel3Touched;
+        if (cSocketManager.instance != null) cSocketManager.instance.OnAgentActivation -= OnAgentActivationEffect;
         StopAllCoroutines();
     }
 }

@@ -44,7 +44,6 @@ public class Button3D : MonoBehaviour
         if (OnButtonPressed != null)
             OnButtonPressed(this, isButtonPressed);
 
-        Debug.Log(_environmentOn.name);
         isButtonPressed = false;
 
     }

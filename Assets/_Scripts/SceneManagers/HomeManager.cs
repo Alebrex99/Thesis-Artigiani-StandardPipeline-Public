@@ -101,6 +101,7 @@ public class HomeManager: MonoBehaviour
 
     private void Start()
     {
+        if (cSocketManager.instance != null) cSocketManager.instance.OnAgentActivation += OnAgentActivationEffect;
         ResetUserPosition();
 
         //ATTIVAZIONI RITARDATE
@@ -297,6 +298,15 @@ public class HomeManager: MonoBehaviour
     {
         return envAudioSrc;
     }
+
+    public void OnAgentActivationEffect(bool agentActivate)
+    {
+        isAgentCalled = agentActivate;
+        if (agentActivate == true)
+            PauseAudioScene();
+        else UnPauseAudioScene();
+    }
+
     public void PauseAudioScene()
     {
         //metti in pausa 
@@ -312,7 +322,7 @@ public class HomeManager: MonoBehaviour
         {
             myExpVideoPlayer.Pause();
         }
-        isAgentCalled = true;
+        //isAgentCalled = true;
     }
     public void UnPauseAudioScene()
     {
@@ -320,7 +330,7 @@ public class HomeManager: MonoBehaviour
         {
             myExpVideoPlayer.Play();
         }
-        isAgentCalled = false;
+        //isAgentCalled = false;
     }
 
 
@@ -331,6 +341,7 @@ public class HomeManager: MonoBehaviour
         {
             button3D.OnButtonPressed -= OnButtonPressedEffect;
         }
+        if (cSocketManager.instance != null) cSocketManager.instance.OnAgentActivation -= OnAgentActivationEffect;
         StopAllCoroutines();
 
     }

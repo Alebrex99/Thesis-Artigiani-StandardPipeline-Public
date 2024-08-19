@@ -52,13 +52,6 @@ public class Jewel1Manager : MonoBehaviour
         instance = this;
 
         _jewel1.OnJewelTouched += OnJewel1Touched;
-        if(cSocketManager.instance != null)
-        {
-            cSocketManager.instance.OnAgentActivation = (bool agentActivate) =>
-            {
-                isAgentCalled = agentActivate;
-            };
-        }
         sorollaPicture.SetActive(false);
         //jewel1Informations.SetActive(false);
         foreach (GameObject lateObj in _lateActivatedObj)
@@ -69,6 +62,7 @@ public class Jewel1Manager : MonoBehaviour
 
     void Start()
     {
+        if (cSocketManager.instance != null) cSocketManager.instance.OnAgentActivation += OnAgentActivationEffect;
         //StartCoroutine(PlayEnvMedia());
         //StartCoroutine(LateActivation(_lateActivatedObj, _activationDelay));
         ResetUserPosition();
@@ -307,6 +301,19 @@ public class Jewel1Manager : MonoBehaviour
         return envAudioSrc;
     }
 
+    public void OnAgentActivationEffect(bool agentActivate)
+    {
+        isAgentCalled = agentActivate;
+        if (agentActivate)
+        {
+            PauseAudioScene();
+        }
+        else
+        {
+            UnPauseAudioScene();
+        }
+    }
+
     public void PauseAudioScene()
     {
         if (interactAudioSrc.isPlaying)
@@ -364,6 +371,8 @@ public class Jewel1Manager : MonoBehaviour
         //videoPlayer.Stop();
         //envAudioSrc.Stop(); //non puoi farlo!
         _jewel1.OnJewelTouched -= OnJewel1Touched;
+        if (cSocketManager.instance != null) cSocketManager.instance.OnAgentActivation -= OnAgentActivationEffect;
+
         StopAllCoroutines();
     }
 
