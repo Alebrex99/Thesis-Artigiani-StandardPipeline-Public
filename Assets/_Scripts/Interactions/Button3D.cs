@@ -5,6 +5,7 @@ using DG.Tweening;
 using System;
 using JetBrains.Annotations;
 using UnityEngine.UI;
+using TMPro;
 
 public class Button3D : MonoBehaviour
 {
@@ -13,8 +14,6 @@ public class Button3D : MonoBehaviour
     //public Action OnEnvironmentChanged;
     private bool isButtonPressed = false;
     public string ButtonName;
-    [SerializeField] Image infoimage;
-    [SerializeField] Image closeimage;
     //[SerializeField] Image playImg;
     //[SerializeField] Image pauseImg;
     [SerializeField] GameObject _environmentOn;
@@ -23,13 +22,17 @@ public class Button3D : MonoBehaviour
     //public static GameObject _currentEnvironment; //accessibile da qualunque altro script senza un rifeirmento necessario
     private Color originalColor;
     [SerializeField] private Material buttonAIMaterial;
-
-    void Start ()
+    [Header("UI")]
+    [SerializeField] Image infoimage;
+    [SerializeField] Image closeimage;
+    [SerializeField] private TMP_Text text_label;
+    void Awake()
     {
-        if (buttonAIMaterial != null)
+        if (buttonAIMaterial != null && getButtonName()=="ButtonAI")
         {
             buttonAIMaterial.color = Color.red;
             originalColor = buttonAIMaterial.color;
+            if (text_label != null) text_label.text = "Habla con JOSE MARIN";
         }
     }
 
@@ -72,7 +75,6 @@ public class Button3D : MonoBehaviour
         if (cSocketManager.instance == null) return;
         cSocketManager.instance.OnAgentActivation += OnAgentActivationEffect;
         cSocketManager.instance.ToggleSocket();
-
         /*if (playImg != null && pauseImg != null)
         {
             if (!cSocketManager.agentActivate)
@@ -93,10 +95,13 @@ public class Button3D : MonoBehaviour
         if (agentActivate)
         {
             buttonAIMaterial.color = Color.green;
+            text_label.text = "Habla ahora y...espera";
         }
         else
         {
             buttonAIMaterial.color = originalColor;
+            text_label.text = "Habla con JOSE MARIN";
+
         }
     }
 

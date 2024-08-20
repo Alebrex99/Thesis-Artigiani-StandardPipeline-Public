@@ -52,6 +52,7 @@ public class cSocketManager : MonoBehaviour
     private int sampleRate = 44100;
     private int channels = 1;
     //private MpegFile mpgFile;
+    private Coroutine playAudioBufferCor;
 
     //VERSIONE RUN TIME PLAYBACK
     public ConcurrentQueue<byte[]> audioQueue = new ConcurrentQueue<byte[]>(); //usa concurrent queue per thread safety
@@ -249,7 +250,7 @@ public class cSocketManager : MonoBehaviour
             //PlayAudioBuffer(audioBufferFloat);
             agentBipSrc.loop = false;
             agentBipSrc.Stop();
-            StartCoroutine(PlayAudioBufferCor(audioBufferFloat));
+            playAudioBufferCor = StartCoroutine(PlayAudioBufferCor(audioBufferFloat));
         }
 
         //REAL TIME AUDIO BUFFER
@@ -325,10 +326,12 @@ public class cSocketManager : MonoBehaviour
         //agentActivate = false; //RESET permette nuovamente di parlare
 
         //VERSIONE 2 : RESET USER FRIENDLY
-        //yield return new WaitForSeconds(receiverAudioSrc.clip.length); //se crei il buffer con lunghezza in byte (4 volte la lenght in floats) -> receiverAudioSrc.clip.length/4
-        yield return new WaitUntil(() => !receiverAudioSrc.isPlaying); //aspetta che finisca di parlare
+        yield return new WaitForSeconds(receiverAudioSrc.clip.length); //se crei il buffer con lunghezza in byte (4 volte la lenght in floats) -> receiverAudioSrc.clip.length/4
+
+        //yield return new WaitUntil(() => !receiverAudioSrc.isPlaying); //aspetta che finisca di parlare
         Debug.Log("Audio source stopped playing");
         ResetAgent();
+        OnAgentActivation?.Invoke(agentActivate);
         //OnCallToggleManagerAudios(true); //accendi audio scena (puoi convertirlo ad azione nel manager)
     }
 
@@ -463,11 +466,13 @@ public class cSocketManager : MonoBehaviour
         if (!agentActivate) //se agente è disattivato -> lo attivi
         {
             ActivateAgent();
+            OnAgentActivation?.Invoke(agentActivate);
             //OnCallToggleManagerAudios(false); //spegni audio scena (puoi convertirlo ad azione nel manager)
         }
         else // se agente è attivato -> lo spegni
         {
             ResetAgent();
+            OnAgentActivation?.Invoke(agentActivate);
             //OnCallToggleManagerAudios(true); //accendo audio scena (puoi convertirlo ad azione nel manager)
         }
         conversation.Clear();
@@ -519,10 +524,9 @@ public class cSocketManager : MonoBehaviour
         }
     }
 
-    private void ActivateAgent()
+    public void ActivateAgent()
     {
         agentActivate = true; // attivi agente
-        OnAgentActivation?.Invoke(agentActivate);
         _dictationActivation.ToggleActivation(agentActivate); //attivi microfono
         Debug.Log("[CONV AGENT] ATTIVO CONVERSATIONAL AGENT " + agentActivate);
         //BIP ATTIVAZIONE -> parli -> invii -> ricevi -> agente parla
@@ -530,15 +534,19 @@ public class cSocketManager : MonoBehaviour
             agentBipSrc.PlayOneShot(agentBipClips[0], 1f);
     }
 
-    private void ResetAgent()
+    public void ResetAgent()
     {
         agentActivate = false; //disattivi agente
-        OnAgentActivation?.Invoke(agentActivate);
         _dictationActivation.ToggleActivation(agentActivate); //disattivi microfono
         Debug.Log("[CONV AGENT] DISATTIVO CONVERSATIONAL AGENT " + agentActivate);
         stopReceiving = true;
         Debug.Log("CHANGE stop Receiving -> " + stopReceiving);
+        
+        agentBipSrc.loop = false;
         if (agentBipSrc.isPlaying) agentBipSrc.Stop();
+        if(playAudioBufferCor!=null) StopCoroutine(playAudioBufferCor);
+        if (receiverAudioSrc.isPlaying) receiverAudioSrc.Stop();
+        
         //BIP DISATTIVAZIONE -> quando lo disattivi: mentre parli / mentre ricevi / mentre agente parla
         if (agentBipSrc != null)
             agentBipSrc.PlayOneShot(agentBipClips[1], 1f);
@@ -626,7 +634,8 @@ public class cSocketManager : MonoBehaviour
         if (agentBipSrc != null)
         {
             agentBipSrc.loop = true;
-            agentBipSrc.PlayOneShot(agentBipClips[3], 1f); //clip attesa messaggio
+            agentBipSrc.clip = agentBipClips[3];
+            agentBipSrc.Play();
         }
         yield return null;
     }

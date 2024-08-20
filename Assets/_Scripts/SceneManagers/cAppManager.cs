@@ -121,6 +121,8 @@ public class cAppManager : MonoBehaviour {
         actualScene = scene; //SET LA SCENA CORRENTE (es. Intro)
         actualBuildScene = (int)scene;
         //instance.StartCoroutine(instance.ChangeSceneCor(actualBuildScene));
+        if (cSocketManager.instance != null && cSocketManager.agentActivate)
+            cSocketManager.instance.ResetAgent();
         instance.StartCoroutine(instance.GoToSceneAsyncRoutine(actualBuildScene));
     }
 

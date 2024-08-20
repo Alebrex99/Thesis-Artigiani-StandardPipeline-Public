@@ -3293,6 +3293,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 209531116}
   m_CullTransparentMesh: 0
+--- !u!114 &216330344 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4200847497137210523, guid: 3969feba1b8435f4d9900204b415e845, type: 3}
+  m_PrefabInstance: {fileID: 441914655}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &222003449
 GameObject:
   m_ObjectHideFlags: 0
@@ -6628,11 +6639,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonName: ButtonAI
-  infoimage: {fileID: 0}
-  closeimage: {fileID: 0}
   _environmentOn: {fileID: 0}
   _environmentMain: {fileID: 0}
   buttonAIMaterial: {fileID: 2100000, guid: 1b9a639510d64834db15d9c679576bf7, type: 2}
+  infoimage: {fileID: 0}
+  closeimage: {fileID: 0}
+  text_label: {fileID: 216330344}
 --- !u!1 &447173452
 GameObject:
   m_ObjectHideFlags: 0
@@ -8206,11 +8218,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonName: ButtonMyMotivation
-  infoimage: {fileID: 0}
-  closeimage: {fileID: 0}
   _environmentOn: {fileID: 3986565429088896251}
   _environmentMain: {fileID: 7544956941781424618}
   buttonAIMaterial: {fileID: 0}
+  infoimage: {fileID: 0}
+  closeimage: {fileID: 0}
+  text_label: {fileID: 0}
 --- !u!1 &517454957
 GameObject:
   m_ObjectHideFlags: 0
@@ -17379,11 +17392,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonName: ButtonMyHistory
-  infoimage: {fileID: 31486592}
-  closeimage: {fileID: 1712841784}
   _environmentOn: {fileID: 9195698577739851204}
   _environmentMain: {fileID: 7544956941781424618}
   buttonAIMaterial: {fileID: 0}
+  infoimage: {fileID: 31486592}
+  closeimage: {fileID: 1712841784}
+  text_label: {fileID: 0}
 --- !u!1 &1015204268
 GameObject:
   m_ObjectHideFlags: 0
@@ -20471,11 +20485,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonName: ButtonMyExperience
-  infoimage: {fileID: 1133459309}
-  closeimage: {fileID: 985804932}
   _environmentOn: {fileID: 872050315}
   _environmentMain: {fileID: 7544956941781424618}
   buttonAIMaterial: {fileID: 0}
+  infoimage: {fileID: 1133459309}
+  closeimage: {fileID: 985804932}
+  text_label: {fileID: 0}
 --- !u!1001 &1260983570
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31109,11 +31124,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonName: Button3
-  infoimage: {fileID: 0}
-  closeimage: {fileID: 0}
   _environmentOn: {fileID: 1493077502}
   _environmentMain: {fileID: 7544956941781424618}
   buttonAIMaterial: {fileID: 0}
+  infoimage: {fileID: 0}
+  closeimage: {fileID: 0}
+  text_label: {fileID: 0}
 --- !u!1 &1986994307831501599
 GameObject:
   m_ObjectHideFlags: 0
@@ -32215,11 +32231,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonName: Button4
-  infoimage: {fileID: 0}
-  closeimage: {fileID: 0}
   _environmentOn: {fileID: 600851882}
   _environmentMain: {fileID: 7544956941781424618}
   buttonAIMaterial: {fileID: 0}
+  infoimage: {fileID: 0}
+  closeimage: {fileID: 0}
+  text_label: {fileID: 0}
 --- !u!4 &4430889951645568786
 Transform:
   m_ObjectHideFlags: 0
@@ -33064,6 +33081,7 @@ MonoBehaviour:
   userInitPos: {fileID: 1665542144}
   trLightButton: {fileID: 1314654741}
   informations: {fileID: 1944357239}
+  isAgentCalled: 0
 --- !u!4 &6710232154106154467
 Transform:
   m_ObjectHideFlags: 0
@@ -33418,11 +33436,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonName: Button1
-  infoimage: {fileID: 0}
-  closeimage: {fileID: 0}
   _environmentOn: {fileID: 3986565429088896251}
   _environmentMain: {fileID: 7544956941781424618}
   buttonAIMaterial: {fileID: 0}
+  infoimage: {fileID: 0}
+  closeimage: {fileID: 0}
+  text_label: {fileID: 0}
 --- !u!4 &7114770128831264292
 Transform:
   m_ObjectHideFlags: 0
@@ -35299,11 +35318,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonName: Button2
-  infoimage: {fileID: 0}
-  closeimage: {fileID: 0}
   _environmentOn: {fileID: 9195698577739851204}
   _environmentMain: {fileID: 7544956941781424618}
   buttonAIMaterial: {fileID: 0}
+  infoimage: {fileID: 0}
+  closeimage: {fileID: 0}
+  text_label: {fileID: 0}
 --- !u!114 &8505511326845387539
 MonoBehaviour:
   m_ObjectHideFlags: 0

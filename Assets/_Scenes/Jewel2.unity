@@ -2658,11 +2658,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonName: ButtonAI
-  infoimage: {fileID: 0}
-  closeimage: {fileID: 0}
   _environmentOn: {fileID: 0}
   _environmentMain: {fileID: 0}
   buttonAIMaterial: {fileID: 2100000, guid: 1b9a639510d64834db15d9c679576bf7, type: 2}
+  infoimage: {fileID: 0}
+  closeimage: {fileID: 0}
+  text_label: {fileID: 788025171}
+--- !u!114 &788025171 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4200847497137210523, guid: 3969feba1b8435f4d9900204b415e845, type: 3}
+  m_PrefabInstance: {fileID: 788025167}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &869091571
 GameObject:
   m_ObjectHideFlags: 0

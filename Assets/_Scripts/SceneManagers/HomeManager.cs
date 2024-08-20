@@ -37,7 +37,7 @@ public class HomeManager: MonoBehaviour
     //[SerializeField] GameObject _envMyMotivation;
     [SerializeField] GameObject _envOffice;
     [SerializeField] GameObject _envMyExperience;
-    [SerializeField] private VideoPlayer myExpVideoPlayer;
+    [SerializeField] public VideoPlayer myExpVideoPlayer;
     public bool isEnvironmentChanged = false;
     [SerializeField] Transform chairInitPos;
     [Range(0.1f, 1)]
@@ -60,7 +60,7 @@ public class HomeManager: MonoBehaviour
     [SerializeField] GameObject informations;
     private bool isMyHistoryOpened=false;
     
-    private bool isAgentCalled = false;
+    public bool isAgentCalled = false;
 
 
     private void Awake()
@@ -80,6 +80,7 @@ public class HomeManager: MonoBehaviour
         //spegni tutto il resto
         _envOffice.SetActive(false);
         _envMyExperience.SetActive(false);
+        myExpVideoPlayer.SetDirectAudioVolume(0, 0.5f);
 
         //_envMyMotivation.SetActive(false);
         //_video2DScene.SetActive(false);
@@ -131,7 +132,7 @@ public class HomeManager: MonoBehaviour
     }
     private void SwitchAudioRotation()
     {
-        var forwardCamx = new Vector3(cXRManager.GetTrCenterEye().forward.x, 0, cXRManager.GetTrCenterEye().forward.z);
+        /*var forwardCamx = new Vector3(cXRManager.GetTrCenterEye().forward.x, 0, cXRManager.GetTrCenterEye().forward.z);
         var forwardButtx = new Vector3(mainInteractablesInitPos.forward.x, 0, mainInteractablesInitPos.forward.z);
         var angleRotation = Vector3.Angle(forwardCamx, forwardButtx);
         if (angleRotation > angleSwitch && angleRotation < 270)
@@ -156,6 +157,40 @@ public class HomeManager: MonoBehaviour
                 currentCoroutine = StartCoroutine(SwitchAudio(envAudioSrc[1], envAudioSrc[0], 2f));
             }
             isRotated = false;
+        }*/
+        if (IsRotated())
+        {
+            if (!isRotated) //!envAudioSrc[1].isPlaying
+            {
+                if (currentCoroutine != null) StopCoroutine(currentCoroutine);
+                currentCoroutine = StartCoroutine(SwitchAudio(envAudioSrc[0], envAudioSrc[1], 2f));
+                isRotated = true;
+            }
+        }
+        else
+        {
+            if (isRotated)//!envAudioSrc[0].isPlaying
+            {
+                if (currentCoroutine != null) StopCoroutine(currentCoroutine);
+                currentCoroutine = StartCoroutine(SwitchAudio(envAudioSrc[1], envAudioSrc[0], 2f));
+                isRotated = false;
+            }
+        }
+        if (isAgentCalled) PauseAudioScene(); //per sicurezza è necessario in caso mi giri mentre c'è il fade out audio frontale
+    }
+
+    private bool IsRotated()
+    {
+        var forwardCamx = new Vector3(cXRManager.GetTrCenterEye().forward.x, 0, cXRManager.GetTrCenterEye().forward.z);
+        var forwardButtx = new Vector3(mainInteractablesInitPos.forward.x, 0, mainInteractablesInitPos.forward.z);
+        var angleRotation = Vector3.Angle(forwardCamx, forwardButtx);
+        if (angleRotation > angleSwitch && angleRotation < 270)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -221,16 +256,27 @@ public class HomeManager: MonoBehaviour
         //SETTO E ATTIVO CLIP SPIEGAZIONE BOTTONI
         if (!cAppManager.isBackHome)
         {
-            if (!isRotated)
+            /*if (!isRotated)
             {
                 envAudioSrc[0].PlayOneShot(_buttonExplainClips[0]); //start when the buttons appear
             }
             if (isRotated)
             {
                 envAudioSrc[1].PlayOneShot(_buttonExplainClips[1]);
+            }*/
+            if (!IsRotated())
+            {
+                envAudioSrc[0].PlayOneShot(_buttonExplainClips[0]); //start when the buttons appear
+                isRotated = false;
+
             }
-            isLateActive = true;
+            else
+            {
+                envAudioSrc[1].PlayOneShot(_buttonExplainClips[1]);
+                isRotated = true;
+            }
         }
+        isLateActive = true;
     }
     public Transform GetUserInitTr()
     {
@@ -318,18 +364,12 @@ public class HomeManager: MonoBehaviour
                 //StartCoroutine(FadeOutAudio(audioSrc, 2f));
             }
         }
-        if (myExpVideoPlayer.isPlaying && _envMyExperience.activeSelf)
-        {
-            myExpVideoPlayer.Pause();
-        }
+        myExpVideoPlayer.SetDirectAudioVolume(0, 0f);
         //isAgentCalled = true;
     }
     public void UnPauseAudioScene()
     {
-        if (!myExpVideoPlayer.isPlaying && _envMyExperience.activeSelf)
-        {
-            myExpVideoPlayer.Play();
-        }
+        myExpVideoPlayer.SetDirectAudioVolume(0, 0.5f);
         //isAgentCalled = false;
     }
 
