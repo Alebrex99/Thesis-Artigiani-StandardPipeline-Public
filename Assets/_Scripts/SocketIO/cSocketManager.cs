@@ -449,6 +449,12 @@ public class cSocketManager : MonoBehaviour
     public void ToggleSocket()
     {
         Debug.Log("Toggle SOCKET Conversational Agent");
+        Debug.Log("Socket Connected: " + isConnected);
+        if (!isConnected)
+        {
+            OnAgentExceptionLauncher(2);
+            return;
+        }
         //CheckTransition();
 
         //OPERAZIONI GENERALI DEL SOCKET

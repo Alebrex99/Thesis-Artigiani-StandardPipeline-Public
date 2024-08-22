@@ -118,6 +118,11 @@ public class Button3D : MonoBehaviour
             text_label.text = "No te he escuchado bien...";
             return;
         }
+        if(exceptionNumber==2) //socket non connesso
+        {
+            text_label.text = "Socket no conectado";
+            return;
+        }
     }
 
 

@@ -103,24 +103,15 @@ public class HomeManager: MonoBehaviour
 
     private void Start()
     {
+        //SET VALORI DA FILE CONFIGURAZIONE
+        TrySetFileConfigData();
+
+        //MANAGER
         if (cSocketManager.instance != null) cSocketManager.instance.OnAgentActivation += OnAgentActivationEffect;
         ResetUserPosition();
 
         //ATTIVAZIONI RITARDATE
         StartCoroutine(LateActivation(_lateActivatedObj, _activationDelay));
-
-        //SET VALORI DA FILE CONFIGURAZIONE
-        string currentSceneName = "HOME";
-        if (ReadConfig.configDataMap.ContainsKey(currentSceneName))
-        {
-            Dictionary<string, float> parameters = ReadConfig.configDataMap[currentSceneName];
-            if (parameters.TryGetValue("ActivationDelay", out float activationDelay))
-                _activationDelay = activationDelay;
-            if (parameters.TryGetValue("ChairSpeed", out float chairSpeed))
-                rotationChairSpeed = chairSpeed;
-            if(parameters.TryGetValue("AngleSwitch", out float angleSwitchValue))
-                angleSwitch = (int)angleSwitchValue;
-        }
 
     }
     private void Update()
@@ -391,6 +382,21 @@ public class HomeManager: MonoBehaviour
         //isAgentCalled = false;
     }
 
+
+    public void TrySetFileConfigData()
+    {
+        string currentSceneName = "HOME";
+        if (ReadConfig.configDataMap.ContainsKey(currentSceneName))
+        {
+            Dictionary<string, float> parameters = ReadConfig.configDataMap[currentSceneName];
+            if (parameters.TryGetValue("ActivationDelay", out float activationDelay))
+                _activationDelay = activationDelay;
+            if (parameters.TryGetValue("ChairSpeed", out float chairSpeed))
+                rotationChairSpeed = chairSpeed;
+            if (parameters.TryGetValue("AngleSwitch", out float angleSwitchValue))
+                angleSwitch = (int)angleSwitchValue;
+        }
+    }
 
     //USATO ON DESTROY PER DISINSCRIVERE
     private void OnDestroy()

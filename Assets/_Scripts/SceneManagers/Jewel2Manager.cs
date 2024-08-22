@@ -57,6 +57,9 @@ public class Jewel2Manager : MonoBehaviour
 
     void Start()
     {
+        //SET VALORI DA FILE CONFIGURAZIONE
+        TrySetFileConfigData();
+
         if (cSocketManager.instance != null) cSocketManager.instance.OnAgentActivation += OnAgentActivationEffect;
         //StartCoroutine(PlayEnvMedia());
         //StartCoroutine(LateActivation(_lateActivatedObj, _activationDelay));
@@ -338,6 +341,19 @@ public class Jewel2Manager : MonoBehaviour
     public AudioClip[] GetEnvAudioCLips()
     {
         return _envClips;
+    }
+
+    public void TrySetFileConfigData()
+    {
+        string currentSceneName = "JEWEL2";
+        if (ReadConfig.configDataMap.ContainsKey(currentSceneName))
+        {
+            Dictionary<string, float> parameters = ReadConfig.configDataMap[currentSceneName];
+            if (parameters.TryGetValue("ImmersionDelay", out float immersionDelay))
+                _immersionDelay = immersionDelay;
+            if (parameters.TryGetValue("ActivationDelay", out float activationDelay))
+                _activationDelay = activationDelay;
+        }
     }
 
     private void OnDestroy()

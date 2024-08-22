@@ -100,23 +100,14 @@ public class IntroManager : MonoBehaviour
     private IEnumerator InitApplicationCor()
     {
         //LEGGO FILE CONFIG:
+        Debug.Log("[Init Application]: -----FILE CONFIG.CSV START READ-----");
         yield return StartCoroutine(ReadConfig.ReadCSVFile()); //si attende fino alla fine del caricamento del file config
         yield return new WaitForSeconds(2); //Attesa per vedere il Loading (+carino)
-        Debug.Log("[Init Application]: FILE CONFIG.CSV READ");
+        Debug.Log("[Init Application]: -----FILE CONFIG.CSV END READ-----");
         cMainUIManager.HideLoading();
 
         //READ FROM FILE CSV
-        //string introData = ReadConfig.configData.Find((string line) => line.Contains("INTRO"));
-
-        string currentSceneName = "INTRO";
-        if (ReadConfig.configDataMap.ContainsKey(currentSceneName))
-        {
-            Dictionary<string, float> parameters = ReadConfig.configDataMap[currentSceneName];
-            if(parameters.TryGetValue("ActivationButtonDelay", out float buttonDelay)) 
-                _activationButtonDelay = buttonDelay;
-            if(parameters.TryGetValue("ChairSpeed", out float chairSpeed)) 
-                rotationChairSpeed = chairSpeed;
-        }
+        TrySetFileConfigData();
 
         //ACCENDO LA SCENA
         goVideoPlayer.gameObject.SetActive(true);
@@ -187,6 +178,34 @@ public class IntroManager : MonoBehaviour
         toActivate.SetActive(true);
         toActivate.transform.position = _buttonHomeInitPos.position;
         toActivate.transform.rotation = _buttonHomeInitPos.rotation;
+    }
+
+    public void TrySetFileConfigData()
+    {
+        //string introData = ReadConfig.configData.Find((string line) => line.Contains("INTRO"));
+        string currentSceneName = "INTRO";
+        if (ReadConfig.configDataMap.ContainsKey(currentSceneName))
+        {
+            Dictionary<string, float> parameters = ReadConfig.configDataMap[currentSceneName];
+            if (parameters.TryGetValue("ActivationButtonDelay", out float buttonDelay))
+            {
+                _activationButtonDelay = buttonDelay;
+                Debug.Log($"activationButtonDelay set to {buttonDelay} from configDataMap.");
+            }
+            else
+            {
+                Debug.Log("No value found for activationButtonDelay, using default/editor value.");
+            }
+            if (parameters.TryGetValue("ChairSpeed", out float chairSpeed))
+            {
+                rotationChairSpeed = chairSpeed;
+                Debug.Log($"rotationChairSpeed set to {chairSpeed} from configDataMap.");
+            }
+            else
+            {
+                Debug.Log("No value found for rotationChairSpeed, using default/editor value.");
+            }
+        }
     }
 
     private void OnDestroy()
