@@ -138,6 +138,7 @@ public class HomeManager: MonoBehaviour
     }
     private void SwitchAudioRotation()
     {
+        if(isFading) return;
         /*var forwardCamx = new Vector3(cXRManager.GetTrCenterEye().forward.x, 0, cXRManager.GetTrCenterEye().forward.z);
         var forwardButtx = new Vector3(mainInteractablesInitPos.forward.x, 0, mainInteractablesInitPos.forward.z);
         var angleRotation = Vector3.Angle(forwardCamx, forwardButtx);

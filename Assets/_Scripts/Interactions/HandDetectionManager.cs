@@ -6,6 +6,8 @@ public class HandDetectionManager : MonoBehaviour
 {
     public static HandDetectionManager instance;
     public HandDetectionActivator buttons;
+    public HandDetectionActivator buttonHome1;
+    public HandDetectionActivator buttonHome2;
     public float hideDelay = 3f;
     private float timer;
     private bool handsDetected = true;
@@ -70,6 +72,10 @@ public class HandDetectionManager : MonoBehaviour
     {
         if(buttons != null)
             buttons.gameObject.SetActive(isActive);
+        if(buttonHome1 != null)
+            buttonHome1.gameObject.SetActive(isActive);
+        if (buttonHome2 != null)
+            buttonHome2.gameObject.SetActive(isActive);
     }
 
     public void Activate()

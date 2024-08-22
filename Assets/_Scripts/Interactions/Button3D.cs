@@ -151,6 +151,7 @@ public class Button3D : MonoBehaviour
             HomeManager._currentEnvironment = _environmentMain;
             HomeManager._currentEnvironment.SetActive(true);
             HomeManager.instance.isEnvironmentChanged = false;
+            HomeManager.instance.envAudioSrc[2].UnPause();
             infoimage.gameObject.SetActive(true);
             if(HandDetectionManager.instance!=null) HandDetectionManager.instance.Deactivate();
         }
@@ -163,7 +164,8 @@ public class Button3D : MonoBehaviour
             HomeManager._currentEnvironment.SetActive(true);
             HomeManager.instance.isEnvironmentChanged = true;
             infoimage.gameObject.SetActive(false);
-            if(HandDetectionManager.instance!=null) HandDetectionManager.instance.Activate();
+            HomeManager.instance.envAudioSrc[2].Pause();
+            if (HandDetectionManager.instance!=null) HandDetectionManager.instance.Activate();
         }
         activeButton = this;
     }
