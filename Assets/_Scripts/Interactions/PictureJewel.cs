@@ -29,7 +29,7 @@ public class PictureJewel : MonoBehaviour
         else if(jewelInformations.activeSelf)
         {
             Debug.Log("toccato info");
-            StartCoroutine(RotatePicture(-180, jewelInformations, picture));
+            StartCoroutine(RotatePicture(180, jewelInformations, picture));
             //jewelInformations.SetActive(false);
             //picture.SetActive(true);
         }

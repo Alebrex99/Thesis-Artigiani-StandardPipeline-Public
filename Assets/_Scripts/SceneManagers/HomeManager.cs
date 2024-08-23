@@ -138,7 +138,6 @@ public class HomeManager: MonoBehaviour
     }
     private void SwitchAudioRotation()
     {
-        if(isFading) return;
         /*var forwardCamx = new Vector3(cXRManager.GetTrCenterEye().forward.x, 0, cXRManager.GetTrCenterEye().forward.z);
         var forwardButtx = new Vector3(mainInteractablesInitPos.forward.x, 0, mainInteractablesInitPos.forward.z);
         var angleRotation = Vector3.Angle(forwardCamx, forwardButtx);
@@ -165,11 +164,17 @@ public class HomeManager: MonoBehaviour
             }
             isRotated = false;
         }*/
+        if(isFading) return;
         if (IsRotated())
         {
             if (!isRotated) //!envAudioSrc[1].isPlaying
             {
-                if (currentCoroutine != null) StopCoroutine(currentCoroutine);
+                if (currentCoroutine != null)
+                {
+                    StopCoroutine(currentCoroutine);
+                    Debug.Log("IS FADING: " + isFading);
+                    //isFading = false;
+                }
                 currentCoroutine = StartCoroutine(SwitchAudio(envAudioSrc[0], envAudioSrc[1], 2f));
                 isRotated = true;
             }
@@ -178,20 +183,25 @@ public class HomeManager: MonoBehaviour
         {
             if (isRotated)//!envAudioSrc[0].isPlaying
             {
-                if (currentCoroutine != null) StopCoroutine(currentCoroutine);
+                if (currentCoroutine != null) { 
+                    StopCoroutine(currentCoroutine);
+                    Debug.Log("IS FADING: " + isFading);
+                    //isFading = false;
+                }
                 currentCoroutine = StartCoroutine(SwitchAudio(envAudioSrc[1], envAudioSrc[0], 2f));
                 isRotated = false;
             }
         }
-        if (isAgentCalled) PauseAudioScene(); //per sicurezza è necessario in caso mi giri mentre c'è il fade out audio frontale
+        //if (isAgentCalled) PauseAudioScene(); //per sicurezza è necessario in caso mi giri mentre c'è il fade out audio frontale
     }
 
     private bool IsRotated()
     {
         var forwardCamx = new Vector3(cXRManager.GetTrCenterEye().forward.x, 0, cXRManager.GetTrCenterEye().forward.z);
         var forwardButtx = new Vector3(mainInteractablesInitPos.forward.x, 0, mainInteractablesInitPos.forward.z);
-        var angleRotation = Vector3.Angle(forwardCamx, forwardButtx);
-        if (angleRotation > angleSwitch && angleRotation < 270)
+        var angleRotation = Vector3.SignedAngle(forwardCamx, forwardButtx, -Vector3.up);
+        //Debug.Log("Angle Rotation: " + angleRotation);
+        if (angleRotation > angleSwitch && angleRotation < 180)
         {
             return true;
         }
@@ -240,6 +250,7 @@ public class HomeManager: MonoBehaviour
             initialPlayDone = true;
         }
         else audioSrc.UnPause();
+        Debug.Log("UNPAUSE FADIN");
 
         float currentTime = 0f;
         while (currentTime < fadeTime)

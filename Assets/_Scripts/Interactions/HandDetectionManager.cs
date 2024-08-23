@@ -5,6 +5,7 @@ using UnityEngine;
 public class HandDetectionManager : MonoBehaviour
 {
     public static HandDetectionManager instance;
+    private HandDetectionActivator[] allButtons;
     public HandDetectionActivator buttons;
     public HandDetectionActivator buttonHome1;
     public HandDetectionActivator buttonHome2;
@@ -23,6 +24,7 @@ public class HandDetectionManager : MonoBehaviour
         else if (instance != this)
         {
             Destroy(gameObject);
+            Debug.LogWarning("HandDetectionManager duplicated. Deleting the new one.");
         }
         
     }
@@ -83,9 +85,15 @@ public class HandDetectionManager : MonoBehaviour
         isActive = true;
         timer = 0f;
         Debug.Log("HandDetectionManager activated");
-        if (buttons == null)
+        if (buttons == null || buttonHome1==null || buttonHome2==null)
         {
-            buttons = FindObjectOfType<HandDetectionActivator>(true);
+            //buttons = FindObjectOfType<HandDetectionActivator>(true);
+            allButtons = FindObjectsOfType<HandDetectionActivator>(true);
+            Debug.Log("Found " + allButtons.Length + " HandDetectionActivator objects");
+            buttons = allButtons[0];
+            buttonHome1 = allButtons[1];
+            buttonHome2 = allButtons[2];
+
         }
     }
 

@@ -44,16 +44,15 @@ public class IntroManager : MonoBehaviour
 
         _buttonHome.gameObject.SetActive(false);
         goVideoPlayer.gameObject.SetActive(false);
-        chairInitPos.gameObject.SetActive(true); //attivo sedia
 
     }
 
     void Start()
     {
         ResetUserPosition();
-        chairInitPos.transform.rotation = cXRManager.GetTrCenterEye().localRotation;
+        //chairInitPos.transform.rotation = cXRManager.GetTrCenterEye().localRotation;
         //imposta la posizione in base all'utente
-        chairInitPos.position = cXRManager.GetTrCenterEye().position + cXRManager.GetTrCenterEye().up * 0.6f + cXRManager.GetTrCenterEye().forward * -0.125f; //ALE 0.5f
+        //chairInitPos.position = cXRManager.GetTrCenterEye().position + cXRManager.GetTrCenterEye().up * 0.6f + cXRManager.GetTrCenterEye().forward * -0.125f; //ALE 0.5f
         StartCoroutine(InitMenuCanvas());
         //cMainUIManager.ShowMenuCanvas(); //Problema : qui la posizione dell'occhio è a terra, ecco perché il Menu compare a terra
         //SE FUNZIONA IL MENU : TUTTO LO START VIENE SPOSTATO DENTRO LA INIT APPLICATION
@@ -125,8 +124,11 @@ public class IntroManager : MonoBehaviour
 
     private IEnumerator InitMenuCanvas()
     {
-       yield return new WaitUntil(() => cXRManager.GetTrCenterEye().position != GetUserInitTr().position);
-       cMainUIManager.ShowMenuCanvas();
+        yield return new WaitUntil(() => cXRManager.GetTrCenterEye().position != GetUserInitTr().position);
+        cMainUIManager.ShowMenuCanvas();
+        chairInitPos.gameObject.SetActive(true); //attivo sedia
+        chairInitPos.position = new Vector3(chairInitPos.position.x, GetUserInitTr().position.y+0.6f, GetUserInitTr().position.z-0.2f);
+        //chairInitPos.position = new Vector3(chairInitPos.position.x, cXRManager.GetTrCenterEye().position.y - 0.6f, cXRManager.GetTrCenterEye().position.z -0.2f);
     }
 
     /*private void OnButtonPressedEffect(Button3D buttonPressed, bool isButtonPressed)

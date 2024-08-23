@@ -960,7 +960,7 @@ Transform:
   m_GameObject: {fileID: 59071150}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.081, z: -2.1419997}
+  m_LocalPosition: {x: 0, y: 0.081, z: -2.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4070,14 +4070,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 296771202}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.9848078, z: -0, w: -0.17364809}
-  m_LocalPosition: {x: -0.65, y: 1.117, z: -3.89}
+  m_LocalRotation: {x: 0, y: 0.9816273, z: -0, w: -0.19080894}
+  m_LocalPosition: {x: -0.67, y: 1.117, z: -3.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7114770129761761770}
   m_Father: {fileID: 872050316}
-  m_LocalEulerAnglesHint: {x: 0, y: 200, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 202, z: 0}
 --- !u!1 &299397315
 GameObject:
   m_ObjectHideFlags: 0
@@ -22404,15 +22404,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1429905454}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.9848078, z: -0, w: -0.17364809}
-  m_LocalPosition: {x: -0.65, y: 1.117, z: -3.89}
+  m_LocalRotation: {x: 0, y: 0.9816273, z: -0, w: -0.19080894}
+  m_LocalPosition: {x: -0.67, y: 1.117, z: -3.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 377425259}
   - {fileID: 1836948722}
   m_Father: {fileID: 5796449551581142036}
-  m_LocalEulerAnglesHint: {x: 0, y: 200, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 202, z: 0}
 --- !u!1 &1433027681
 GameObject:
   m_ObjectHideFlags: 0
@@ -25374,7 +25374,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Coordinator, LabLeni: \nJaime Guixeres Provinciale\n\n3D Artist, 3de3:
-    \nEnrique Quiles \n\nAI developer, LabLeni: \nMikel Val\n\nDeveloper, Politecnico
+    \nEnrique Quiles \n\nML developer, LabLeni: \nMikel Val\n\nDeveloper, Politecnico
     di Torino: \nAlessandro Bresciani"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -25402,8 +25402,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -36070,7 +36070,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8255751950745066572, guid: e099748b80bbfec49b3d7a8255aa6204, type: 3}
       propertyPath: m_text
-      value: "Artisan Jeweller: Jos\xE9 Mar\xEDn"
+      value: "Artesano Joyero: Jos\xE9 Mar\xEDn"
       objectReference: {fileID: 0}
     - target: {fileID: 8255751950745066572, guid: e099748b80bbfec49b3d7a8255aa6204, type: 3}
       propertyPath: m_fontSize
