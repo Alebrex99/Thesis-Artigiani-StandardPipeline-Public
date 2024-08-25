@@ -20,13 +20,13 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.75, g: 0.94019616, b: 1, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 3
+  m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: d9dca9ae1786c394f9e79c637aa9a7bf, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.24777505, g: 0.36368507, b: 0.44267976, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2750,8 +2750,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4285756275
-  m_fontColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -12444,7 +12444,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b2f43411f88ed45beda7c488d95d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttons: {fileID: 911097131}
+  jewelsButtons: {fileID: 0}
+  informationsButtons: {fileID: 0}
   buttonHome1: {fileID: 2064211097}
   buttonHome2: {fileID: 1987800079}
   hideDelay: 3
@@ -15420,7 +15421,6 @@ GameObject:
   - component: {fileID: 911097129}
   - component: {fileID: 911097128}
   - component: {fileID: 911097130}
-  - component: {fileID: 911097131}
   m_Layer: 0
   m_Name: '[Poke-Ray_Interactables]'
   m_TagString: Untagged
@@ -15580,18 +15580,6 @@ MonoBehaviour:
   frontMaterial: 32
   backMaterial: 32
   clutterFactor: 0.5
---- !u!114 &911097131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 911097126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4ed8d4864f8c0343be96730dd3a29b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &919770361
 GameObject:
   m_ObjectHideFlags: 0
@@ -16857,13 +16845,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 977038574}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.5537549, y: 0, z: 0, w: 0.83267975}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 67.25, y: 0, z: 0}
 --- !u!1001 &981373442
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18096,6 +18084,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1015565702}
+  - component: {fileID: 1015565703}
   m_Layer: 0
   m_Name: InformationsButtons
   m_TagString: Untagged
@@ -18122,6 +18111,19 @@ Transform:
   - {fileID: 516540478}
   m_Father: {fileID: 3530006119684494619}
   m_LocalEulerAnglesHint: {x: 45, y: -90, z: 0}
+--- !u!114 &1015565703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015565701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ed8d4864f8c0343be96730dd3a29b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activatorName: InformationsButtons
 --- !u!1 &1018437336
 GameObject:
   m_ObjectHideFlags: 0
@@ -30655,7 +30657,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 363589446126237819, guid: 117cafb6087c3ae4986068775a0aca68, type: 3}
-      insertIndex: -1
+      insertIndex: 2
       addedObject: {fileID: 1987800079}
   m_SourcePrefab: {fileID: 100100000, guid: 117cafb6087c3ae4986068775a0aca68, type: 3}
 --- !u!4 &1987800076 stripped
@@ -30675,6 +30677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4ed8d4864f8c0343be96730dd3a29b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activatorName: ButtonHome2
 --- !u!1 &2010518247
 GameObject:
   m_ObjectHideFlags: 0
@@ -31354,7 +31357,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 363589446126237819, guid: 117cafb6087c3ae4986068775a0aca68, type: 3}
-      insertIndex: -1
+      insertIndex: 2
       addedObject: {fileID: 2064211097}
   m_SourcePrefab: {fileID: 100100000, guid: 117cafb6087c3ae4986068775a0aca68, type: 3}
 --- !u!4 &2064211094 stripped
@@ -31374,6 +31377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4ed8d4864f8c0343be96730dd3a29b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activatorName: ButtonHome1
 --- !u!1 &2065153480
 GameObject:
   m_ObjectHideFlags: 0
@@ -32694,6 +32698,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4430889951645568786}
+  - component: {fileID: 4430889951645568787}
   m_Layer: 0
   m_Name: JewelsButtons
   m_TagString: Untagged
@@ -33775,6 +33780,19 @@ Transform:
   - {fileID: 6465171665723576739}
   m_Father: {fileID: 3530006119684494619}
   m_LocalEulerAnglesHint: {x: 45, y: 180, z: 0}
+--- !u!114 &4430889951645568787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2187512049791151393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ed8d4864f8c0343be96730dd3a29b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activatorName: JewelsButtons
 --- !u!114 &4439966126391418357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37008,6 +37026,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 326714075}
     m_Modifications:
+    - target: {fileID: 153237058396444596, guid: e099748b80bbfec49b3d7a8255aa6204, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b88885008de51bd48b4928f0e1a675d4, type: 2}
     - target: {fileID: 168015790842016708, guid: e099748b80bbfec49b3d7a8255aa6204, type: 3}
       propertyPath: _renderingMode
       value: 0

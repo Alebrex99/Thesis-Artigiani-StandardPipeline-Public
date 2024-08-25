@@ -201,7 +201,6 @@ public class HomeManager: MonoBehaviour
     public void ResetSwitch()
     {
         if(currentCoroutine != null) StopCoroutine(currentCoroutine);
-        //StopAllCoroutines();
         envAudioSrc[2].UnPause(); //unpause audio ambiente
         _switchAudioDelay = 1f;
         /*if(IsRotated()) isRotated = false;

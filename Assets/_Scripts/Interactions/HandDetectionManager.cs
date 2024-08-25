@@ -6,9 +6,11 @@ public class HandDetectionManager : MonoBehaviour
 {
     public static HandDetectionManager instance;
     private HandDetectionActivator[] allButtons;
-    public HandDetectionActivator buttons;
+    public HandDetectionActivator jewelsButtons;
+    public HandDetectionActivator informationsButtons;
     public HandDetectionActivator buttonHome1;
     public HandDetectionActivator buttonHome2;
+    private int count = 0;
     public float hideDelay = 3f;
     private float timer;
     private bool handsDetected = true;
@@ -72,12 +74,25 @@ public class HandDetectionManager : MonoBehaviour
 
     private void SetButtonsActive(bool isActive)
     {
-        if(buttons != null)
-            buttons.gameObject.SetActive(isActive);
-        if(buttonHome1 != null)
+        if(jewelsButtons != null)
+            jewelsButtons.gameObject.SetActive(isActive);
+        //if(buttons !=null) buttons.gameObject.SetActive(isActive);
+        if(informationsButtons != null)
+            informationsButtons.gameObject.SetActive(isActive);
+        if (buttonHome1 != null)
             buttonHome1.gameObject.SetActive(isActive);
         if (buttonHome2 != null)
             buttonHome2.gameObject.SetActive(isActive);
+
+        //se non sono stati assegnati i bottoni, prendo quelli cercati
+        if (allButtons != null)
+        {
+            foreach(HandDetectionActivator button in allButtons)
+            {
+                button.gameObject.SetActive(isActive);
+            }
+        }
+
     }
 
     public void Activate()
@@ -85,14 +100,15 @@ public class HandDetectionManager : MonoBehaviour
         isActive = true;
         timer = 0f;
         Debug.Log("HandDetectionManager activated");
-        if (buttons == null || buttonHome1==null || buttonHome2==null)
+        if (jewelsButtons == null || informationsButtons==null || buttonHome1==null || buttonHome2==null)
         {
-            //buttons = FindObjectOfType<HandDetectionActivator>(true);
             allButtons = FindObjectsOfType<HandDetectionActivator>(true);
             Debug.Log("Found " + allButtons.Length + " HandDetectionActivator objects");
-            buttons = allButtons[0];
-            buttonHome1 = allButtons[1];
-            buttonHome2 = allButtons[2];
+            //buttons = allButtons[0];
+            /*jewelsButtons = allButtons[0];
+            informationsButtons = allButtons[1];
+            buttonHome1 = allButtons[2];
+            buttonHome2 = allButtons[3];*/
 
         }
     }
@@ -103,4 +119,33 @@ public class HandDetectionManager : MonoBehaviour
         SetButtonsActive(true);
         Debug.Log("HandDetectionManager deactivated");
     }
+
+    public void SubscribeActivator(HandDetectionActivator activator)
+    {
+        if (activator.GetActivatorName() == "JewelsButtons") 
+        { 
+            jewelsButtons = activator; 
+            count++; 
+            Debug.Log("JewelsButtons subscribed " + count);
+        }
+        if (activator.GetActivatorName() == "InformationsButtons") { 
+            informationsButtons = activator; 
+            count++;
+            Debug.Log("InformationsButtons subscribed " + count);
+        }
+        if (activator.GetActivatorName() == "ButtonHome1") 
+        { 
+            buttonHome1 = activator; 
+            count++;
+            Debug.Log("ButtonHome1 subscribed " + count);
+        }
+        if (activator.GetActivatorName() == "ButtonHome2") 
+        { 
+            buttonHome2 = activator; 
+            count++;
+            Debug.Log("ButtonHome2 subscribed " + count);
+        }
+        Debug.Log("Subription of " + count + " HandDetectionActivator objects");
+    }
+
 }
