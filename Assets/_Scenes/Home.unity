@@ -12275,8 +12275,8 @@ MonoBehaviour:
   overridePerLayerColorScaleAndOffset: 0
   colorScale: {x: 1, y: 1, z: 1, w: 1}
   colorOffset: {x: 0, y: 0, z: 0, w: 0}
-  useExpensiveSuperSample: 0
-  useExpensiveSharpen: 0
+  useExpensiveSuperSample: 1
+  useExpensiveSharpen: 1
   hidden: 0
   isExternalSurface: 1
   externalSurfaceWidth: 4096
@@ -12291,8 +12291,8 @@ MonoBehaviour:
   isAlphaPremultiplied: 0
   useBicubicFiltering: 0
   useLegacyCubemapRotation: 0
-  useEfficientSupersample: 1
-  useEfficientSharpen: 1
+  useEfficientSupersample: 0
+  useEfficientSharpen: 0
   useAutomaticFiltering: 1
   _previewInEditor: 1
 --- !u!328 &737297686
@@ -15317,6 +15317,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1585551896868121886, guid: dda2aeea1faae654d8986620127b767e, type: 3}
       propertyPath: useEfficientSupersample
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585551896868121886, guid: dda2aeea1faae654d8986620127b767e, type: 3}
+      propertyPath: useExpensiveSuperSample
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1585551896868121886, guid: dda2aeea1faae654d8986620127b767e, type: 3}

@@ -2931,7 +2931,7 @@ MonoBehaviour:
     minKeepAliveVolume: 0.0005
     minKeepAliveTimeInSeconds: 5.5
     minTranscriptionKeepAliveTimeInSeconds: 5.5
-    maxRecordingTime: 20
+    maxRecordingTime: 15
     soundWakeThreshold: 0.0005
     sampleLengthInMs: 10
     micBufferLengthInSeconds: 1
@@ -3303,7 +3303,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b2f43411f88ed45beda7c488d95d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttons: {fileID: 0}
+  jewelsButtons: {fileID: 0}
+  informationsButtons: {fileID: 0}
   buttonHome1: {fileID: 0}
   buttonHome2: {fileID: 0}
   hideDelay: 3

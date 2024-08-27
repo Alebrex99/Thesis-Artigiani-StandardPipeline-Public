@@ -46,6 +46,7 @@ public class Jewel : MonoBehaviour
     {
         if(interactJewelActivate == false)
         {
+            //possiamo fare qualcosa qui, prima che i bottoni nel gioiello si attivino, es. etichetta
             return;
         }
         Debug.Log("Jewel touched");

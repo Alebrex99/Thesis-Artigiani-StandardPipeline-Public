@@ -104,7 +104,7 @@ public class cSocketManager : MonoBehaviour
         //var uri = new Uri("http://192.168.1.107:11100"); //DEFAULT: IP non corretto
         //var uri = new Uri("http://localhost:11100"); //Funziona con SERVER: C:\Users\Utente\UnityProjects\SocketIOUnity\Samples~\Server
         //var uri = new Uri("http://localhost:5000"); //Funziona con server MIKEL; bisognerà poi modificare l'indirizzo con uno internet
-        var uri = new Uri("http://192.168.56.1:5000"); //IP locale casa Bergamo
+        var uri = new Uri("http://192.168.1.30:5000"); //IP wi fi locale casa Bergamo (controlla sempre)
         socket = new SocketIOUnity(uri, new SocketIOOptions
         {
             Query = new Dictionary<string, string>
@@ -544,9 +544,9 @@ public class cSocketManager : MonoBehaviour
 
     public void ActivateAgent()
     {
+        Debug.Log("[CONV AGENT]--------ATTIVO CONVERSATIONAL AGENT------- " + agentActivate);
         agentActivate = true; // attivi agente
         _dictationActivation.ToggleActivation(agentActivate); //attivi microfono
-        Debug.Log("[CONV AGENT]--------ATTIVO CONVERSATIONAL AGENT------- " + agentActivate);
         //BIP ATTIVAZIONE -> parli -> invii -> ricevi -> agente parla
         if (agentBipSrc != null)
             agentBipSrc.PlayOneShot(agentBipClips[0], 1f);
@@ -556,7 +556,6 @@ public class cSocketManager : MonoBehaviour
     {
         agentActivate = false; //disattivi agente
         _dictationActivation.ToggleActivation(agentActivate); //disattivi microfono
-        Debug.Log("[CONV AGENT]--------DISATTIVO CONVERSATIONAL AGENT------ " + agentActivate);
         stopReceiving = true;
         Debug.Log("CHANGE stop Receiving -> " + stopReceiving);
         
@@ -564,7 +563,8 @@ public class cSocketManager : MonoBehaviour
         if (agentBipSrc.isPlaying) agentBipSrc.Stop();
         if (playAudioBufferCor!=null) StopCoroutine(playAudioBufferCor);
         if (receiverAudioSrc.isPlaying) receiverAudioSrc.Stop();
-        
+
+        Debug.Log("[CONV AGENT]--------DISATTIVO CONVERSATIONAL AGENT------ " + agentActivate);
         //BIP DISATTIVAZIONE -> quando lo disattivi: mentre parli / mentre ricevi / mentre agente parla
         if (agentBipSrc != null)
             agentBipSrc.PlayOneShot(agentBipClips[1], 1f);
