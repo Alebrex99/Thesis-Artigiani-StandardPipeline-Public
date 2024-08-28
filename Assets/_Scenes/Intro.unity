@@ -2931,7 +2931,7 @@ MonoBehaviour:
     minKeepAliveVolume: 0.0005
     minKeepAliveTimeInSeconds: 5.5
     minTranscriptionKeepAliveTimeInSeconds: 5.5
-    maxRecordingTime: 15
+    maxRecordingTime: 10
     soundWakeThreshold: 0.0005
     sampleLengthInMs: 10
     micBufferLengthInSeconds: 1

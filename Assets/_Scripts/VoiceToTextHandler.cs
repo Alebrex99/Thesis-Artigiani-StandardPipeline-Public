@@ -64,13 +64,13 @@ public class VoiceToTextHandler : MonoBehaviour
 
     public void OnFullTranscription(string newVoiceToTextMessage)
     {
-        startListeningTime = DateTime.Now; //RESET TIMER nel caso in cui riconosca altro parlato
         if (newVoiceToTextMessage.Length < 0)
         {
             //text_window.text = newVoiceToTextMessage; //fatto direttamente da EDITOR con evento 
             Debug.Log("No te he ecuchado bien, por favor vuelve a apretar el boton y repitelo");
             return;
         }
+        startListeningTime = DateTime.Now; //RESET TIMER nel caso in cui riconosca altro parlato
         voiceToTextMessage += newVoiceToTextMessage;
         if(text_window != null) text_window.text = voiceToTextMessage;
         //CHIAMATA ALL'AI : METTO SE DEVE ESSERE POSSIBILE OVUNQUE; altrimenti solo da bottoni

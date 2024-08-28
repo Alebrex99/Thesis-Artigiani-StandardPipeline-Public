@@ -1559,8 +1559,8 @@ MonoBehaviour:
   overridePerLayerColorScaleAndOffset: 0
   colorScale: {x: 1, y: 1, z: 1, w: 1}
   colorOffset: {x: 0, y: 0, z: 0, w: 0}
-  useExpensiveSuperSample: 1
-  useExpensiveSharpen: 1
+  useExpensiveSuperSample: 0
+  useExpensiveSharpen: 0
   hidden: 0
   isExternalSurface: 0
   externalSurfaceWidth: 0
@@ -1575,8 +1575,8 @@ MonoBehaviour:
   isAlphaPremultiplied: 0
   useBicubicFiltering: 0
   useLegacyCubemapRotation: 0
-  useEfficientSupersample: 0
-  useEfficientSharpen: 0
+  useEfficientSupersample: 1
+  useEfficientSharpen: 1
   useAutomaticFiltering: 1
   _previewInEditor: 1
 --- !u!1 &1105158184
@@ -1793,8 +1793,8 @@ MonoBehaviour:
   overridePerLayerColorScaleAndOffset: 0
   colorScale: {x: 1, y: 1, z: 1, w: 1}
   colorOffset: {x: 0, y: 0, z: 0, w: 0}
-  useExpensiveSuperSample: 1
-  useExpensiveSharpen: 1
+  useExpensiveSuperSample: 0
+  useExpensiveSharpen: 0
   hidden: 0
   isExternalSurface: 0
   externalSurfaceWidth: 0
@@ -1809,8 +1809,8 @@ MonoBehaviour:
   isAlphaPremultiplied: 0
   useBicubicFiltering: 0
   useLegacyCubemapRotation: 0
-  useEfficientSupersample: 0
-  useEfficientSharpen: 0
+  useEfficientSupersample: 1
+  useEfficientSharpen: 1
   useAutomaticFiltering: 1
   _previewInEditor: 1
 --- !u!65 &1224936663
