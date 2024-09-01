@@ -278,7 +278,8 @@ public class cSocketManager_v1 : MonoBehaviour
             using (var mpgFile = new MpegFile(memStream)) //crea un mpgFile in byte (es 100)
             {
                 int samplesCount = (int)mpgFile.Length / 4; //lunghezza in float
-                audioBufferFloat = new float[samplesCount]; //crei un buffer di float (1 float = 4 byte), es 100 floats
+                int tollerance = 4; //tolleranza di 4 float
+                audioBufferFloat = new float[samplesCount + tollerance]; //crei un buffer di float (1 float = 4 byte), es 100 floats
                 mpgFile.ReadSamples(audioBufferFloat, 0, samplesCount); //leggi 
             }
             bufferReady = true;

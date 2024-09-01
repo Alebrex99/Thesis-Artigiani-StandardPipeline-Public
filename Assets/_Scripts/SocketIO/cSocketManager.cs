@@ -291,8 +291,6 @@ public class cSocketManager : MonoBehaviour
                     }
                 }
             });
-
-            //LoadHelperNLayer();
             Debug.Log("[SOCKET V.2] END Load on Chunk counter = " + chunkCounter + " total length: " + conversation.Count);
             chunkCounter = 0;
         });
@@ -371,31 +369,7 @@ public class cSocketManager : MonoBehaviour
         }*/
     }
 
-    //VERSIONE BASE
-    private void LoadHelperNLayer()
-    {
-        Debug.Log("Status : Loading conversation...");
-        try
-        {
-            using (var memStream = new MemoryStream(conversation.ToArray()))
-            using(var mpgFile = new MpegFile(memStream)) //crea un mpgFile in byte (es 100)
-            {
-                int samplesCount = (int)mpgFile.Length/4; //lunghezza in float
-                audioBufferFloat = new float[samplesCount]; //crei un buffer di float (1 float = 4 byte), es 100 floats
-                mpgFile.ReadSamples(audioBufferFloat, 0, samplesCount); //leggi 
-            }
-            Debug.Log("Status : Conversation loaded");
-            //bufferReady = true;
-        }
-        catch (Exception ex) {
-            Debug.LogError("Custom Error: error loading audio: " + ex.Message);
-            if(conversation.Count ==0) Debug.LogWarning("Conversation is empty");
-            else Debug.Log("Conversation length: " + conversation.Count);
-            serverException = true;
-        }
-    }
-
-    //VERSIONE LATENZA COSTANTE
+    //---------------------------VERSIONE LATENZA COSTANTE-------------------------------
     private AudioClip LoadHelperNLayer(byte[] conversationArray)
     {
         Debug.Log("Status : Loading conversation..." + audioClipIndex);
@@ -406,7 +380,7 @@ public class cSocketManager : MonoBehaviour
             using (var mpgFile = new MpegFile(memStream)) //crea un mpgFile in byte (es 100)
             {
                 int samplesCount = (int)mpgFile.Length / 4; //lunghezza in float
-                int tollerance = 5; //5 float in più
+                int tollerance = 4; //4 float in più
                 audioBufferFloat = new float[samplesCount + tollerance]; //crei un buffer di float (1 float = 4 byte), es 100 floats
                 mpgFile.ReadSamples(audioBufferFloat, 0, samplesCount); //leggi 
             }
@@ -424,7 +398,64 @@ public class cSocketManager : MonoBehaviour
             return null;
         }
     }
+    private IEnumerator PlayAudioBufferCor(AudioClip clip)
+    {
+        yield return new WaitUntil(() => isPlayingBuffer == false && !receiverAudioSrc.isPlaying);
+        isPlayingBuffer = true;
+        Debug.Log($"[PLAY] AudioClip: {currentClipIndex} length: {clip.length}");
+        receiverAudioSrc.Stop();
+        receiverAudioSrc.clip = null;
+        receiverAudioSrc.clip = clip;
+        if (clip != null) receiverAudioSrc.PlayOneShot(clip, 1f);
+        else Debug.Log("Clip is null");
 
+        if (clip == lastAudioClip && isAudioResponseEnd) Debug.Log("Play END audio");
+        //Debug.Log("[MPEG AUDIO CONVERSION] samples: " + audioBufferFloat.Length + " clip duration: " + clip.length + " channels: " + channels + " Sample Rate frequency: " + sampleRate);
+        //INFO : [MPEG AUDIO CONVERSION] samples: 3497472 channels: 1 Sample Rate frequency: 44100
+
+        yield return new WaitForSeconds(clip.length);
+        Debug.Log("[STOP] AudioClip: " + currentClipIndex + " length: " + clip.length);
+
+        //lock(audioClipDictionary){ } //se vuoi fare un lock
+        currentClipIndex++;
+        playAudioBufferCor = null;
+
+        if (clip == lastAudioClip && isAudioResponseEnd)
+        {
+            Debug.Log("----------- AUTOMATIC RESET -----------");
+            agentBipSrc.loop = false;
+            agentBipSrc.Stop();
+            ResetAgent();
+            OnAgentActivation?.Invoke(agentActivate);
+        }
+        isPlayingBuffer = false;
+    }
+
+
+    //-----------------------------------VERSIONE BASE--------------------------------------
+    private void LoadHelperNLayer()
+    {
+        Debug.Log("Status : Loading conversation...");
+        try
+        {
+            using (var memStream = new MemoryStream(conversation.ToArray()))
+            using (var mpgFile = new MpegFile(memStream)) //crea un mpgFile in byte (es 100)
+            {
+                int samplesCount = (int)mpgFile.Length / 4; //lunghezza in float
+                audioBufferFloat = new float[samplesCount]; //crei un buffer di float (1 float = 4 byte), es 100 floats
+                mpgFile.ReadSamples(audioBufferFloat, 0, samplesCount); //leggi 
+            }
+            Debug.Log("Status : Conversation loaded");
+            //bufferReady = true;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("Custom Error: error loading audio: " + ex.Message);
+            if (conversation.Count == 0) Debug.LogWarning("Conversation is empty");
+            else Debug.Log("Conversation length: " + conversation.Count);
+            serverException = true;
+        }
+    }
     private void PlayAudioBuffer(float[] audioBufferFloat)
     {
         Debug.Log($"[PLAY] AudioResponse: {responseCounter}");
@@ -447,40 +478,6 @@ public class cSocketManager : MonoBehaviour
         //agentActivate = false; //RESET permette nuovamente di parlare
         //OnCallToggleManagerAudios(false); // quando comincia a parlare silenzia tutto
     }
-    
-    //VERSIONE LATENZA COSTANTE
-    private IEnumerator PlayAudioBufferCor(AudioClip clip)
-    {
-        yield return new WaitUntil(() => isPlayingBuffer == false && !receiverAudioSrc.isPlaying);
-        isPlayingBuffer = true;
-        Debug.Log($"[PLAY] AudioClip: {currentClipIndex} length: {clip.length}");
-        receiverAudioSrc.Stop();
-        receiverAudioSrc.clip = null;
-        receiverAudioSrc.clip = clip;
-        if(clip!=null) receiverAudioSrc.PlayOneShot(clip, 1f);
-        
-        if(clip == lastAudioClip && isAudioResponseEnd) Debug.Log("Play END audio");
-        //Debug.Log("[MPEG AUDIO CONVERSION] samples: " + audioBufferFloat.Length + " clip duration: " + clip.length + " channels: " + channels + " Sample Rate frequency: " + sampleRate);
-        //INFO : [MPEG AUDIO CONVERSION] samples: 3497472 channels: 1 Sample Rate frequency: 44100
-
-        yield return new WaitForSeconds(clip.length);
-        Debug.Log("[STOP] AudioClip: " + currentClipIndex + " length: " + clip.length);
-
-        //lock(audioClipDictionary){ } //se vuoi fare un lock
-        currentClipIndex++;
-        playAudioBufferCor = null;
-
-        if(clip == lastAudioClip && isAudioResponseEnd)
-        {
-            Debug.Log("------- AUTOMATIC RESET -----------");
-            agentBipSrc.loop = false;
-            agentBipSrc.Stop();
-            ResetAgent();
-            OnAgentActivation?.Invoke(agentActivate);
-        }
-        isPlayingBuffer = false;
-    }
-
     private IEnumerator PlayLastBufferCor(float[] audioBufferFloat)
     {
         Debug.Log($"[PLAY] AudioResponse: {responseCounter}");
@@ -715,6 +712,7 @@ public class cSocketManager : MonoBehaviour
     {
         agentActivate = false; //disattivi agente
         conversation.Clear();
+        audioClipDictionary.Clear();
         isAudioResponseEnd = false;
         audioClipIndex = -1;
         currentClipIndex = 0;
