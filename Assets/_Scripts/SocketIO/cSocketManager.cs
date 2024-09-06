@@ -20,6 +20,7 @@ using Meta.Voice.Samples.Dictation;
 using static OVRPlugin;
 using NLayer.Decoder;
 using NAudio.Wave;
+using System.Net.Sockets;
 
 
 public class cSocketManager : MonoBehaviour
@@ -59,7 +60,7 @@ public class cSocketManager : MonoBehaviour
     //VERSIONE CON LATENZA COSTANTE : RICEZIONE SERVER -> CLIENT
     private Dictionary<int, AudioClip> audioClipDictionary = new Dictionary<int, AudioClip>();
     private AudioClip lastAudioClip;
-    private int chunksBufferNumber = 10;
+    private int chunksBufferNumber = 5;
     private int chunkCounter = 0;
     private bool isAudioResponseEnd = false;
     private bool isPlayingBuffer = false;
@@ -207,7 +208,12 @@ public class cSocketManager : MonoBehaviour
                 {
                     //audioClipIndex++; //parte da 0
                     //var audioClipIndexLoc = audioClipIndex; //salvo nella action corrente
-                    if (conversationArray.Length == 0) Debug.LogWarning("[ATTENCION CONCURRENT] Conversation is empty");
+                    if (conversationArray.Length == 0)
+                    {
+                        Debug.LogWarning("[ATTENCION CONCURRENT] Conversation is empty");
+                        serverException = true;
+                        return;
+                    }
                     var audioClip = LoadHelperNLayer(conversationArray);
                     //lock(audioClipDictionary){ } //se vuoi fare un lock
                     lock (audioClipDictionary)
@@ -279,7 +285,12 @@ public class cSocketManager : MonoBehaviour
             UnityThread.executeInUpdate(() => {
                 //audioClipIndex++;
                 //var audioClipIndexLoc = audioClipIndex; //salvo nella action corrente
-                if (conversationArray.Length == 0) Debug.LogWarning("[ATTENCION CONCURRENT] Conversation is empty");
+                if (conversationArray.Length == 0)
+                {
+                    Debug.LogWarning("[ATTENCION CONCURRENT] Conversation is empty");
+                    serverException = true;
+                    return;
+                }
                 lastAudioClip = LoadHelperNLayer(conversationArray);
                 //lock(audioClipDictionary){ } //se vuoi fare un lock
                 lock (audioClipDictionary)
@@ -723,7 +734,7 @@ public class cSocketManager : MonoBehaviour
         isPlayingBuffer = false;
         audioClipIndex = -1;
         currentClipIndex = 0;
-        chunksBufferNumber = 10;
+        chunksBufferNumber = 5;
         chunkCounter = 0;
         lastAudioClip = null;
 

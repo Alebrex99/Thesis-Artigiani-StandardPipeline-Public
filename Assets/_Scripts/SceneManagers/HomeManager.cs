@@ -351,6 +351,14 @@ public class HomeManager: MonoBehaviour
             }
         }
         isLateActive = true;
+
+        //Spegnere dopo 6 secondi le info+ 
+        yield return new WaitForSeconds(6f);
+        GameObject info = toActivate[1].transform.GetChild(1).gameObject;
+        if (info.activeSelf && info!=null)
+        {
+            info.SetActive(false);
+        }
     }
     public Transform GetUserInitTr()
     {

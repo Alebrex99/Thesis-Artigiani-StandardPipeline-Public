@@ -35,17 +35,19 @@ namespace Meta.Voice.Samples.Dictation
             //accendo il microfono
             if (agentActivate)
             {
-                Debug.Log("Dictation Activation");
+                Debug.Log("Dictation ON Activation");
                 //AVVIO DEL BIP
                 //se mi stava ascoltando
-                if (_dictation.MicActive)
+                /*if (_dictation.MicActive)
                 {
                     _dictation.Deactivate();
                 }
-                else _dictation.Activate(); //ascolto e invio
+                else _dictation.Activate();*/ //ascolto e invio
+                _dictation.Activate();
             }
             else //spengo il microfono
             {
+                Debug.Log("Dictation OFF Deactivation");
                 _dictation.Deactivate(); //disattivo e non invio sempre
             }
 
