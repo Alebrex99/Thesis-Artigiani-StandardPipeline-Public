@@ -981,8 +981,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "De la colecci\xF3n Oriental Heritage, simulan el reflejo de las explosiones
-    en el agua\n- Oro 750, Timascus, \n- Citrino, Zafiros Naranja y Rojo y Diamantes"
+  m_text: "De la colecci\xF3n Oriental Heritage. Simulan el reflejo de las explosiones
+    de los fuegos artificiales en el agua.\n- Oro 750, Timascus, \n- Citrino, Zafiros
+    Naranja y Rojo y Diamantes"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e9dbfa6f2b13d934c93a9699588e5293, type: 2}
   m_sharedMaterial: {fileID: -130461901718449150, guid: e9dbfa6f2b13d934c93a9699588e5293, type: 2}
