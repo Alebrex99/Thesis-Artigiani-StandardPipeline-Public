@@ -116,7 +116,7 @@ public class cSocketManager : MonoBehaviour
         //var uri = new Uri("http://localhost:11100"); //Funziona con SERVER: C:\Users\Utente\UnityProjects\SocketIOUnity\Samples~\Server
         //var uri = new Uri("http://localhost:5000"); //Funziona con server MIKEL; bisognerà poi modificare l'indirizzo con uno internet
         //var uri = new Uri("http://192.168.1.30:5000"); //OK IP wi fi locale casa Bergamo (controlla sempre)
-        var uri = new Uri("http://158.42.237.253:5000"); //EDUROAM UPV
+        var uri = new Uri("http://172.16.27.141:5000"); //UPV-PUBLIC; ALTRIMENTI USA 192.168.15.89
         socket = new SocketIOUnity(uri, new SocketIOOptions
         {
             Query = new Dictionary<string, string>
