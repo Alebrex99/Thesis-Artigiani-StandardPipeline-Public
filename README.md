@@ -6,7 +6,7 @@
 
 ## 📖 Overview
 
-This project was developed as part of a Master's Thesis at **labLENI, Universitat Politècnica de València (UPV), Spain**, in collaboration with **Politecnico di Milano, Italy**.
+This project was developed as part of a Master's Thesis at **labLENI, Universitat Politècnica de València (UPV), Spain**.
 
 The primary objective was to create an immersive **Virtual Reality (VR) showroom application** to promote the artisan jewelry creations of the renowned Valencian artist **José Marín**. The project aimed to demonstrate the superiority of immersive VR experiences over traditional web-based e-commerce platforms for artisan product showcasing.
 
@@ -227,12 +227,15 @@ In addition to the main thesis work, collaboration with **Politecnico di Milano*
 
 ### Supervision
 - labLENI Research Team, UPV
+- Prof. Mariano Alcaniz Raya
+- Dott. Jaime Provinciale
+- Prof. Lamberti Fabrizio, Politecnico di Torino
 
 ---
 
 ## 📧 Contact
 
-For inquiries about this research project, please contact the labLENI laboratory at Universitat Politècnica de València.
+For inquiries about this research project, please contact Alessandro Bresciani.
 
 ---
 
