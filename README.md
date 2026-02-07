@@ -100,9 +100,9 @@ The primary objective was to create an immersive **Virtual Reality (VR) showroom
 ## 🎨 Features
 
 ### Immersive Jewelry Showcase
-- **360° Product Exploration**: Users can examine jewelry pieces from all angles
+- **Product Exploration**: Users can examine jewelry pieces from the front side
 - **Multiple Environments**: Beach, pier, and custom showroom settings
-- **High-Fidelity 3D Models**: Detailed jewelry models with realistic materials
+- **High-Fidelity 3D Models**: Detailed jewelry stereoscopic image with realistic materials
 
 ### Conversational AI Agent
 - **Voice Recognition**: Natural speech input using Meta Wit.ai
@@ -116,7 +116,7 @@ The primary objective was to create an immersive **Virtual Reality (VR) showroom
 - **3D Buttons**: Intuitive 3D UI elements
 - **Grabbable Objects**: Pick up and examine jewelry pieces
 
-### Metrics Collection
+### Metrics Collection (ViewShop project)
 - **User Behavior Tracking**: Head position, gaze direction, interaction times
 - **Product Engagement**: Time spent with each item, interaction frequency
 - **Session Recording**: Complete session data for research analysis
@@ -175,7 +175,7 @@ The conversational agent requires an external AI server. Configure the server en
   - Head tracking and gaze data
   - Interaction frequency
 
-### Data Collection
+### Data Collection (ViewShop)
 The `Metrics.cs` script captures:
 - User head position and rotation (every 10 frames)
 - Object grab/release events with timestamps
@@ -221,6 +221,7 @@ In addition to the main thesis work, collaboration with **Politecnico di Milano*
 
 ### Collaboration
 - **Partner Institution**: Politecnico di Torino, Italy
+- **3D Artist**: Quique Kiles
 
 ### Artisan
 - **José Marín**: Valencian artisan jeweler whose creations are featured in the VR showroom
